@@ -286,28 +286,35 @@
       setPos('lblM', M, -18, -4);
       setPos('lblN', N, 16, -4);
 
-      const dAM = (dist(A, M) / 25).toFixed(1);
-      const dMB = (dist(M, B) / 25).toFixed(1);
-      const dAN = (dist(A, N) / 25).toFixed(1);
-      const dNC = (dist(N, C) / 25).toFixed(1);
-      const dAB = (dist(A, B) / 25).toFixed(1);
-      const dAC = (dist(A, C) / 25).toFixed(1);
+      const dAB_raw = dist(A, B) / 25;
+      const dAC_raw = dist(A, C) / 25;
+
+      const dAM_raw = dAB_raw * k;
+      const dMB_raw = dAB_raw * (1 - k);
+      const dAN_raw = dAC_raw * k;
+      const dNC_raw = dAC_raw * (1 - k);
+
+      const dAM = dAM_raw.toFixed(1);
+      const dMB = dMB_raw.toFixed(1);
+      const dAN = dAN_raw.toFixed(1);
+      const dNC = dNC_raw.toFixed(1);
+      const dAB = dAB_raw.toFixed(1);
+      const dAC = dAC_raw.toFixed(1);
 
       setTag('txtAM', 'bgAM', dAM, A, M, -18, 0);
       setTag('txtMB', 'bgMB', dMB, M, B, -18, 0);
       setTag('txtAN', 'bgAN', dAN, A, N, 18, 0);
       setTag('txtNC', 'bgNC', dNC, N, C, 18, 0);
 
-      const rL = (parseFloat(dAB) === 0) ? "0.00" : (parseFloat(dAM) / parseFloat(dAB)).toFixed(2);
-      const rR = (parseFloat(dAC) === 0) ? "0.00" : (parseFloat(dAN) / parseFloat(dAC)).toFixed(2);
+      const ratioStr = k.toFixed(2);
 
       document.getElementById('numAM').textContent = dAM;
       document.getElementById('denAB').textContent = dAB;
-      document.getElementById('valRatioL').textContent = rL;
+      document.getElementById('valRatioL').textContent = ratioStr;
 
       document.getElementById('numAN').textContent = dAN;
       document.getElementById('denAC').textContent = dAC;
-      document.getElementById('valRatioR').textContent = rR;
+      document.getElementById('valRatioR').textContent = ratioStr;
     }
 
     function updateNon() {
@@ -384,7 +391,7 @@
 
       function getSvgY(e) {
         const pt = svg.createSVGPoint();
-        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientX !== undefined ? e.clientY : 0;
         pt.x = 0;
         pt.y = clientY;
         return pt.matrixTransform(svg.getScreenCTM().inverse()).y;
