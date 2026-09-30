@@ -14,6 +14,12 @@
       user-select: none;
       cursor: ns-resize;
     }
+    .formula-col {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+    }
   </style>
 </head>
 <body>
@@ -23,7 +29,12 @@
     <div class="card">
       <div class="header-box">
         <h2 class="title thales-title">Định Lý Thales</h2>
-        <span class="badge thales-badge">MN // BC</span>
+        <span class="badge thales-badge" id="badgeThales">MN // BC</span>
+        <button class="btn-rotate" id="btnRotateThales" title="Xoay cạnh song song" aria-label="Xoay cạnh song song">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+          </svg>
+        </button>
       </div>
 
       <div class="canvas-wrap" id="wrapThales">
@@ -36,6 +47,7 @@
           <rect width="460" height="340" fill="url(#gridT)"/>
 
           <polygon id="polyABC" fill="rgba(37, 99, 235, 0.08)" stroke="#3b82f6" stroke-width="2.5"/>
+          <line id="basePulseThales" class="pulse-line pulse-thales" />
           <line id="lineMN" stroke="#f59e0b" stroke-width="3" stroke-linecap="round"/>
 
           <circle id="ptA" r="5" fill="#60a5fa"/>
@@ -76,35 +88,101 @@
       </div>
 
       <div class="math-panel">
-        <div class="formula-row">
-          <div class="side-tag side-thales">
-            <span class="frac-block">
-              <span class="num">AM</span>
-              <span class="den">AB</span>
-            </span>
-            &nbsp;=&nbsp;
-            <span class="frac-block">
-              <span id="numAM" class="num">0.0</span>
-              <span id="denAB" class="den">0.0</span>
-            </span>
-            &nbsp;=&nbsp;
-            <span id="valRatioL" class="math-font">0.00</span>
+        <div class="formula-col">
+          <div class="formula-row">
+            <div class="side-tag side-thales">
+              <span class="frac-block">
+                <span id="nameAM" class="num">AM</span>
+                <span id="nameAB" class="den">AB</span>
+              </span>
+              &nbsp;=&nbsp;
+              <span class="frac-block">
+                <span id="numAM" class="num">0.0</span>
+                <span id="denAB" class="den">0.0</span>
+              </span>
+              <span id="eqRatio1L">&nbsp;=&nbsp;</span>
+              <span id="valRatioL" class="math-font">0.00</span>
+            </div>
+
+            <span id="eqMid1" class="math-eq">=</span>
+
+            <div class="side-tag side-thales">
+              <span class="frac-block">
+                <span id="nameAN" class="num">AN</span>
+                <span id="nameAC" class="den">AC</span>
+              </span>
+              &nbsp;=&nbsp;
+              <span class="frac-block">
+                <span id="numAN" class="num">0.0</span>
+                <span id="denAC" class="den">0.0</span>
+              </span>
+              <span id="eqRatio1R">&nbsp;=&nbsp;</span>
+              <span id="valRatioR" class="math-font">0.00</span>
+            </div>
           </div>
 
-          <span class="math-eq">=</span>
+          <div class="formula-row">
+            <div class="side-tag side-thales">
+              <span class="frac-block">
+                <span id="nameAM2" class="num">AM</span>
+                <span id="nameBM2" class="den">BM</span>
+              </span>
+              &nbsp;=&nbsp;
+              <span class="frac-block">
+                <span id="numAM2" class="num">0.0</span>
+                <span id="denBM2" class="den">0.0</span>
+              </span>
+              <span id="eqRatio2L">&nbsp;=&nbsp;</span>
+              <span id="valRatio2L" class="math-font">0.00</span>
+            </div>
 
-          <div class="side-tag side-thales">
-            <span class="frac-block">
-              <span class="num">AN</span>
-              <span class="den">AC</span>
-            </span>
-            &nbsp;=&nbsp;
-            <span class="frac-block">
-              <span id="numAN" class="num">0.0</span>
-              <span id="denAC" class="den">0.0</span>
-            </span>
-            &nbsp;=&nbsp;
-            <span id="valRatioR" class="math-font">0.00</span>
+            <span id="eqMid2" class="math-eq">=</span>
+
+            <div class="side-tag side-thales">
+              <span class="frac-block">
+                <span id="nameAN2" class="num">AN</span>
+                <span id="nameCN2" class="den">CN</span>
+              </span>
+              &nbsp;=&nbsp;
+              <span class="frac-block">
+                <span id="numAN2" class="num">0.0</span>
+                <span id="denCN2" class="den">0.0</span>
+              </span>
+              <span id="eqRatio2R">&nbsp;=&nbsp;</span>
+              <span id="valRatio2R" class="math-font">0.00</span>
+            </div>
+          </div>
+
+          <div class="formula-row">
+            <div class="side-tag side-thales">
+              <span class="frac-block">
+                <span id="nameBM3" class="num">BM</span>
+                <span id="nameAB3" class="den">AB</span>
+              </span>
+              &nbsp;=&nbsp;
+              <span class="frac-block">
+                <span id="numBM3" class="num">0.0</span>
+                <span id="denAB3" class="den">0.0</span>
+              </span>
+              <span id="eqRatio3L">&nbsp;=&nbsp;</span>
+              <span id="valRatio3L" class="math-font">0.00</span>
+            </div>
+
+            <span id="eqMid3" class="math-eq">=</span>
+
+            <div class="side-tag side-thales">
+              <span class="frac-block">
+                <span id="nameCN3" class="num">CN</span>
+                <span id="nameAC3" class="den">AC</span>
+              </span>
+              &nbsp;=&nbsp;
+              <span class="frac-block">
+                <span id="numCN3" class="num">0.0</span>
+                <span id="denAC3" class="den">0.0</span>
+              </span>
+              <span id="eqRatio3R">&nbsp;=&nbsp;</span>
+              <span id="valRatio3R" class="math-font">0.00</span>
+            </div>
           </div>
         </div>
       </div>
@@ -113,7 +191,12 @@
     <div class="card">
       <div class="header-box">
         <h2 class="title non-title">Không Song Song</h2>
-        <span class="badge non-badge">PQ ∦ EF</span>
+        <span class="badge non-badge" id="badgeNon">PQ ∦ EF</span>
+        <button class="btn-rotate" id="btnRotateNon" title="Xoay cạnh cắt" aria-label="Xoay cạnh cắt">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+          </svg>
+        </button>
       </div>
 
       <div class="canvas-wrap" id="wrapNon">
@@ -126,6 +209,7 @@
           <rect width="460" height="340" fill="url(#gridN)"/>
 
           <polygon id="polyDEF" fill="rgba(225, 29, 72, 0.08)" stroke="#f43f5e" stroke-width="2.5"/>
+          <line id="basePulseNon" class="pulse-line pulse-non" />
           <line id="linePQ" stroke="#fb7185" stroke-width="3" stroke-linecap="round"/>
 
           <circle id="ptD" r="5" fill="#f43f5e"/>
@@ -166,35 +250,101 @@
       </div>
 
       <div class="math-panel">
-        <div class="formula-row">
-          <div class="side-tag side-non">
-            <span class="frac-block">
-              <span class="num">DP</span>
-              <span class="den">DE</span>
-            </span>
-            &nbsp;=&nbsp;
-            <span class="frac-block">
-              <span id="numDP" class="num">0.0</span>
-              <span id="denDE" class="den">0.0</span>
-            </span>
-            &nbsp;=&nbsp;
-            <span id="valRatioDP" class="math-font">0.00</span>
+        <div class="formula-col">
+          <div class="formula-row">
+            <div class="side-tag side-non">
+              <span class="frac-block">
+                <span id="nameDP" class="num">DP</span>
+                <span id="nameDE" class="den">DE</span>
+              </span>
+              &nbsp;=&nbsp;
+              <span class="frac-block">
+                <span id="numDP" class="num">0.0</span>
+                <span id="denDE" class="den">0.0</span>
+              </span>
+              <span id="eqRatioNon1L">&nbsp;=&nbsp;</span>
+              <span id="valRatioDP" class="math-font">0.00</span>
+            </div>
+
+            <span id="neqMid1" class="math-neq">≠</span>
+
+            <div class="side-tag side-non">
+              <span class="frac-block">
+                <span id="nameDQ" class="num">DQ</span>
+                <span id="nameDF" class="den">DF</span>
+              </span>
+              &nbsp;=&nbsp;
+              <span class="frac-block">
+                <span id="numDQ" class="num">0.0</span>
+                <span id="denDF" class="den">0.0</span>
+              </span>
+              <span id="eqRatioNon1R">&nbsp;=&nbsp;</span>
+              <span id="valRatioDQ" class="math-font">0.00</span>
+            </div>
           </div>
 
-          <span class="math-neq">≠</span>
+          <div class="formula-row">
+            <div class="side-tag side-non">
+              <span class="frac-block">
+                <span id="nameDP2" class="num">DP</span>
+                <span id="namePE2" class="den">PE</span>
+              </span>
+              &nbsp;=&nbsp;
+              <span class="frac-block">
+                <span id="numDP2" class="num">0.0</span>
+                <span id="denPE2" class="den">0.0</span>
+              </span>
+              <span id="eqRatioNon2L">&nbsp;=&nbsp;</span>
+              <span id="valRatioNon2L" class="math-font">0.00</span>
+            </div>
 
-          <div class="side-tag side-non">
-            <span class="frac-block">
-              <span class="num">DQ</span>
-              <span class="den">DF</span>
-            </span>
-            &nbsp;=&nbsp;
-            <span class="frac-block">
-              <span id="numDQ" class="num">0.0</span>
-              <span id="denDF" class="den">0.0</span>
-            </span>
-            &nbsp;=&nbsp;
-            <span id="valRatioDQ" class="math-font">0.00</span>
+            <span id="neqMid2" class="math-neq">≠</span>
+
+            <div class="side-tag side-non">
+              <span class="frac-block">
+                <span id="nameDQ2" class="num">DQ</span>
+                <span id="nameQF2" class="den">QF</span>
+              </span>
+              &nbsp;=&nbsp;
+              <span class="frac-block">
+                <span id="numDQ2" class="num">0.0</span>
+                <span id="denQF2" class="den">0.0</span>
+              </span>
+              <span id="eqRatioNon2R">&nbsp;=&nbsp;</span>
+              <span id="valRatioNon2R" class="math-font">0.00</span>
+            </div>
+          </div>
+
+          <div class="formula-row">
+            <div class="side-tag side-non">
+              <span class="frac-block">
+                <span id="namePE3" class="num">PE</span>
+                <span id="nameDE3" class="den">DE</span>
+              </span>
+              &nbsp;=&nbsp;
+              <span class="frac-block">
+                <span id="numPE3" class="num">0.0</span>
+                <span id="denDE3" class="den">0.0</span>
+              </span>
+              <span id="eqRatioNon3L">&nbsp;=&nbsp;</span>
+              <span id="valRatioNon3L" class="math-font">0.00</span>
+            </div>
+
+            <span id="neqMid3" class="math-neq">≠</span>
+
+            <div class="side-tag side-non">
+              <span class="frac-block">
+                <span id="nameQF3" class="num">QF</span>
+                <span id="nameDF3" class="den">DF</span>
+              </span>
+              &nbsp;=&nbsp;
+              <span class="frac-block">
+                <span id="numQF3" class="num">0.0</span>
+                <span id="denDF3" class="den">0.0</span>
+              </span>
+              <span id="eqRatioNon3R">&nbsp;=&nbsp;</span>
+              <span id="valRatioNon3R" class="math-font">0.00</span>
+            </div>
           </div>
         </div>
       </div>
@@ -203,17 +353,25 @@
   </div>
 
   <script>
-    const A = { x: 190, y: 55 };
-    const B = { x: 70, y: 300 };
-    const C = { x: 395, y: 275 };
+    const fixedPtsThales = [
+      { x: 190, y: 55 },
+      { x: 70, y: 300 },
+      { x: 395, y: 275 }
+    ];
+    const namesThales = ['A', 'B', 'C'];
+    let rotThales = 0;
 
-    const D = { x: 175, y: 55 };
-    const E = { x: 65, y: 305 };
-    const F = { x: 405, y: 270 };
+    const fixedPtsNon = [
+      { x: 175, y: 55 },
+      { x: 65, y: 305 },
+      { x: 405, y: 270 }
+    ];
+    const namesNon = ['D', 'E', 'F'];
+    let rotNon = 0;
 
-    const efAngle = Math.atan2(F.y - E.y, F.x - E.x);
-    const fixedAnglePQ = efAngle - (18 * Math.PI / 180);
-    const dirPQ = { x: Math.cos(fixedAnglePQ), y: Math.sin(fixedAnglePQ) };
+    let curThalesM = null, curThalesN = null;
+    let curNonP = null, curNonQ = null;
+    let animIdThales = null, animIdNon = null;
 
     function dist(p1, p2) {
       return Math.sqrt((p2.x - p1.x) ** 2 + (p2.y - p1.y) ** 2);
@@ -224,6 +382,10 @@
         x: p1.x + (p2.x - p1.x) * t,
         y: p1.y + (p2.y - p1.y) * t
       };
+    }
+
+    function easeOutCubic(x) {
+      return 1 - Math.pow(1 - x, 3);
     }
 
     function intersectRaySegment(p, v, s1, s2) {
@@ -251,12 +413,66 @@
       bg.setAttribute('height', b.height + 4);
     }
 
-    function updateThales() {
-      const k = parseFloat(document.getElementById('sliderMN').value);
-      const M = lerp(A, B, k);
-      const N = lerp(A, C, k);
+function triggerPulse(lineId, p1, p2, activeClass) {
+  const el = document.getElementById(lineId);
+  el.setAttribute('x1', p1.x);
+  el.setAttribute('y1', p1.y);
+  el.setAttribute('x2', p2.x);
+  el.setAttribute('y2', p2.y);
+  
+  el.classList.remove(activeClass);
+  
+  // Dùng requestAnimationFrame đôi để trình duyệt chắc chắn nhận diện trạng thái reset class trên SVG
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      el.classList.add(activeClass);
+    });
+  });
+}
 
-      document.getElementById('polyABC').setAttribute('points', `${A.x},${A.y} ${B.x},${B.y} ${C.x},${C.y}`);
+    function updateThalesLabels() {
+      const vTop = namesThales[rotThales];
+      const vL = namesThales[(rotThales + 1) % 3];
+      const vR = namesThales[(rotThales + 2) % 3];
+
+      document.getElementById('badgeThales').textContent = `MN // ${vL}${vR}`;
+
+      document.getElementById('nameAM').textContent = `${vTop}M`;
+      document.getElementById('nameAB').textContent = `${vTop}${vL}`;
+      document.getElementById('nameAN').textContent = `${vTop}N`;
+      document.getElementById('nameAC').textContent = `${vTop}${vR}`;
+
+      document.getElementById('nameAM2').textContent = `${vTop}M`;
+      document.getElementById('nameBM2').textContent = `M${vL}`;
+      document.getElementById('nameAN2').textContent = `${vTop}N`;
+      document.getElementById('nameCN2').textContent = `N${vR}`;
+
+      document.getElementById('nameBM3').textContent = `M${vL}`;
+      document.getElementById('nameAB3').textContent = `${vTop}${vL}`;
+      document.getElementById('nameCN3').textContent = `N${vR}`;
+      document.getElementById('nameAC3').textContent = `${vTop}${vR}`;
+    }
+
+    function computeThalesTargets() {
+      const top = fixedPtsThales[rotThales];
+      const left = fixedPtsThales[(rotThales + 1) % 3];
+      const right = fixedPtsThales[(rotThales + 2) % 3];
+      const k = parseFloat(document.getElementById('sliderMN').value);
+      return {
+        top, left, right, k,
+        targetM: lerp(top, left, k),
+        targetN: lerp(top, right, k)
+      };
+    }
+
+    function renderThalesGeometry(M, N, top, left, right, k) {
+      curThalesM = M;
+      curThalesN = N;
+
+      document.getElementById('polyABC').setAttribute(
+        'points', 
+        `${fixedPtsThales[0].x},${fixedPtsThales[0].y} ${fixedPtsThales[1].x},${fixedPtsThales[1].y} ${fixedPtsThales[2].x},${fixedPtsThales[2].y}`
+      );
 
       const lineMN = document.getElementById('lineMN');
       lineMN.setAttribute('x1', M.x);
@@ -269,25 +485,26 @@
         el.setAttribute('cx', p.x);
         el.setAttribute('cy', p.y);
       }
-      setPt('ptA', A);
-      setPt('ptB', B);
-      setPt('ptC', C);
+      setPt('ptA', fixedPtsThales[0]);
+      setPt('ptB', fixedPtsThales[1]);
+      setPt('ptC', fixedPtsThales[2]);
       setPt('ptM', M);
       setPt('ptN', N);
 
-      function setPos(id, p, dx, dy) {
+      function setPos(id, p, dx, dy, text) {
         const el = document.getElementById(id);
         el.setAttribute('x', p.x + dx);
         el.setAttribute('y', p.y + dy);
+        if (text) el.textContent = text;
       }
-      setPos('lblA', A, -4, -14);
-      setPos('lblB', B, -16, 14);
-      setPos('lblC', C, 14, 12);
+      setPos('lblA', fixedPtsThales[0], -4, -14, 'A');
+      setPos('lblB', fixedPtsThales[1], -16, 14, 'B');
+      setPos('lblC', fixedPtsThales[2], 14, 12, 'C');
       setPos('lblM', M, -18, -4);
       setPos('lblN', N, 16, -4);
 
-      const dAB_raw = dist(A, B) / 25;
-      const dAC_raw = dist(A, C) / 25;
+      const dAB_raw = dist(top, left) / 25;
+      const dAC_raw = dist(top, right) / 25;
 
       const dAM_raw = dAB_raw * k;
       const dMB_raw = dAB_raw * (1 - k);
@@ -301,35 +518,162 @@
       const dAB = dAB_raw.toFixed(1);
       const dAC = dAC_raw.toFixed(1);
 
-      setTag('txtAM', 'bgAM', dAM, A, M, -18, 0);
-      setTag('txtMB', 'bgMB', dMB, M, B, -18, 0);
-      setTag('txtAN', 'bgAN', dAN, A, N, 18, 0);
-      setTag('txtNC', 'bgNC', dNC, N, C, 18, 0);
-
-      const ratioStr = k.toFixed(2);
+      setTag('txtAM', 'bgAM', dAM, top, M, -18, 0);
+      setTag('txtMB', 'bgMB', dMB, M, left, -18, 0);
+      setTag('txtAN', 'bgAN', dAN, top, N, 18, 0);
+      setTag('txtNC', 'bgNC', dNC, N, right, 18, 0);
 
       document.getElementById('numAM').textContent = dAM;
       document.getElementById('denAB').textContent = dAB;
-      document.getElementById('valRatioL').textContent = ratioStr;
-
       document.getElementById('numAN').textContent = dAN;
       document.getElementById('denAC').textContent = dAC;
-      document.getElementById('valRatioR').textContent = ratioStr;
-    }
 
-    function updateNon() {
-      const kP = parseFloat(document.getElementById('sliderPQ').value);
-      const P = lerp(D, E, kP);
-      const res = intersectRaySegment(P, dirPQ, D, F);
-
-      let Q;
-      if (res && res.u >= 0 && res.u <= 1) {
-        Q = res.pt;
+      if (parseFloat(dAB) === 0 || parseFloat(dAC) === 0) {
+        document.getElementById('valRatioL').textContent = "không xác định";
+        document.getElementById('valRatioR').textContent = "không xác định";
+        document.getElementById('eqMid1').style.display = 'none';
+        document.getElementById('eqRatio1L').style.display = 'none';
+        document.getElementById('eqRatio1R').style.display = 'none';
       } else {
-        Q = lerp(D, F, Math.min(1, Math.max(0, kP * 0.75 + 0.1)));
+        const ratioStr = k.toFixed(2);
+        document.getElementById('valRatioL').textContent = ratioStr;
+        document.getElementById('valRatioR').textContent = ratioStr;
+        document.getElementById('eqMid1').style.display = '';
+        document.getElementById('eqRatio1L').style.display = '';
+        document.getElementById('eqRatio1R').style.display = '';
       }
 
-      document.getElementById('polyDEF').setAttribute('points', `${D.x},${D.y} ${E.x},${E.y} ${F.x},${F.y}`);
+      document.getElementById('numAM2').textContent = dAM;
+      document.getElementById('denBM2').textContent = dMB;
+      document.getElementById('numAN2').textContent = dAN;
+      document.getElementById('denCN2').textContent = dNC;
+
+      if (parseFloat(dMB) === 0 || parseFloat(dNC) === 0) {
+        document.getElementById('valRatio2L').textContent = "không xác định";
+        document.getElementById('valRatio2R').textContent = "không xác định";
+        document.getElementById('eqMid2').style.display = 'none';
+        document.getElementById('eqRatio2L').style.display = 'none';
+        document.getElementById('eqRatio2R').style.display = 'none';
+      } else {
+        const ratio2Str = (k / (1 - k)).toFixed(2);
+        document.getElementById('valRatio2L').textContent = ratio2Str;
+        document.getElementById('valRatio2R').textContent = ratio2Str;
+        document.getElementById('eqMid2').style.display = '';
+        document.getElementById('eqRatio2L').style.display = '';
+        document.getElementById('eqRatio2R').style.display = '';
+      }
+
+      document.getElementById('numBM3').textContent = dMB;
+      document.getElementById('denAB3').textContent = dAB;
+      document.getElementById('numCN3').textContent = dNC;
+      document.getElementById('denAC3').textContent = dAC;
+
+      if (parseFloat(dAB) === 0 || parseFloat(dAC) === 0) {
+        document.getElementById('valRatio3L').textContent = "không xác định";
+        document.getElementById('valRatio3R').textContent = "không xác định";
+        document.getElementById('eqMid3').style.display = 'none';
+        document.getElementById('eqRatio3L').style.display = 'none';
+        document.getElementById('eqRatio3R').style.display = 'none';
+      } else {
+        const ratio3Str = (1 - k).toFixed(2);
+        document.getElementById('valRatio3L').textContent = ratio3Str;
+        document.getElementById('valRatio3R').textContent = ratio3Str;
+        document.getElementById('eqMid3').style.display = '';
+        document.getElementById('eqRatio3L').style.display = '';
+        document.getElementById('eqRatio3R').style.display = '';
+      }
+    }
+
+    function updateThales() {
+      if (animIdThales) cancelAnimationFrame(animIdThales);
+      updateThalesLabels();
+      const { top, left, right, k, targetM, targetN } = computeThalesTargets();
+      renderThalesGeometry(targetM, targetN, top, left, right, k);
+    }
+
+    function animateThalesRotate() {
+      if (animIdThales) cancelAnimationFrame(animIdThales);
+      updateThalesLabels();
+      const { top, left, right, k, targetM, targetN } = computeThalesTargets();
+
+      triggerPulse('basePulseThales', left, right, 'pulse-active');
+
+      const startM = curThalesM ? { ...curThalesM } : targetM;
+      const startN = curThalesN ? { ...curThalesN } : targetN;
+      const startTime = performance.now();
+      const duration = 360;
+
+      function frame(now) {
+        const elapsed = now - startTime;
+        const progress = Math.min(1, elapsed / duration);
+        const ease = easeOutCubic(progress);
+
+        const currentM = lerp(startM, targetM, ease);
+        const currentN = lerp(startN, targetN, ease);
+        renderThalesGeometry(currentM, currentN, top, left, right, k);
+
+        if (progress < 1) {
+          animIdThales = requestAnimationFrame(frame);
+        } else {
+          animIdThales = null;
+        }
+      }
+      animIdThales = requestAnimationFrame(frame);
+    }
+
+    function updateNonLabels() {
+      const vTop = namesNon[rotNon];
+      const vL = namesNon[(rotNon + 1) % 3];
+      const vR = namesNon[(rotNon + 2) % 3];
+
+      document.getElementById('badgeNon').textContent = `PQ ∦ ${vL}${vR}`;
+
+      document.getElementById('nameDP').textContent = `${vTop}P`;
+      document.getElementById('nameDE').textContent = `${vTop}${vL}`;
+      document.getElementById('nameDQ').textContent = `${vTop}Q`;
+      document.getElementById('nameDF').textContent = `${vTop}${vR}`;
+
+      document.getElementById('nameDP2').textContent = `${vTop}P`;
+      document.getElementById('namePE2').textContent = `P${vL}`;
+      document.getElementById('nameDQ2').textContent = `${vTop}Q`;
+      document.getElementById('nameQF2').textContent = `Q${vR}`;
+
+      document.getElementById('namePE3').textContent = `P${vL}`;
+      document.getElementById('nameDE3').textContent = `${vTop}${vL}`;
+      document.getElementById('nameQF3').textContent = `Q${vR}`;
+      document.getElementById('nameDF3').textContent = `${vTop}${vR}`;
+    }
+
+    function computeNonTargets() {
+      const top = fixedPtsNon[rotNon];
+      const left = fixedPtsNon[(rotNon + 1) % 3];
+      const right = fixedPtsNon[(rotNon + 2) % 3];
+
+      const efAngle = Math.atan2(right.y - left.y, right.x - left.x);
+      const fixedAnglePQ = efAngle - (18 * Math.PI / 180);
+      const dirPQ = { x: Math.cos(fixedAnglePQ), y: Math.sin(fixedAnglePQ) };
+
+      const kP = parseFloat(document.getElementById('sliderPQ').value);
+      const targetP = lerp(top, left, kP);
+      const res = intersectRaySegment(targetP, dirPQ, top, right);
+
+      let targetQ;
+      if (res && res.u >= 0 && res.u <= 1) {
+        targetQ = res.pt;
+      } else {
+        targetQ = lerp(top, right, Math.min(1, Math.max(0, kP * 0.75 + 0.1)));
+      }
+      return { top, left, right, kP, targetP, targetQ };
+    }
+
+    function renderNonGeometry(P, Q, top, left, right) {
+      curNonP = P;
+      curNonQ = Q;
+
+      document.getElementById('polyDEF').setAttribute(
+        'points', 
+        `${fixedPtsNon[0].x},${fixedPtsNon[0].y} ${fixedPtsNon[1].x},${fixedPtsNon[1].y} ${fixedPtsNon[2].x},${fixedPtsNon[2].y}`
+      );
 
       const linePQ = document.getElementById('linePQ');
       linePQ.setAttribute('x1', P.x);
@@ -342,52 +686,151 @@
         el.setAttribute('cx', p.x);
         el.setAttribute('cy', p.y);
       }
-      setPt('ptD', D);
-      setPt('ptE', E);
-      setPt('ptF', F);
+      setPt('ptD', fixedPtsNon[0]);
+      setPt('ptE', fixedPtsNon[1]);
+      setPt('ptF', fixedPtsNon[2]);
       setPt('ptP', P);
       setPt('ptQ', Q);
 
-      function setPos(id, p, dx, dy) {
+      function setPos(id, p, dx, dy, text) {
         const el = document.getElementById(id);
         el.setAttribute('x', p.x + dx);
         el.setAttribute('y', p.y + dy);
+        if (text) el.textContent = text;
       }
-      setPos('lblD', D, -4, -14);
-      setPos('lblE', E, -16, 14);
-      setPos('lblF', F, 14, 12);
+      setPos('lblD', fixedPtsNon[0], -4, -14, 'D');
+      setPos('lblE', fixedPtsNon[1], -16, 14, 'E');
+      setPos('lblF', fixedPtsNon[2], 14, 12, 'F');
       setPos('lblP', P, -18, -4);
       setPos('lblQ', Q, 16, -4);
 
-      const dDP = (dist(D, P) / 25).toFixed(1);
-      const dPE = (dist(P, E) / 25).toFixed(1);
-      const dDQ = (dist(D, Q) / 25).toFixed(1);
-      const dQF = (dist(Q, F) / 25).toFixed(1);
-      const dDE = (dist(D, E) / 25).toFixed(1);
-      const dDF = (dist(D, F) / 25).toFixed(1);
+      const dDP_raw = dist(top, P) / 25;
+      const dPE_raw = dist(P, left) / 25;
+      const dDQ_raw = dist(top, Q) / 25;
+      const dQF_raw = dist(Q, right) / 25;
+      const dDE_raw = dist(top, left) / 25;
+      const dDF_raw = dist(top, right) / 25;
 
-      setTag('txtDP', 'bgDP', dDP, D, P, -18, 0);
-      setTag('txtPE', 'bgPE', dPE, P, E, -18, 0);
-      setTag('txtDQ', 'bgDQ', dDQ, D, Q, 18, 0);
-      setTag('txtQF', 'bgQF', dQF, Q, F, 18, 0);
+      const dDP = dDP_raw.toFixed(1);
+      const dPE = dPE_raw.toFixed(1);
+      const dDQ = dDQ_raw.toFixed(1);
+      const dQF = dQF_raw.toFixed(1);
+      const dDE = dDE_raw.toFixed(1);
+      const dDF = dDF_raw.toFixed(1);
 
-      const rP = (parseFloat(dDP) / parseFloat(dDE)).toFixed(2);
-      const rQ = (parseFloat(dDQ) / parseFloat(dDF)).toFixed(2);
+      setTag('txtDP', 'bgDP', dDP, top, P, -18, 0);
+      setTag('txtPE', 'bgPE', dPE, P, left, -18, 0);
+      setTag('txtDQ', 'bgDQ', dDQ, top, Q, 18, 0);
+      setTag('txtQF', 'bgQF', dQF, Q, right, 18, 0);
 
       document.getElementById('numDP').textContent = dDP;
       document.getElementById('denDE').textContent = dDE;
-      document.getElementById('valRatioDP').textContent = rP;
-
       document.getElementById('numDQ').textContent = dDQ;
       document.getElementById('denDF').textContent = dDF;
-      document.getElementById('valRatioDQ').textContent = rQ;
+
+      if (parseFloat(dDE) === 0 || parseFloat(dDF) === 0) {
+        document.getElementById('valRatioDP').textContent = "không xác định";
+        document.getElementById('valRatioDQ').textContent = "không xác định";
+        document.getElementById('neqMid1').style.display = 'none';
+        document.getElementById('eqRatioNon1L').style.display = 'none';
+        document.getElementById('eqRatioNon1R').style.display = 'none';
+      } else {
+        const rP = (parseFloat(dDP) / parseFloat(dDE)).toFixed(2);
+        const rQ = (parseFloat(dDQ) / parseFloat(dDF)).toFixed(2);
+        document.getElementById('valRatioDP').textContent = rP;
+        document.getElementById('valRatioDQ').textContent = rQ;
+        document.getElementById('neqMid1').style.display = '';
+        document.getElementById('eqRatioNon1L').style.display = '';
+        document.getElementById('eqRatioNon1R').style.display = '';
+      }
+
+      document.getElementById('numDP2').textContent = dDP;
+      document.getElementById('denPE2').textContent = dPE;
+      document.getElementById('numDQ2').textContent = dDQ;
+      document.getElementById('denQF2').textContent = dQF;
+
+      if (parseFloat(dPE) === 0 || parseFloat(dQF) === 0) {
+        document.getElementById('valRatioNon2L').textContent = "không xác định";
+        document.getElementById('valRatioNon2R').textContent = "không xác định";
+        document.getElementById('neqMid2').style.display = 'none';
+        document.getElementById('eqRatioNon2L').style.display = 'none';
+        document.getElementById('eqRatioNon2R').style.display = 'none';
+      } else {
+        const r2P = (parseFloat(dDP) / parseFloat(dPE)).toFixed(2);
+        const r2Q = (parseFloat(dDQ) / parseFloat(dQF)).toFixed(2);
+        document.getElementById('valRatioNon2L').textContent = r2P;
+        document.getElementById('valRatioNon2R').textContent = r2Q;
+        document.getElementById('neqMid2').style.display = '';
+        document.getElementById('eqRatioNon2L').style.display = '';
+        document.getElementById('eqRatioNon2R').style.display = '';
+      }
+
+      document.getElementById('numPE3').textContent = dPE;
+      document.getElementById('denDE3').textContent = dDE;
+      document.getElementById('numQF3').textContent = dQF;
+      document.getElementById('denDF3').textContent = dDF;
+
+      if (parseFloat(dDE) === 0 || parseFloat(dDF) === 0) {
+        document.getElementById('valRatioNon3L').textContent = "không xác định";
+        document.getElementById('valRatioNon3R').textContent = "không xác định";
+        document.getElementById('neqMid3').style.display = 'none';
+        document.getElementById('eqRatioNon3L').style.display = 'none';
+        document.getElementById('eqRatioNon3R').style.display = 'none';
+      } else {
+        const r3P = (parseFloat(dPE) / parseFloat(dDE)).toFixed(2);
+        const r3Q = (parseFloat(dQF) / parseFloat(dDF)).toFixed(2);
+        document.getElementById('valRatioNon3L').textContent = r3P;
+        document.getElementById('valRatioNon3R').textContent = r3Q;
+        document.getElementById('neqMid3').style.display = '';
+        document.getElementById('eqRatioNon3L').style.display = '';
+        document.getElementById('eqRatioNon3R').style.display = '';
+      }
     }
 
-    function setupPanelDrag(wrapId, svgId, sliderId, topY, bottomY, callback) {
+    function updateNon() {
+      if (animIdNon) cancelAnimationFrame(animIdNon);
+      updateNonLabels();
+      const { top, left, right, targetP, targetQ } = computeNonTargets();
+      renderNonGeometry(targetP, targetQ, top, left, right);
+    }
+
+    function animateNonRotate() {
+      if (animIdNon) cancelAnimationFrame(animIdNon);
+      updateNonLabels();
+      const { top, left, right, targetP, targetQ } = computeNonTargets();
+
+      triggerPulse('basePulseNon', left, right, 'pulse-active');
+
+      const startP = curNonP ? { ...curNonP } : targetP;
+      const startQ = curNonQ ? { ...curNonQ } : targetQ;
+      const startTime = performance.now();
+      const duration = 360;
+
+      function frame(now) {
+        const elapsed = now - startTime;
+        const progress = Math.min(1, elapsed / duration);
+        const ease = easeOutCubic(progress);
+
+        const currentP = lerp(startP, targetP, ease);
+        const currentQ = lerp(startQ, targetQ, ease);
+        renderNonGeometry(currentP, currentQ, top, left, right);
+
+        if (progress < 1) {
+          animIdNon = requestAnimationFrame(frame);
+        } else {
+          animIdNon = null;
+        }
+      }
+      animIdNon = requestAnimationFrame(frame);
+    }
+
+    function setupPanelDrag(wrapId, svgId, sliderId, getTopY, getBottomY, callback) {
       const wrap = document.getElementById(wrapId);
       const svg = document.getElementById(svgId);
       const slider = document.getElementById(sliderId);
       let isDragging = false;
+      let startRatio = 0;
+      let startMouseRatio = 0;
 
       function getSvgY(e) {
         const pt = svg.createSVGPoint();
@@ -397,25 +840,31 @@
         return pt.matrixTransform(svg.getScreenCTM().inverse()).y;
       }
 
-      function applyDrag(e) {
-        const curY = getSvgY(e);
-        let ratio = (curY - topY) / (bottomY - topY);
-        const minVal = parseFloat(slider.min);
-        const maxVal = parseFloat(slider.max);
-        ratio = Math.max(minVal, Math.min(maxVal, ratio));
-        slider.value = ratio;
-        callback();
-      }
-
       function handleStart(e) {
         isDragging = true;
-        applyDrag(e);
+        const curY = getSvgY(e);
+        const topY = getTopY();
+        const bottomY = getBottomY();
+        startMouseRatio = (curY - topY) / (bottomY - topY);
+        startRatio = parseFloat(slider.value);
         if (e.cancelable) e.preventDefault();
       }
 
       function handleMove(e) {
         if (!isDragging) return;
-        applyDrag(e);
+        const curY = getSvgY(e);
+        const topY = getTopY();
+        const bottomY = getBottomY();
+        const currentMouseRatio = (curY - topY) / (bottomY - topY);
+        const delta = currentMouseRatio - startMouseRatio;
+        
+        let ratio = startRatio + delta;
+        const minVal = parseFloat(slider.min);
+        const maxVal = parseFloat(slider.max);
+        ratio = Math.max(minVal, Math.min(maxVal, ratio));
+        
+        slider.value = ratio;
+        callback();
         if (e.cancelable) e.preventDefault();
       }
 
@@ -436,8 +885,33 @@
     document.getElementById('sliderMN').addEventListener('input', updateThales);
     document.getElementById('sliderPQ').addEventListener('input', updateNon);
 
-    setupPanelDrag('wrapThales', 'svgThales', 'sliderMN', A.y, (B.y + C.y) / 2, updateThales);
-    setupPanelDrag('wrapNon', 'svgNon', 'sliderPQ', D.y, (E.y + F.y) / 2, updateNon);
+    document.getElementById('btnRotateThales').addEventListener('click', () => {
+      rotThales = (rotThales + 1) % 3;
+      animateThalesRotate();
+    });
+
+    document.getElementById('btnRotateNon').addEventListener('click', () => {
+      rotNon = (rotNon + 1) % 3;
+      animateNonRotate();
+    });
+
+    setupPanelDrag(
+      'wrapThales', 
+      'svgThales', 
+      'sliderMN', 
+      () => fixedPtsThales[rotThales].y, 
+      () => (fixedPtsThales[(rotThales + 1) % 3].y + fixedPtsThales[(rotThales + 2) % 3].y) / 2, 
+      updateThales
+    );
+
+    setupPanelDrag(
+      'wrapNon', 
+      'svgNon', 
+      'sliderPQ', 
+      () => fixedPtsNon[rotNon].y, 
+      () => (fixedPtsNon[(rotNon + 1) % 3].y + fixedPtsNon[(rotNon + 2) % 3].y) / 2, 
+      updateNon
+    );
 
     window.addEventListener('DOMContentLoaded', () => {
       updateThales();
