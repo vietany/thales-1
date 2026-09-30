@@ -9,12 +9,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <style>
-    #ptM, #ptN, #ptP, #ptQ {
-      cursor: grab;
+    .canvas-wrap {
       touch-action: none;
-    }
-    #ptM:active, #ptN:active, #ptP:active, #ptQ:active {
-      cursor: grabbing;
+      user-select: none;
+      cursor: ns-resize;
     }
   </style>
 </head>
@@ -28,7 +26,7 @@
         <span class="badge thales-badge">MN // BC</span>
       </div>
 
-      <div class="canvas-wrap">
+      <div class="canvas-wrap" id="wrapThales">
         <svg id="svgThales" viewBox="0 0 460 340">
           <defs>
             <pattern id="gridT" width="20" height="20" patternUnits="userSpaceOnUse">
@@ -43,8 +41,8 @@
           <circle id="ptA" r="5" fill="#60a5fa"/>
           <circle id="ptB" r="5" fill="#60a5fa"/>
           <circle id="ptC" r="5" fill="#60a5fa"/>
-          <circle id="ptM" r="7" fill="#fbbf24" stroke="#ffffff" stroke-width="1.5"/>
-          <circle id="ptN" r="7" fill="#fbbf24" stroke="#ffffff" stroke-width="1.5"/>
+          <circle id="ptM" r="6" fill="#fbbf24" stroke="#ffffff" stroke-width="1.5"/>
+          <circle id="ptN" r="6" fill="#fbbf24" stroke="#ffffff" stroke-width="1.5"/>
 
           <text id="lblA" class="v-label" fill="#93c5fd">A</text>
           <text id="lblB" class="v-label" fill="#93c5fd">B</text>
@@ -118,7 +116,7 @@
         <span class="badge non-badge">PQ ∦ EF</span>
       </div>
 
-      <div class="canvas-wrap">
+      <div class="canvas-wrap" id="wrapNon">
         <svg id="svgNon" viewBox="0 0 460 340">
           <defs>
             <pattern id="gridN" width="20" height="20" patternUnits="userSpaceOnUse">
@@ -133,8 +131,8 @@
           <circle id="ptD" r="5" fill="#f43f5e"/>
           <circle id="ptE" r="5" fill="#f43f5e"/>
           <circle id="ptF" r="5" fill="#f43f5e"/>
-          <circle id="ptP" r="7" fill="#fb7185" stroke="#ffffff" stroke-width="1.5"/>
-          <circle id="ptQ" r="7" fill="#fb7185" stroke="#ffffff" stroke-width="1.5"/>
+          <circle id="ptP" r="6" fill="#fb7185" stroke="#ffffff" stroke-width="1.5"/>
+          <circle id="ptQ" r="6" fill="#fb7185" stroke="#ffffff" stroke-width="1.5"/>
 
           <text id="lblD" class="v-label" fill="#fda4af">D</text>
           <text id="lblE" class="v-label" fill="#fda4af">E</text>
@@ -236,14 +234,6 @@
       const t = ((s1.x - p.x) * dy - (s1.y - p.y) * dx) / denom;
       const u = ((s1.x - p.x) * v.y - (s1.y - p.y) * v.x) / denom;
       return { t, u, pt: { x: p.x + t * v.x, y: p.y + t * v.y } };
-    }
-
-    function projectToSegmentT(p, s1, s2) {
-      const vx = s2.x - s1.x;
-      const vy = s2.y - s1.y;
-      const lenSq = vx * vx + vy * vy;
-      if (lenSq === 0) return 0;
-      return ((p.x - s1.x) * vx + (p.y - s1.y) * vy) / lenSq;
     }
 
     function setTag(txtId, bgId, textVal, p1, p2, ox, oy) {
@@ -386,37 +376,48 @@
       document.getElementById('valRatioDQ').textContent = rQ;
     }
 
-    function getSvgCoord(svg, e) {
-      const pt = svg.createSVGPoint();
-      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-      pt.x = clientX;
-      pt.y = clientY;
-      return pt.matrixTransform(svg.getScreenCTM().inverse());
-    }
-
-    function setupPointDrag(svgId, handleId, onDrag) {
+    function setupPanelDrag(wrapId, svgId, sliderId, topY, bottomY, callback) {
+      const wrap = document.getElementById(wrapId);
       const svg = document.getElementById(svgId);
-      const handle = document.getElementById(handleId);
+      const slider = document.getElementById(sliderId);
       let isDragging = false;
+
+      function getSvgY(e) {
+        const pt = svg.createSVGPoint();
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        pt.x = 0;
+        pt.y = clientY;
+        return pt.matrixTransform(svg.getScreenCTM().inverse()).y;
+      }
+
+      function applyDrag(e) {
+        const curY = getSvgY(e);
+        let ratio = (curY - topY) / (bottomY - topY);
+        const minVal = parseFloat(slider.min);
+        const maxVal = parseFloat(slider.max);
+        ratio = Math.max(minVal, Math.min(maxVal, ratio));
+        slider.value = ratio;
+        callback();
+      }
 
       function handleStart(e) {
         isDragging = true;
-        e.preventDefault();
+        applyDrag(e);
+        if (e.cancelable) e.preventDefault();
       }
 
       function handleMove(e) {
         if (!isDragging) return;
-        const pt = getSvgCoord(svg, e);
-        onDrag(pt);
+        applyDrag(e);
+        if (e.cancelable) e.preventDefault();
       }
 
       function handleEnd() {
         isDragging = false;
       }
 
-      handle.addEventListener('mousedown', handleStart);
-      handle.addEventListener('touchstart', handleStart, { passive: false });
+      wrap.addEventListener('mousedown', handleStart);
+      wrap.addEventListener('touchstart', handleStart, { passive: false });
 
       window.addEventListener('mousemove', handleMove);
       window.addEventListener('touchmove', handleMove, { passive: false });
@@ -425,49 +426,11 @@
       window.addEventListener('touchend', handleEnd);
     }
 
-    setupPointDrag('svgThales', 'ptM', (pt) => {
-      let t = projectToSegmentT(pt, A, B);
-      t = Math.max(0, Math.min(1, t));
-      document.getElementById('sliderMN').value = t;
-      updateThales();
-    });
-
-    setupPointDrag('svgThales', 'ptN', (pt) => {
-      let t = projectToSegmentT(pt, A, C);
-      t = Math.max(0, Math.min(1, t));
-      document.getElementById('sliderMN').value = t;
-      updateThales();
-    });
-
-    setupPointDrag('svgNon', 'ptP', (pt) => {
-      const slider = document.getElementById('sliderPQ');
-      let t = projectToSegmentT(pt, D, E);
-      const minVal = parseFloat(slider.min);
-      const maxVal = parseFloat(slider.max);
-      t = Math.max(minVal, Math.min(maxVal, t));
-      slider.value = t;
-      updateNon();
-    });
-
-    setupPointDrag('svgNon', 'ptQ', (pt) => {
-      const slider = document.getElementById('sliderPQ');
-      let u = projectToSegmentT(pt, D, F);
-      u = Math.max(0, Math.min(1, u));
-      const Qpos = lerp(D, F, u);
-      const negDir = { x: -dirPQ.x, y: -dirPQ.y };
-      const res = intersectRaySegment(Qpos, negDir, D, E);
-      if (res && res.u !== undefined) {
-        let t = res.u;
-        const minVal = parseFloat(slider.min);
-        const maxVal = parseFloat(slider.max);
-        t = Math.max(minVal, Math.min(maxVal, t));
-        slider.value = t;
-        updateNon();
-      }
-    });
-
     document.getElementById('sliderMN').addEventListener('input', updateThales);
     document.getElementById('sliderPQ').addEventListener('input', updateNon);
+
+    setupPanelDrag('wrapThales', 'svgThales', 'sliderMN', A.y, (B.y + C.y) / 2, updateThales);
+    setupPanelDrag('wrapNon', 'svgNon', 'sliderPQ', D.y, (E.y + F.y) / 2, updateNon);
 
     window.addEventListener('DOMContentLoaded', () => {
       updateThales();
