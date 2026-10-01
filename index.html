@@ -33,6 +33,15 @@
       width: 100%;
       box-sizing: border-box;
     }
+    .ratio-panel.is-disabled-condense {
+      cursor: default;
+    }
+    .undef-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: #94a3b8;
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
@@ -102,19 +111,22 @@
 
       <div class="math-panel">
         <div class="formula-col">
-          <div class="formula-row ratio-panel">
+          <div class="formula-row ratio-panel" id="rowThales1">
             <div class="side-tag side-thales">
               <span class="frac-block">
                 <span id="nameAM" class="num">AM</span>
                 <span id="nameAB" class="den">AB</span>
               </span>
-              &nbsp;=&nbsp;
-              <span class="frac-block">
-                <span id="numAM" class="num">0.0</span>
-                <span id="denAB" class="den">0.0</span>
+              <span id="calcGroup1L">
+                &nbsp;=&nbsp;
+                <span class="frac-block">
+                  <span id="numAM" class="num">0.0</span>
+                  <span id="denAB" class="den">0.0</span>
+                </span>
+                <span id="eqRatio1L">&nbsp;=&nbsp;</span>
+                <span id="valRatioL" class="math-font">0.00</span>
               </span>
-              <span id="eqRatio1L">&nbsp;=&nbsp;</span>
-              <span id="valRatioL" class="math-font">0.00</span>
+              <span id="undef1L" class="undef-label" style="display:none;">&nbsp;không xác định</span>
             </div>
 
             <div class="side-tag side-thales">
@@ -122,13 +134,16 @@
                 <span id="nameAN" class="num">AN</span>
                 <span id="nameAC" class="den">AC</span>
               </span>
-              &nbsp;=&nbsp;
-              <span class="frac-block">
-                <span id="numAN" class="num">0.0</span>
-                <span id="denAC" class="den">0.0</span>
+              <span id="calcGroup1R">
+                &nbsp;=&nbsp;
+                <span class="frac-block">
+                  <span id="numAN" class="num">0.0</span>
+                  <span id="denAC" class="den">0.0</span>
+                </span>
+                <span id="eqRatio1R">&nbsp;=&nbsp;</span>
+                <span id="valRatioR" class="math-font">0.00</span>
               </span>
-              <span id="eqRatio1R">&nbsp;=&nbsp;</span>
-              <span id="valRatioR" class="math-font">0.00</span>
+              <span id="undef1R" class="undef-label" style="display:none;">&nbsp;không xác định</span>
             </div>
 
             <div class="condensed-formula">
@@ -144,19 +159,22 @@
             </div>
           </div>
 
-          <div class="formula-row ratio-panel">
+          <div class="formula-row ratio-panel" id="rowThales2">
             <div class="side-tag side-thales">
               <span class="frac-block">
                 <span id="nameAM2" class="num">AM</span>
                 <span id="nameBM2" class="den">BM</span>
               </span>
-              &nbsp;=&nbsp;
-              <span class="frac-block">
-                <span id="numAM2" class="num">0.0</span>
-                <span id="denBM2" class="den">0.0</span>
+              <span id="calcGroup2L">
+                &nbsp;=&nbsp;
+                <span class="frac-block">
+                  <span id="numAM2" class="num">0.0</span>
+                  <span id="denBM2" class="den">0.0</span>
+                </span>
+                <span id="eqRatio2L">&nbsp;=&nbsp;</span>
+                <span id="valRatio2L" class="math-font">0.00</span>
               </span>
-              <span id="eqRatio2L">&nbsp;=&nbsp;</span>
-              <span id="valRatio2L" class="math-font">0.00</span>
+              <span id="undef2L" class="undef-label" style="display:none;">&nbsp;không xác định</span>
             </div>
 
             <div class="side-tag side-thales">
@@ -164,13 +182,16 @@
                 <span id="nameAN2" class="num">AN</span>
                 <span id="nameCN2" class="den">CN</span>
               </span>
-              &nbsp;=&nbsp;
-              <span class="frac-block">
-                <span id="numAN2" class="num">0.0</span>
-                <span id="denCN2" class="den">0.0</span>
+              <span id="calcGroup2R">
+                &nbsp;=&nbsp;
+                <span class="frac-block">
+                  <span id="numAN2" class="num">0.0</span>
+                  <span id="denCN2" class="den">0.0</span>
+                </span>
+                <span id="eqRatio2R">&nbsp;=&nbsp;</span>
+                <span id="valRatio2R" class="math-font">0.00</span>
               </span>
-              <span id="eqRatio2R">&nbsp;=&nbsp;</span>
-              <span id="valRatio2R" class="math-font">0.00</span>
+              <span id="undef2R" class="undef-label" style="display:none;">&nbsp;không xác định</span>
             </div>
 
             <div class="condensed-formula">
@@ -186,19 +207,22 @@
             </div>
           </div>
 
-          <div class="formula-row ratio-panel">
+          <div class="formula-row ratio-panel" id="rowThales3">
             <div class="side-tag side-thales">
               <span class="frac-block">
                 <span id="nameBM3" class="num">BM</span>
                 <span id="nameAB3" class="den">AB</span>
               </span>
-              &nbsp;=&nbsp;
-              <span class="frac-block">
-                <span id="numBM3" class="num">0.0</span>
-                <span id="denAB3" class="den">0.0</span>
+              <span id="calcGroup3L">
+                &nbsp;=&nbsp;
+                <span class="frac-block">
+                  <span id="numBM3" class="num">0.0</span>
+                  <span id="denAB3" class="den">0.0</span>
+                </span>
+                <span id="eqRatio3L">&nbsp;=&nbsp;</span>
+                <span id="valRatio3L" class="math-font">0.00</span>
               </span>
-              <span id="eqRatio3L">&nbsp;=&nbsp;</span>
-              <span id="valRatio3L" class="math-font">0.00</span>
+              <span id="undef3L" class="undef-label" style="display:none;">&nbsp;không xác định</span>
             </div>
 
             <div class="side-tag side-thales">
@@ -206,13 +230,16 @@
                 <span id="nameCN3" class="num">CN</span>
                 <span id="nameAC3" class="den">AC</span>
               </span>
-              &nbsp;=&nbsp;
-              <span class="frac-block">
-                <span id="numCN3" class="num">0.0</span>
-                <span id="denAC3" class="den">0.0</span>
+              <span id="calcGroup3R">
+                &nbsp;=&nbsp;
+                <span class="frac-block">
+                  <span id="numCN3" class="num">0.0</span>
+                  <span id="denAC3" class="den">0.0</span>
+                </span>
+                <span id="eqRatio3R">&nbsp;=&nbsp;</span>
+                <span id="valRatio3R" class="math-font">0.00</span>
               </span>
-              <span id="eqRatio3R">&nbsp;=&nbsp;</span>
-              <span id="valRatio3R" class="math-font">0.00</span>
+              <span id="undef3R" class="undef-label" style="display:none;">&nbsp;không xác định</span>
             </div>
 
             <div class="condensed-formula">
@@ -294,19 +321,22 @@
 
       <div class="math-panel">
         <div class="formula-col">
-          <div class="formula-row ratio-panel">
+          <div class="formula-row ratio-panel" id="rowNon1">
             <div class="side-tag side-non">
               <span class="frac-block">
                 <span id="nameDP" class="num">DP</span>
                 <span id="nameDE" class="den">DE</span>
               </span>
-              &nbsp;=&nbsp;
-              <span class="frac-block">
-                <span id="numDP" class="num">0.0</span>
-                <span id="denDE" class="den">0.0</span>
+              <span id="calcGroupNon1L">
+                &nbsp;=&nbsp;
+                <span class="frac-block">
+                  <span id="numDP" class="num">0.0</span>
+                  <span id="denDE" class="den">0.0</span>
+                </span>
+                <span id="eqRatioNon1L">&nbsp;=&nbsp;</span>
+                <span id="valRatioDP" class="math-font">0.00</span>
               </span>
-              <span id="eqRatioNon1L">&nbsp;=&nbsp;</span>
-              <span id="valRatioDP" class="math-font">0.00</span>
+              <span id="undefNon1L" class="undef-label" style="display:none;">&nbsp;không xác định</span>
             </div>
 
             <div class="side-tag side-non">
@@ -314,13 +344,16 @@
                 <span id="nameDQ" class="num">DQ</span>
                 <span id="nameDF" class="den">DF</span>
               </span>
-              &nbsp;=&nbsp;
-              <span class="frac-block">
-                <span id="numDQ" class="num">0.0</span>
-                <span id="denDF" class="den">0.0</span>
+              <span id="calcGroupNon1R">
+                &nbsp;=&nbsp;
+                <span class="frac-block">
+                  <span id="numDQ" class="num">0.0</span>
+                  <span id="denDF" class="den">0.0</span>
+                </span>
+                <span id="eqRatioNon1R">&nbsp;=&nbsp;</span>
+                <span id="valRatioDQ" class="math-font">0.00</span>
               </span>
-              <span id="eqRatioNon1R">&nbsp;=&nbsp;</span>
-              <span id="valRatioDQ" class="math-font">0.00</span>
+              <span id="undefNon1R" class="undef-label" style="display:none;">&nbsp;không xác định</span>
             </div>
 
             <div class="condensed-formula">
@@ -336,19 +369,22 @@
             </div>
           </div>
 
-          <div class="formula-row ratio-panel">
+          <div class="formula-row ratio-panel" id="rowNon2">
             <div class="side-tag side-non">
               <span class="frac-block">
                 <span id="nameDP2" class="num">DP</span>
                 <span id="namePE2" class="den">PE</span>
               </span>
-              &nbsp;=&nbsp;
-              <span class="frac-block">
-                <span id="numDP2" class="num">0.0</span>
-                <span id="denPE2" class="den">0.0</span>
+              <span id="calcGroupNon2L">
+                &nbsp;=&nbsp;
+                <span class="frac-block">
+                  <span id="numDP2" class="num">0.0</span>
+                  <span id="denPE2" class="den">0.0</span>
+                </span>
+                <span id="eqRatioNon2L">&nbsp;=&nbsp;</span>
+                <span id="valRatioNon2L" class="math-font">0.00</span>
               </span>
-              <span id="eqRatioNon2L">&nbsp;=&nbsp;</span>
-              <span id="valRatioNon2L" class="math-font">0.00</span>
+              <span id="undefNon2L" class="undef-label" style="display:none;">&nbsp;không xác định</span>
             </div>
 
             <div class="side-tag side-non">
@@ -356,13 +392,16 @@
                 <span id="nameDQ2" class="num">DQ</span>
                 <span id="nameQF2" class="den">QF</span>
               </span>
-              &nbsp;=&nbsp;
-              <span class="frac-block">
-                <span id="numDQ2" class="num">0.0</span>
-                <span id="denQF2" class="den">0.0</span>
+              <span id="calcGroupNon2R">
+                &nbsp;=&nbsp;
+                <span class="frac-block">
+                  <span id="numDQ2" class="num">0.0</span>
+                  <span id="denQF2" class="den">0.0</span>
+                </span>
+                <span id="eqRatioNon2R">&nbsp;=&nbsp;</span>
+                <span id="valRatioNon2R" class="math-font">0.00</span>
               </span>
-              <span id="eqRatioNon2R">&nbsp;=&nbsp;</span>
-              <span id="valRatioNon2R" class="math-font">0.00</span>
+              <span id="undefNon2R" class="undef-label" style="display:none;">&nbsp;không xác định</span>
             </div>
 
             <div class="condensed-formula">
@@ -378,19 +417,22 @@
             </div>
           </div>
 
-          <div class="formula-row ratio-panel">
+          <div class="formula-row ratio-panel" id="rowNon3">
             <div class="side-tag side-non">
               <span class="frac-block">
                 <span id="namePE3" class="num">PE</span>
                 <span id="nameDE3" class="den">DE</span>
               </span>
-              &nbsp;=&nbsp;
-              <span class="frac-block">
-                <span id="numPE3" class="num">0.0</span>
-                <span id="denDE3" class="den">0.0</span>
+              <span id="calcGroupNon3L">
+                &nbsp;=&nbsp;
+                <span class="frac-block">
+                  <span id="numPE3" class="num">0.0</span>
+                  <span id="denDE3" class="den">0.0</span>
+                </span>
+                <span id="eqRatioNon3L">&nbsp;=&nbsp;</span>
+                <span id="valRatioNon3L" class="math-font">0.00</span>
               </span>
-              <span id="eqRatioNon3L">&nbsp;=&nbsp;</span>
-              <span id="valRatioNon3L" class="math-font">0.00</span>
+              <span id="undefNon3L" class="undef-label" style="display:none;">&nbsp;không xác định</span>
             </div>
 
             <div class="side-tag side-non">
@@ -398,13 +440,16 @@
                 <span id="nameQF3" class="num">QF</span>
                 <span id="nameDF3" class="den">DF</span>
               </span>
-              &nbsp;=&nbsp;
-              <span class="frac-block">
-                <span id="numQF3" class="num">0.0</span>
-                <span id="denDF3" class="den">0.0</span>
+              <span id="calcGroupNon3R">
+                &nbsp;=&nbsp;
+                <span class="frac-block">
+                  <span id="numQF3" class="num">0.0</span>
+                  <span id="denDF3" class="den">0.0</span>
+                </span>
+                <span id="eqRatioNon3R">&nbsp;=&nbsp;</span>
+                <span id="valRatioNon3R" class="math-font">0.00</span>
               </span>
-              <span id="eqRatioNon3R">&nbsp;=&nbsp;</span>
-              <span id="valRatioNon3R" class="math-font">0.00</span>
+              <span id="undefNon3R" class="undef-label" style="display:none;">&nbsp;không xác định</span>
             </div>
 
             <div class="condensed-formula">
@@ -558,6 +603,42 @@
       };
     }
 
+    function applyRatioState(panelId, calcL, undefL, calcR, undefR, isUndefL, isUndefR, valL, valR, eqL, eqR, numL, denL, numR, denR, dNumL, dDenL, dNumR, dDenR) {
+      const panel = document.getElementById(panelId);
+      const isAnyUndef = isUndefL || isUndefR;
+
+      if (isAnyUndef) {
+        panel.classList.remove('is-condensed');
+        panel.classList.add('is-disabled-condense');
+      } else {
+        panel.classList.remove('is-disabled-condense');
+      }
+
+      if (isUndefL) {
+        calcL.style.display = 'none';
+        undefL.style.display = 'inline';
+      } else {
+        calcL.style.display = 'inline';
+        undefL.style.display = 'none';
+        numL.textContent = dNumL;
+        denL.textContent = dDenL;
+        valL.textContent = (parseFloat(dNumL) / parseFloat(dDenL)).toFixed(2);
+        eqL.style.display = '';
+      }
+
+      if (isUndefR) {
+        calcR.style.display = 'none';
+        undefR.style.display = 'inline';
+      } else {
+        calcR.style.display = 'inline';
+        undefR.style.display = 'none';
+        numR.textContent = dNumR;
+        denR.textContent = dDenR;
+        valR.textContent = (parseFloat(dNumR) / parseFloat(dDenR)).toFixed(2);
+        eqR.style.display = '';
+      }
+    }
+
     function renderThalesGeometry(M, N, top, left, right, k) {
       curThalesM = M;
       curThalesN = N;
@@ -616,59 +697,62 @@
       setTag('txtAN', 'bgAN', dAN, top, N, 18, 0);
       setTag('txtNC', 'bgNC', dNC, N, right, 18, 0);
 
-      document.getElementById('numAM').textContent = dAM;
-      document.getElementById('denAB').textContent = dAB;
-      document.getElementById('numAN').textContent = dAN;
-      document.getElementById('denAC').textContent = dAC;
+      applyRatioState(
+        'rowThales1',
+        document.getElementById('calcGroup1L'),
+        document.getElementById('undef1L'),
+        document.getElementById('calcGroup1R'),
+        document.getElementById('undef1R'),
+        parseFloat(dAB) === 0,
+        parseFloat(dAC) === 0,
+        document.getElementById('valRatioL'),
+        document.getElementById('valRatioR'),
+        document.getElementById('eqRatio1L'),
+        document.getElementById('eqRatio1R'),
+        document.getElementById('numAM'),
+        document.getElementById('denAB'),
+        document.getElementById('numAN'),
+        document.getElementById('denAC'),
+        dAM, dAB, dAN, dAC
+      );
 
-      if (parseFloat(dAB) === 0 || parseFloat(dAC) === 0) {
-        document.getElementById('valRatioL').textContent = "không xác định";
-        document.getElementById('valRatioR').textContent = "không xác định";
-        document.getElementById('eqRatio1L').style.display = 'none';
-        document.getElementById('eqRatio1R').style.display = 'none';
-      } else {
-        const ratioStr = k.toFixed(2);
-        document.getElementById('valRatioL').textContent = ratioStr;
-        document.getElementById('valRatioR').textContent = ratioStr;
-        document.getElementById('eqRatio1L').style.display = '';
-        document.getElementById('eqRatio1R').style.display = '';
-      }
+      applyRatioState(
+        'rowThales2',
+        document.getElementById('calcGroup2L'),
+        document.getElementById('undef2L'),
+        document.getElementById('calcGroup2R'),
+        document.getElementById('undef2R'),
+        parseFloat(dMB) === 0,
+        parseFloat(dNC) === 0,
+        document.getElementById('valRatio2L'),
+        document.getElementById('valRatio2R'),
+        document.getElementById('eqRatio2L'),
+        document.getElementById('eqRatio2R'),
+        document.getElementById('numAM2'),
+        document.getElementById('denBM2'),
+        document.getElementById('numAN2'),
+        document.getElementById('denCN2'),
+        dAM, dMB, dAN, dNC
+      );
 
-      document.getElementById('numAM2').textContent = dAM;
-      document.getElementById('denBM2').textContent = dMB;
-      document.getElementById('numAN2').textContent = dAN;
-      document.getElementById('denCN2').textContent = dNC;
-
-      if (parseFloat(dMB) === 0 || parseFloat(dNC) === 0) {
-        document.getElementById('valRatio2L').textContent = "không xác định";
-        document.getElementById('valRatio2R').textContent = "không xác định";
-        document.getElementById('eqRatio2L').style.display = 'none';
-        document.getElementById('eqRatio2R').style.display = 'none';
-      } else {
-        const ratio2Str = (k / (1 - k)).toFixed(2);
-        document.getElementById('valRatio2L').textContent = ratio2Str;
-        document.getElementById('valRatio2R').textContent = ratio2Str;
-        document.getElementById('eqRatio2L').style.display = '';
-        document.getElementById('eqRatio2R').style.display = '';
-      }
-
-      document.getElementById('numBM3').textContent = dMB;
-      document.getElementById('denAB3').textContent = dAB;
-      document.getElementById('numCN3').textContent = dNC;
-      document.getElementById('denAC3').textContent = dAC;
-
-      if (parseFloat(dAB) === 0 || parseFloat(dAC) === 0) {
-        document.getElementById('valRatio3L').textContent = "không xác định";
-        document.getElementById('valRatio3R').textContent = "không xác định";
-        document.getElementById('eqRatio3L').style.display = 'none';
-        document.getElementById('eqRatio3R').style.display = 'none';
-      } else {
-        const ratio3Str = (1 - k).toFixed(2);
-        document.getElementById('valRatio3L').textContent = ratio3Str;
-        document.getElementById('valRatio3R').textContent = ratio3Str;
-        document.getElementById('eqRatio3L').style.display = '';
-        document.getElementById('eqRatio3R').style.display = '';
-      }
+      applyRatioState(
+        'rowThales3',
+        document.getElementById('calcGroup3L'),
+        document.getElementById('undef3L'),
+        document.getElementById('calcGroup3R'),
+        document.getElementById('undef3R'),
+        parseFloat(dAB) === 0,
+        parseFloat(dAC) === 0,
+        document.getElementById('valRatio3L'),
+        document.getElementById('valRatio3R'),
+        document.getElementById('eqRatio3L'),
+        document.getElementById('eqRatio3R'),
+        document.getElementById('numBM3'),
+        document.getElementById('denAB3'),
+        document.getElementById('numCN3'),
+        document.getElementById('denAC3'),
+        dMB, dAB, dNC, dAC
+      );
     }
 
     function updateThales() {
@@ -812,62 +896,62 @@
       setTag('txtDQ', 'bgDQ', dDQ, top, Q, 18, 0);
       setTag('txtQF', 'bgQF', dQF, Q, right, 18, 0);
 
-      document.getElementById('numDP').textContent = dDP;
-      document.getElementById('denDE').textContent = dDE;
-      document.getElementById('numDQ').textContent = dDQ;
-      document.getElementById('denDF').textContent = dDF;
+      applyRatioState(
+        'rowNon1',
+        document.getElementById('calcGroupNon1L'),
+        document.getElementById('undefNon1L'),
+        document.getElementById('calcGroupNon1R'),
+        document.getElementById('undefNon1R'),
+        parseFloat(dDE) === 0,
+        parseFloat(dDF) === 0,
+        document.getElementById('valRatioDP'),
+        document.getElementById('valRatioDQ'),
+        document.getElementById('eqRatioNon1L'),
+        document.getElementById('eqRatioNon1R'),
+        document.getElementById('numDP'),
+        document.getElementById('denDE'),
+        document.getElementById('numDQ'),
+        document.getElementById('denDF'),
+        dDP, dDE, dDQ, dDF
+      );
 
-      if (parseFloat(dDE) === 0 || parseFloat(dDF) === 0) {
-        document.getElementById('valRatioDP').textContent = "không xác định";
-        document.getElementById('valRatioDQ').textContent = "không xác định";
-        document.getElementById('eqRatioNon1L').style.display = 'none';
-        document.getElementById('eqRatioNon1R').style.display = 'none';
-      } else {
-        const rP = (parseFloat(dDP) / parseFloat(dDE)).toFixed(2);
-        const rQ = (parseFloat(dDQ) / parseFloat(dDF)).toFixed(2);
-        document.getElementById('valRatioDP').textContent = rP;
-        document.getElementById('valRatioDQ').textContent = rQ;
-        document.getElementById('eqRatioNon1L').style.display = '';
-        document.getElementById('eqRatioNon1R').style.display = '';
-      }
+      applyRatioState(
+        'rowNon2',
+        document.getElementById('calcGroupNon2L'),
+        document.getElementById('undefNon2L'),
+        document.getElementById('calcGroupNon2R'),
+        document.getElementById('undefNon2R'),
+        parseFloat(dPE) === 0,
+        parseFloat(dQF) === 0,
+        document.getElementById('valRatioNon2L'),
+        document.getElementById('valRatioNon2R'),
+        document.getElementById('eqRatioNon2L'),
+        document.getElementById('eqRatioNon2R'),
+        document.getElementById('numDP2'),
+        document.getElementById('denPE2'),
+        document.getElementById('numDQ2'),
+        document.getElementById('denQF2'),
+        dDP, dPE, dDQ, dQF
+      );
 
-      document.getElementById('numDP2').textContent = dDP;
-      document.getElementById('denPE2').textContent = dPE;
-      document.getElementById('numDQ2').textContent = dDQ;
-      document.getElementById('denQF2').textContent = dQF;
-
-      if (parseFloat(dPE) === 0 || parseFloat(dQF) === 0) {
-        document.getElementById('valRatioNon2L').textContent = "không xác định";
-        document.getElementById('valRatioNon2R').textContent = "không xác định";
-        document.getElementById('eqRatioNon2L').style.display = 'none';
-        document.getElementById('eqRatioNon2R').style.display = 'none';
-      } else {
-        const r2P = (parseFloat(dDP) / parseFloat(dPE)).toFixed(2);
-        const r2Q = (parseFloat(dDQ) / parseFloat(dQF)).toFixed(2);
-        document.getElementById('valRatioNon2L').textContent = r2P;
-        document.getElementById('valRatioNon2R').textContent = r2Q;
-        document.getElementById('eqRatioNon2L').style.display = '';
-        document.getElementById('eqRatioNon2R').style.display = '';
-      }
-
-      document.getElementById('numPE3').textContent = dPE;
-      document.getElementById('denDE3').textContent = dDE;
-      document.getElementById('numQF3').textContent = dQF;
-      document.getElementById('denDF3').textContent = dDF;
-
-      if (parseFloat(dDE) === 0 || parseFloat(dDF) === 0) {
-        document.getElementById('valRatioNon3L').textContent = "không xác định";
-        document.getElementById('valRatioNon3R').textContent = "không xác định";
-        document.getElementById('eqRatioNon3L').style.display = 'none';
-        document.getElementById('eqRatioNon3R').style.display = 'none';
-      } else {
-        const r3P = (parseFloat(dPE) / parseFloat(dDE)).toFixed(2);
-        const r3Q = (parseFloat(dQF) / parseFloat(dDF)).toFixed(2);
-        document.getElementById('valRatioNon3L').textContent = r3P;
-        document.getElementById('valRatioNon3R').textContent = r3Q;
-        document.getElementById('eqRatioNon3L').style.display = '';
-        document.getElementById('eqRatioNon3R').style.display = '';
-      }
+      applyRatioState(
+        'rowNon3',
+        document.getElementById('calcGroupNon3L'),
+        document.getElementById('undefNon3L'),
+        document.getElementById('calcGroupNon3R'),
+        document.getElementById('undefNon3R'),
+        parseFloat(dDE) === 0,
+        parseFloat(dDF) === 0,
+        document.getElementById('valRatioNon3L'),
+        document.getElementById('valRatioNon3R'),
+        document.getElementById('eqRatioNon3L'),
+        document.getElementById('eqRatioNon3R'),
+        document.getElementById('numPE3'),
+        document.getElementById('denDE3'),
+        document.getElementById('numQF3'),
+        document.getElementById('denDF3'),
+        dPE, dDE, dQF, dDF
+      );
     }
 
     function updateNon() {
@@ -966,85 +1050,87 @@
     }
 
     function setupLongPressPanels() {
-  const HOLD_DURATION = 750;
-  const panels = document.querySelectorAll('.ratio-panel');
+      const HOLD_DURATION = 750;
+      const panels = document.querySelectorAll('.ratio-panel');
 
-  panels.forEach(panel => {
-    let pressTimer = null;
-    let rippleEl = null;
+      panels.forEach(panel => {
+        let pressTimer = null;
+        let rippleEl = null;
 
-    function startPress(e) {
-      if (e.target.closest('input') || e.target.closest('button')) return;
+        function startPress(e) {
+          if (panel.classList.contains('is-disabled-condense')) return;
+          if (e.target.closest('input') || e.target.closest('button')) return;
 
-      panel.classList.add('is-pressing');
+          panel.classList.add('is-pressing');
 
-      const rect = panel.getBoundingClientRect();
-      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-      const x = clientX - rect.left;
-      const y = clientY - rect.top;
+          const rect = panel.getBoundingClientRect();
+          const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+          const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+          const x = clientX - rect.left;
+          const y = clientY - rect.top;
 
-      const maxRadius = Math.hypot(
-        Math.max(x, rect.width - x),
-        Math.max(y, rect.height - y)
-      );
+          const maxRadius = Math.hypot(
+            Math.max(x, rect.width - x),
+            Math.max(y, rect.height - y)
+          );
 
-      if (rippleEl) rippleEl.remove();
+          if (rippleEl) rippleEl.remove();
 
-      rippleEl = document.createElement('div');
-      rippleEl.className = 'ripple-glow';
-      rippleEl.style.left = `${x}px`;
-      rippleEl.style.top = `${y}px`;
-      rippleEl.style.width = `${maxRadius * 2.4}px`;
-      rippleEl.style.height = `${maxRadius * 2.4}px`;
-      panel.appendChild(rippleEl);
+          rippleEl = document.createElement('div');
+          rippleEl.className = 'ripple-glow';
+          rippleEl.style.left = `${x}px`;
+          rippleEl.style.top = `${y}px`;
+          rippleEl.style.width = `${maxRadius * 2.4}px`;
+          rippleEl.style.height = `${maxRadius * 2.4}px`;
+          panel.appendChild(rippleEl);
 
-      requestAnimationFrame(() => {
-        if (rippleEl) {
-          rippleEl.style.transform = 'translate(-50%, -50%) scale(1)';
+          requestAnimationFrame(() => {
+            if (rippleEl) {
+              rippleEl.style.transform = 'translate(-50%, -50%) scale(1)';
+            }
+          });
+
+          pressTimer = setTimeout(() => {
+            panel.classList.remove('is-pressing');
+            if (!panel.classList.contains('is-disabled-condense')) {
+              panel.classList.toggle('is-condensed');
+
+              panel.classList.remove('flash-burst');
+              requestAnimationFrame(() => {
+                panel.classList.add('flash-burst');
+              });
+
+              if (navigator.vibrate) {
+                navigator.vibrate([40, 30, 60]);
+              }
+            }
+            cancelPress();
+          }, HOLD_DURATION);
         }
+
+        function cancelPress() {
+          panel.classList.remove('is-pressing');
+          if (pressTimer) {
+            clearTimeout(pressTimer);
+            pressTimer = null;
+          }
+          if (rippleEl) {
+            const curRipple = rippleEl;
+            rippleEl = null;
+            curRipple.style.opacity = '0';
+            curRipple.style.transform = 'translate(-50%, -50%) scale(1.3)';
+            setTimeout(() => curRipple.remove(), 400);
+          }
+        }
+
+        panel.addEventListener('mousedown', startPress);
+        panel.addEventListener('touchstart', startPress, { passive: true });
+
+        window.addEventListener('mouseup', cancelPress);
+        window.addEventListener('touchend', cancelPress);
+        window.addEventListener('touchcancel', cancelPress);
       });
-
-      pressTimer = setTimeout(() => {
-        panel.classList.remove('is-pressing');
-        panel.classList.toggle('is-condensed');
-
-        panel.classList.remove('flash-burst');
-        requestAnimationFrame(() => {
-          panel.classList.add('flash-burst');
-        });
-
-        if (navigator.vibrate) {
-          navigator.vibrate([40, 30, 60]);
-        }
-
-        cancelPress();
-      }, HOLD_DURATION);
     }
-
-    function cancelPress() {
-      panel.classList.remove('is-pressing');
-      if (pressTimer) {
-        clearTimeout(pressTimer);
-        pressTimer = null;
-      }
-      if (rippleEl) {
-        const curRipple = rippleEl;
-        rippleEl = null;
-        curRipple.style.opacity = '0';
-        curRipple.style.transform = 'translate(-50%, -50%) scale(1.3)';
-        setTimeout(() => curRipple.remove(), 400);
-      }
-    }
-
-    panel.addEventListener('mousedown', startPress);
-    panel.addEventListener('touchstart', startPress, { passive: true });
-
-    window.addEventListener('mouseup', cancelPress);
-    window.addEventListener('touchend', cancelPress);
-    window.addEventListener('touchcancel', cancelPress);
-  });
-}
 
     document.getElementById('sliderMN').addEventListener('input', updateThales);
     document.getElementById('sliderPQ').addEventListener('input', updateNon);
