@@ -130,6 +130,18 @@
               <span id="eqRatio1R">&nbsp;=&nbsp;</span>
               <span id="valRatioR" class="math-font">0.00</span>
             </div>
+
+            <div class="condensed-formula">
+              <span class="frac-block">
+                <span class="cond-num-l num">AM</span>
+                <span class="cond-den-l den">AB</span>
+              </span>
+              <span class="cond-rel math-eq">&nbsp;=&nbsp;</span>
+              <span class="frac-block">
+                <span class="cond-num-r num">AN</span>
+                <span class="cond-den-r den">AC</span>
+              </span>
+            </div>
           </div>
 
           <div class="formula-row ratio-panel">
@@ -160,6 +172,18 @@
               <span id="eqRatio2R">&nbsp;=&nbsp;</span>
               <span id="valRatio2R" class="math-font">0.00</span>
             </div>
+
+            <div class="condensed-formula">
+              <span class="frac-block">
+                <span class="cond-num-l num">AM</span>
+                <span class="cond-den-l den">BM</span>
+              </span>
+              <span class="cond-rel math-eq">&nbsp;=&nbsp;</span>
+              <span class="frac-block">
+                <span class="cond-num-r num">AN</span>
+                <span class="cond-den-r den">CN</span>
+              </span>
+            </div>
           </div>
 
           <div class="formula-row ratio-panel">
@@ -189,6 +213,18 @@
               </span>
               <span id="eqRatio3R">&nbsp;=&nbsp;</span>
               <span id="valRatio3R" class="math-font">0.00</span>
+            </div>
+
+            <div class="condensed-formula">
+              <span class="frac-block">
+                <span class="cond-num-l num">BM</span>
+                <span class="cond-den-l den">AB</span>
+              </span>
+              <span class="cond-rel math-eq">&nbsp;=&nbsp;</span>
+              <span class="frac-block">
+                <span class="cond-num-r num">CN</span>
+                <span class="cond-den-r den">AC</span>
+              </span>
             </div>
           </div>
         </div>
@@ -286,6 +322,18 @@
               <span id="eqRatioNon1R">&nbsp;=&nbsp;</span>
               <span id="valRatioDQ" class="math-font">0.00</span>
             </div>
+
+            <div class="condensed-formula">
+              <span class="frac-block">
+                <span class="cond-num-l num">DP</span>
+                <span class="cond-den-l den">DE</span>
+              </span>
+              <span class="cond-rel math-neq">&nbsp;≠&nbsp;</span>
+              <span class="frac-block">
+                <span class="cond-num-r num">DQ</span>
+                <span class="cond-den-r den">DF</span>
+              </span>
+            </div>
           </div>
 
           <div class="formula-row ratio-panel">
@@ -316,6 +364,18 @@
               <span id="eqRatioNon2R">&nbsp;=&nbsp;</span>
               <span id="valRatioNon2R" class="math-font">0.00</span>
             </div>
+
+            <div class="condensed-formula">
+              <span class="frac-block">
+                <span class="cond-num-l num">DP</span>
+                <span class="cond-den-l den">PE</span>
+              </span>
+              <span class="cond-rel math-neq">&nbsp;≠&nbsp;</span>
+              <span class="frac-block">
+                <span class="cond-num-r num">DQ</span>
+                <span class="cond-den-r den">QF</span>
+              </span>
+            </div>
           </div>
 
           <div class="formula-row ratio-panel">
@@ -345,6 +405,18 @@
               </span>
               <span id="eqRatioNon3R">&nbsp;=&nbsp;</span>
               <span id="valRatioNon3R" class="math-font">0.00</span>
+            </div>
+
+            <div class="condensed-formula">
+              <span class="frac-block">
+                <span class="cond-num-l num">PE</span>
+                <span class="cond-den-l den">DE</span>
+              </span>
+              <span class="cond-rel math-neq">&nbsp;≠&nbsp;</span>
+              <span class="frac-block">
+                <span class="cond-num-r num">QF</span>
+                <span class="cond-den-r den">DF</span>
+              </span>
             </div>
           </div>
         </div>
@@ -430,6 +502,25 @@
       });
     }
 
+    function syncCondensedLabels() {
+      document.querySelectorAll('.ratio-panel').forEach(panel => {
+        const numL = panel.querySelector('.side-tag:first-child .num');
+        const denL = panel.querySelector('.side-tag:first-child .den');
+        const numR = panel.querySelector('.side-tag:nth-of-type(2) .num');
+        const denR = panel.querySelector('.side-tag:nth-of-type(2) .den');
+
+        const condNumL = panel.querySelector('.cond-num-l');
+        const condDenL = panel.querySelector('.cond-den-l');
+        const condNumR = panel.querySelector('.cond-num-r');
+        const condDenR = panel.querySelector('.cond-den-r');
+
+        if (condNumL && numL) condNumL.textContent = numL.textContent;
+        if (condDenL && denL) condDenL.textContent = denL.textContent;
+        if (condNumR && numR) condNumR.textContent = numR.textContent;
+        if (condDenR && denR) condDenR.textContent = denR.textContent;
+      });
+    }
+
     function updateThalesLabels() {
       const vTop = namesThales[rotThales];
       const vL = namesThales[(rotThales + 1) % 3];
@@ -451,6 +542,8 @@
       document.getElementById('nameAB3').textContent = `${vTop}${vL}`;
       document.getElementById('nameCN3').textContent = `N${vR}`;
       document.getElementById('nameAC3').textContent = `${vTop}${vR}`;
+
+      syncCondensedLabels();
     }
 
     function computeThalesTargets() {
@@ -636,6 +729,8 @@
       document.getElementById('nameDE3').textContent = `${vTop}${vL}`;
       document.getElementById('nameQF3').textContent = `Q${vR}`;
       document.getElementById('nameDF3').textContent = `${vTop}${vR}`;
+
+      syncCondensedLabels();
     }
 
     function computeNonTargets() {
@@ -870,6 +965,87 @@
       window.addEventListener('touchend', handleEnd);
     }
 
+    function setupLongPressPanels() {
+  const HOLD_DURATION = 750;
+  const panels = document.querySelectorAll('.ratio-panel');
+
+  panels.forEach(panel => {
+    let pressTimer = null;
+    let rippleEl = null;
+
+    function startPress(e) {
+      if (e.target.closest('input') || e.target.closest('button')) return;
+
+      panel.classList.add('is-pressing');
+
+      const rect = panel.getBoundingClientRect();
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      const x = clientX - rect.left;
+      const y = clientY - rect.top;
+
+      const maxRadius = Math.hypot(
+        Math.max(x, rect.width - x),
+        Math.max(y, rect.height - y)
+      );
+
+      if (rippleEl) rippleEl.remove();
+
+      rippleEl = document.createElement('div');
+      rippleEl.className = 'ripple-glow';
+      rippleEl.style.left = `${x}px`;
+      rippleEl.style.top = `${y}px`;
+      rippleEl.style.width = `${maxRadius * 2.4}px`;
+      rippleEl.style.height = `${maxRadius * 2.4}px`;
+      panel.appendChild(rippleEl);
+
+      requestAnimationFrame(() => {
+        if (rippleEl) {
+          rippleEl.style.transform = 'translate(-50%, -50%) scale(1)';
+        }
+      });
+
+      pressTimer = setTimeout(() => {
+        panel.classList.remove('is-pressing');
+        panel.classList.toggle('is-condensed');
+
+        panel.classList.remove('flash-burst');
+        requestAnimationFrame(() => {
+          panel.classList.add('flash-burst');
+        });
+
+        if (navigator.vibrate) {
+          navigator.vibrate([40, 30, 60]);
+        }
+
+        cancelPress();
+      }, HOLD_DURATION);
+    }
+
+    function cancelPress() {
+      panel.classList.remove('is-pressing');
+      if (pressTimer) {
+        clearTimeout(pressTimer);
+        pressTimer = null;
+      }
+      if (rippleEl) {
+        const curRipple = rippleEl;
+        rippleEl = null;
+        curRipple.style.opacity = '0';
+        curRipple.style.transform = 'translate(-50%, -50%) scale(1.3)';
+        setTimeout(() => curRipple.remove(), 400);
+      }
+    }
+
+    panel.addEventListener('mousedown', startPress);
+    panel.addEventListener('touchstart', startPress, { passive: true });
+
+    window.addEventListener('mouseup', cancelPress);
+    window.addEventListener('touchend', cancelPress);
+    window.addEventListener('touchcancel', cancelPress);
+  });
+}
+
     document.getElementById('sliderMN').addEventListener('input', updateThales);
     document.getElementById('sliderPQ').addEventListener('input', updateNon);
 
@@ -902,6 +1078,7 @@
     );
 
     window.addEventListener('DOMContentLoaded', () => {
+      setupLongPressPanels();
       updateThales();
       updateNon();
     });
