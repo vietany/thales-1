@@ -20,6 +20,19 @@
       gap: 10px;
       width: 100%;
     }
+    .ratio-panel {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
+      background: rgba(148, 163, 184, 0.1);
+      border: 1.5px dashed rgba(148, 163, 184, 0.4);
+      border-radius: 12px;
+      padding: 12px;
+      gap: 15px;
+      width: 100%;
+      box-sizing: border-box;
+    }
   </style>
 </head>
 <body>
@@ -89,7 +102,7 @@
 
       <div class="math-panel">
         <div class="formula-col">
-          <div class="formula-row">
+          <div class="formula-row ratio-panel">
             <div class="side-tag side-thales">
               <span class="frac-block">
                 <span id="nameAM" class="num">AM</span>
@@ -103,8 +116,6 @@
               <span id="eqRatio1L">&nbsp;=&nbsp;</span>
               <span id="valRatioL" class="math-font">0.00</span>
             </div>
-
-            <span id="eqMid1" class="math-eq">=</span>
 
             <div class="side-tag side-thales">
               <span class="frac-block">
@@ -121,7 +132,7 @@
             </div>
           </div>
 
-          <div class="formula-row">
+          <div class="formula-row ratio-panel">
             <div class="side-tag side-thales">
               <span class="frac-block">
                 <span id="nameAM2" class="num">AM</span>
@@ -135,8 +146,6 @@
               <span id="eqRatio2L">&nbsp;=&nbsp;</span>
               <span id="valRatio2L" class="math-font">0.00</span>
             </div>
-
-            <span id="eqMid2" class="math-eq">=</span>
 
             <div class="side-tag side-thales">
               <span class="frac-block">
@@ -153,7 +162,7 @@
             </div>
           </div>
 
-          <div class="formula-row">
+          <div class="formula-row ratio-panel">
             <div class="side-tag side-thales">
               <span class="frac-block">
                 <span id="nameBM3" class="num">BM</span>
@@ -167,8 +176,6 @@
               <span id="eqRatio3L">&nbsp;=&nbsp;</span>
               <span id="valRatio3L" class="math-font">0.00</span>
             </div>
-
-            <span id="eqMid3" class="math-eq">=</span>
 
             <div class="side-tag side-thales">
               <span class="frac-block">
@@ -251,7 +258,7 @@
 
       <div class="math-panel">
         <div class="formula-col">
-          <div class="formula-row">
+          <div class="formula-row ratio-panel">
             <div class="side-tag side-non">
               <span class="frac-block">
                 <span id="nameDP" class="num">DP</span>
@@ -265,8 +272,6 @@
               <span id="eqRatioNon1L">&nbsp;=&nbsp;</span>
               <span id="valRatioDP" class="math-font">0.00</span>
             </div>
-
-            <span id="neqMid1" class="math-neq">≠</span>
 
             <div class="side-tag side-non">
               <span class="frac-block">
@@ -283,7 +288,7 @@
             </div>
           </div>
 
-          <div class="formula-row">
+          <div class="formula-row ratio-panel">
             <div class="side-tag side-non">
               <span class="frac-block">
                 <span id="nameDP2" class="num">DP</span>
@@ -297,8 +302,6 @@
               <span id="eqRatioNon2L">&nbsp;=&nbsp;</span>
               <span id="valRatioNon2L" class="math-font">0.00</span>
             </div>
-
-            <span id="neqMid2" class="math-neq">≠</span>
 
             <div class="side-tag side-non">
               <span class="frac-block">
@@ -315,7 +318,7 @@
             </div>
           </div>
 
-          <div class="formula-row">
+          <div class="formula-row ratio-panel">
             <div class="side-tag side-non">
               <span class="frac-block">
                 <span id="namePE3" class="num">PE</span>
@@ -329,8 +332,6 @@
               <span id="eqRatioNon3L">&nbsp;=&nbsp;</span>
               <span id="valRatioNon3L" class="math-font">0.00</span>
             </div>
-
-            <span id="neqMid3" class="math-neq">≠</span>
 
             <div class="side-tag side-non">
               <span class="frac-block">
@@ -413,22 +414,21 @@
       bg.setAttribute('height', b.height + 4);
     }
 
-function triggerPulse(lineId, p1, p2, activeClass) {
-  const el = document.getElementById(lineId);
-  el.setAttribute('x1', p1.x);
-  el.setAttribute('y1', p1.y);
-  el.setAttribute('x2', p2.x);
-  el.setAttribute('y2', p2.y);
-  
-  el.classList.remove(activeClass);
-  
-  // Dùng requestAnimationFrame đôi để trình duyệt chắc chắn nhận diện trạng thái reset class trên SVG
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      el.classList.add(activeClass);
-    });
-  });
-}
+    function triggerPulse(lineId, p1, p2, activeClass) {
+      const el = document.getElementById(lineId);
+      el.setAttribute('x1', p1.x);
+      el.setAttribute('y1', p1.y);
+      el.setAttribute('x2', p2.x);
+      el.setAttribute('y2', p2.y);
+      
+      el.classList.remove(activeClass);
+      
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          el.classList.add(activeClass);
+        });
+      });
+    }
 
     function updateThalesLabels() {
       const vTop = namesThales[rotThales];
@@ -531,14 +531,12 @@ function triggerPulse(lineId, p1, p2, activeClass) {
       if (parseFloat(dAB) === 0 || parseFloat(dAC) === 0) {
         document.getElementById('valRatioL').textContent = "không xác định";
         document.getElementById('valRatioR').textContent = "không xác định";
-        document.getElementById('eqMid1').style.display = 'none';
         document.getElementById('eqRatio1L').style.display = 'none';
         document.getElementById('eqRatio1R').style.display = 'none';
       } else {
         const ratioStr = k.toFixed(2);
         document.getElementById('valRatioL').textContent = ratioStr;
         document.getElementById('valRatioR').textContent = ratioStr;
-        document.getElementById('eqMid1').style.display = '';
         document.getElementById('eqRatio1L').style.display = '';
         document.getElementById('eqRatio1R').style.display = '';
       }
@@ -551,14 +549,12 @@ function triggerPulse(lineId, p1, p2, activeClass) {
       if (parseFloat(dMB) === 0 || parseFloat(dNC) === 0) {
         document.getElementById('valRatio2L').textContent = "không xác định";
         document.getElementById('valRatio2R').textContent = "không xác định";
-        document.getElementById('eqMid2').style.display = 'none';
         document.getElementById('eqRatio2L').style.display = 'none';
         document.getElementById('eqRatio2R').style.display = 'none';
       } else {
         const ratio2Str = (k / (1 - k)).toFixed(2);
         document.getElementById('valRatio2L').textContent = ratio2Str;
         document.getElementById('valRatio2R').textContent = ratio2Str;
-        document.getElementById('eqMid2').style.display = '';
         document.getElementById('eqRatio2L').style.display = '';
         document.getElementById('eqRatio2R').style.display = '';
       }
@@ -571,14 +567,12 @@ function triggerPulse(lineId, p1, p2, activeClass) {
       if (parseFloat(dAB) === 0 || parseFloat(dAC) === 0) {
         document.getElementById('valRatio3L').textContent = "không xác định";
         document.getElementById('valRatio3R').textContent = "không xác định";
-        document.getElementById('eqMid3').style.display = 'none';
         document.getElementById('eqRatio3L').style.display = 'none';
         document.getElementById('eqRatio3R').style.display = 'none';
       } else {
         const ratio3Str = (1 - k).toFixed(2);
         document.getElementById('valRatio3L').textContent = ratio3Str;
         document.getElementById('valRatio3R').textContent = ratio3Str;
-        document.getElementById('eqMid3').style.display = '';
         document.getElementById('eqRatio3L').style.display = '';
         document.getElementById('eqRatio3R').style.display = '';
       }
@@ -731,7 +725,6 @@ function triggerPulse(lineId, p1, p2, activeClass) {
       if (parseFloat(dDE) === 0 || parseFloat(dDF) === 0) {
         document.getElementById('valRatioDP').textContent = "không xác định";
         document.getElementById('valRatioDQ').textContent = "không xác định";
-        document.getElementById('neqMid1').style.display = 'none';
         document.getElementById('eqRatioNon1L').style.display = 'none';
         document.getElementById('eqRatioNon1R').style.display = 'none';
       } else {
@@ -739,7 +732,6 @@ function triggerPulse(lineId, p1, p2, activeClass) {
         const rQ = (parseFloat(dDQ) / parseFloat(dDF)).toFixed(2);
         document.getElementById('valRatioDP').textContent = rP;
         document.getElementById('valRatioDQ').textContent = rQ;
-        document.getElementById('neqMid1').style.display = '';
         document.getElementById('eqRatioNon1L').style.display = '';
         document.getElementById('eqRatioNon1R').style.display = '';
       }
@@ -752,7 +744,6 @@ function triggerPulse(lineId, p1, p2, activeClass) {
       if (parseFloat(dPE) === 0 || parseFloat(dQF) === 0) {
         document.getElementById('valRatioNon2L').textContent = "không xác định";
         document.getElementById('valRatioNon2R').textContent = "không xác định";
-        document.getElementById('neqMid2').style.display = 'none';
         document.getElementById('eqRatioNon2L').style.display = 'none';
         document.getElementById('eqRatioNon2R').style.display = 'none';
       } else {
@@ -760,7 +751,6 @@ function triggerPulse(lineId, p1, p2, activeClass) {
         const r2Q = (parseFloat(dDQ) / parseFloat(dQF)).toFixed(2);
         document.getElementById('valRatioNon2L').textContent = r2P;
         document.getElementById('valRatioNon2R').textContent = r2Q;
-        document.getElementById('neqMid2').style.display = '';
         document.getElementById('eqRatioNon2L').style.display = '';
         document.getElementById('eqRatioNon2R').style.display = '';
       }
@@ -773,7 +763,6 @@ function triggerPulse(lineId, p1, p2, activeClass) {
       if (parseFloat(dDE) === 0 || parseFloat(dDF) === 0) {
         document.getElementById('valRatioNon3L').textContent = "không xác định";
         document.getElementById('valRatioNon3R').textContent = "không xác định";
-        document.getElementById('neqMid3').style.display = 'none';
         document.getElementById('eqRatioNon3L').style.display = 'none';
         document.getElementById('eqRatioNon3R').style.display = 'none';
       } else {
@@ -781,7 +770,6 @@ function triggerPulse(lineId, p1, p2, activeClass) {
         const r3Q = (parseFloat(dQF) / parseFloat(dDF)).toFixed(2);
         document.getElementById('valRatioNon3L').textContent = r3P;
         document.getElementById('valRatioNon3R').textContent = r3Q;
-        document.getElementById('neqMid3').style.display = '';
         document.getElementById('eqRatioNon3L').style.display = '';
         document.getElementById('eqRatioNon3R').style.display = '';
       }

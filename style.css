@@ -220,10 +220,10 @@ input[type=range] {
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 10px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
-  font-weight: 700;
+  gap: 12px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 21px;
+  font-weight: 600;
 }
 .frac-block {
   display: inline-flex;
@@ -232,13 +232,13 @@ input[type=range] {
   vertical-align: middle;
 }
 .num {
-  padding: 1px 4px;
-  border-bottom: 2px solid currentColor;
+  padding: 4px 6px;
+  border-bottom: 1px solid currentColor;
   text-align: center;
   width: 100%;
 }
 .den {
-  padding: 1px 4px;
+  padding: 4px 6px;
   text-align: center;
   width: 100%;
 }
