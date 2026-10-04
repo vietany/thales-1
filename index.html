@@ -6,1168 +6,254 @@
   <title>Mô Phỏng Định Lý Thales</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <style>
-    .canvas-wrap {
-      touch-action: none;
-      user-select: none;
-      cursor: ns-resize;
-    }
-    .formula-col {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      width: 100%;
-    }
-    .ratio-panel {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-around;
-      align-items: center;
-      background: rgba(148, 163, 184, 0.1);
-      border: 1.5px dashed rgba(148, 163, 184, 0.4);
-      border-radius: 12px;
-      padding: 12px;
-      gap: 15px;
-      width: 100%;
-      box-sizing: border-box;
-    }
-    .ratio-panel.is-disabled-condense {
-      cursor: default;
-    }
-    .undef-label {
-      font-size: 11px;
-      font-weight: 700;
-      color: #94a3b8;
-      font-style: italic;
-    }
-  </style>
+  <script src="script.js" defer></script>
 </head>
 <body>
 
   <div class="container">
-
     <div class="card">
-      <div class="header-box">
-        <h2 class="title thales-title">Định Lý Thales</h2>
-        <span class="badge thales-badge" id="badgeThales">MN // BC</span>
-        <button class="btn-rotate" id="btnRotateThales" title="Xoay cạnh song song" aria-label="Xoay cạnh song song">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
-          </svg>
-        </button>
+      
+      <!-- Cụm 2 cột chính -->
+      <div class="card-body">
+        
+        <!-- Cột 1 (Trái): Hình vẽ SVG -->
+        <div class="visual-col">
+          <div class="canvas-wrap" id="wrapThales">
+            <svg id="svgThales" viewBox="0 0 460 340">
+              <defs>
+                <pattern id="gridT" width="20" height="20" patternUnits="userSpaceOnUse">
+                  <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(15, 23, 42, 0.05)" stroke-width="1"/>
+                </pattern>
+              </defs>
+              <rect width="460" height="340" fill="url(#gridT)"/>
+
+              <polygon id="polyABC" class="geom-poly" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/>
+              <line id="basePulseThales" class="pulse-line pulse-thales" />
+              <line id="lineMN" class="geom-line-mn" stroke="#ea580c" stroke-width="3.5" stroke-linecap="round"/>
+
+              <!-- Các đỉnh A, B, C (hiển thị) -->
+              <circle id="ptA" class="pt-abc" r="6" fill="#2563eb"/>
+              <circle id="ptB" class="pt-abc" r="6" fill="#2563eb"/>
+              <circle id="ptC" class="pt-abc" r="6" fill="#2563eb"/>
+              
+              <!-- Vùng đệm bắt sự kiện vô hình cực nhạy (hitbox) cho A, B, C -->
+              <circle id="hitA" class="vertex-hitbox" r="22" cx="0" cy="0" fill="transparent"/>
+              <circle id="hitB" class="vertex-hitbox" r="22" cx="0" cy="0" fill="transparent"/>
+              <circle id="hitC" class="vertex-hitbox" r="22" cx="0" cy="0" fill="transparent"/>
+
+              <circle id="ptM" class="pt-mn" r="6.5" fill="#f59e0b" stroke="#ffffff" stroke-width="1.5"/>
+              <circle id="ptN" class="pt-mn" r="6.5" fill="#f59e0b" stroke="#ffffff" stroke-width="1.5"/>
+
+              <text id="lblA" class="v-label lbl-abc" fill="#1e40af">A</text>
+              <text id="lblB" class="v-label lbl-abc" fill="#1e40af">B</text>
+              <text id="lblC" class="v-label lbl-abc" fill="#1e40af">C</text>
+              <text id="lblM" class="v-label lbl-mn" fill="#b45309">M</text>
+              <text id="lblN" class="v-label lbl-mn" fill="#b45309">N</text>
+
+              <g id="grpAM">
+                <rect id="bgAM" class="dim-bg" stroke="#93c5fd"/>
+                <text id="txtAM" class="dim-text" fill="#1e40af"></text>
+              </g>
+              <g id="grpMB">
+                <rect id="bgMB" class="dim-bg" stroke="#93c5fd"/>
+                <text id="txtMB" class="dim-text" fill="#1e40af"></text>
+              </g>
+              <g id="grpAN">
+                <rect id="bgAN" class="dim-bg" stroke="#93c5fd"/>
+                <text id="txtAN" class="dim-text" fill="#1e40af"></text>
+              </g>
+              <g id="grpNC">
+                <rect id="bgNC" class="dim-bg" stroke="#93c5fd"/>
+                <text id="txtNC" class="dim-text" fill="#1e40af"></text>
+              </g>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Cột 2 (Phải): Tiêu đề + Bảng công thức -->
+        <div class="math-panel">
+          <div class="header-box">
+            <div class="header-titles">
+              <h2 class="title thales-title">Định Lý Thales</h2>
+              <span class="badge thales-badge" id="badgeThales">MN // BC</span>
+            </div>
+            
+            <button class="btn-rotate" id="btnRotateThales" title="Xoay cạnh song song" aria-label="Xoay cạnh song song">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+              </svg>
+              <span class="btn-rotate-text">Xoay</span>
+            </button>
+          </div>
+
+          <div class="formula-col">
+            <!-- Hàng 1 -->
+            <div class="formula-row ratio-panel" id="rowThales1">
+              <div class="side-tag side-thales">
+                <span class="frac-block">
+                  <span id="nameAM" class="num">AM</span>
+                  <span id="nameAB" class="den">AB</span>
+                </span>
+                <span id="calcGroup1L">
+                  &nbsp;=&nbsp;
+                  <span class="frac-block">
+                    <span id="numAM" class="num">0.0</span>
+                    <span id="denAB" class="den">0.0</span>
+                  </span>
+                  <span id="eqRatio1L">&nbsp;=&nbsp;</span>
+                  <span id="valRatioL" class="math-font">0.00</span>
+                </span>
+                <span id="undef1L" class="undef-label" style="display:none;">&nbsp;không xác định</span>
+              </div>
+
+              <div class="side-tag side-thales">
+                <span class="frac-block">
+                  <span id="nameAN" class="num">AN</span>
+                  <span id="nameAC" class="den">AC</span>
+                </span>
+                <span id="calcGroup1R">
+                  &nbsp;=&nbsp;
+                  <span class="frac-block">
+                    <span id="numAN" class="num">0.0</span>
+                    <span id="denAC" class="den">0.0</span>
+                  </span>
+                  <span id="eqRatio1R">&nbsp;=&nbsp;</span>
+                  <span id="valRatioR" class="math-font">0.00</span>
+                </span>
+                <span id="undef1R" class="undef-label" style="display:none;">&nbsp;không xác định</span>
+              </div>
+
+              <div class="condensed-formula">
+                <span class="frac-block">
+                  <span class="cond-num-l num">AM</span>
+                  <span class="cond-den-l den">AB</span>
+                </span>
+                <span class="cond-rel math-eq">&nbsp;=&nbsp;</span>
+                <span class="frac-block">
+                  <span class="cond-num-r num">AN</span>
+                  <span class="cond-den-r den">AC</span>
+                </span>
+              </div>
+            </div>
+
+            <!-- Hàng 2 -->
+            <div class="formula-row ratio-panel" id="rowThales2">
+              <div class="side-tag side-thales">
+                <span class="frac-block">
+                  <span id="nameAM2" class="num">AM</span>
+                  <span id="nameBM2" class="den">BM</span>
+                </span>
+                <span id="calcGroup2L">
+                  &nbsp;=&nbsp;
+                  <span class="frac-block">
+                    <span id="numAM2" class="num">0.0</span>
+                    <span id="denBM2" class="den">0.0</span>
+                  </span>
+                  <span id="eqRatio2L">&nbsp;=&nbsp;</span>
+                  <span id="valRatio2L" class="math-font">0.00</span>
+                </span>
+                <span id="undef2L" class="undef-label" style="display:none;">&nbsp;không xác định</span>
+              </div>
+
+              <div class="side-tag side-thales">
+                <span class="frac-block">
+                  <span id="nameAN2" class="num">AN</span>
+                  <span id="nameCN2" class="den">CN</span>
+                </span>
+                <span id="calcGroup2R">
+                  &nbsp;=&nbsp;
+                  <span class="frac-block">
+                    <span id="numAN2" class="num">0.0</span>
+                    <span id="denCN2" class="den">0.0</span>
+                  </span>
+                  <span id="eqRatio2R">&nbsp;=&nbsp;</span>
+                  <span id="valRatio2R" class="math-font">0.00</span>
+                </span>
+                <span id="undef2R" class="undef-label" style="display:none;">&nbsp;không xác định</span>
+              </div>
+
+              <div class="condensed-formula">
+                <span class="frac-block">
+                  <span class="cond-num-l num">AM</span>
+                  <span class="cond-den-l den">BM</span>
+                </span>
+                <span class="cond-rel math-eq">&nbsp;=&nbsp;</span>
+                <span class="frac-block">
+                  <span class="cond-num-r num">AN</span>
+                  <span class="cond-den-r den">CN</span>
+                </span>
+              </div>
+            </div>
+
+            <!-- Hàng 3 -->
+            <div class="formula-row ratio-panel" id="rowThales3">
+              <div class="side-tag side-thales">
+                <span class="frac-block">
+                  <span id="nameBM3" class="num">BM</span>
+                  <span id="nameAB3" class="den">AB</span>
+                </span>
+                <span id="calcGroup3L">
+                  &nbsp;=&nbsp;
+                  <span class="frac-block">
+                    <span id="numBM3" class="num">0.0</span>
+                    <span id="denAB3" class="den">0.0</span>
+                  </span>
+                  <span id="eqRatio3L">&nbsp;=&nbsp;</span>
+                  <span id="valRatio3L" class="math-font">0.00</span>
+                </span>
+                <span id="undef3L" class="undef-label" style="display:none;">&nbsp;không xác định</span>
+              </div>
+
+              <div class="side-tag side-thales">
+                <span class="frac-block">
+                  <span id="nameCN3" class="num">CN</span>
+                  <span id="nameAC3" class="den">AC</span>
+                </span>
+                <span id="calcGroup3R">
+                  &nbsp;=&nbsp;
+                  <span class="frac-block">
+                    <span id="numCN3" class="num">0.0</span>
+                    <span id="denAC3" class="den">0.0</span>
+                  </span>
+                  <span id="eqRatio3R">&nbsp;=&nbsp;</span>
+                  <span id="valRatio3R" class="math-font">0.00</span>
+                </span>
+                <span id="undef3R" class="undef-label" style="display:none;">&nbsp;không xác định</span>
+              </div>
+
+              <div class="condensed-formula">
+                <span class="frac-block">
+                  <span class="cond-num-l num">BM</span>
+                  <span class="cond-den-l den">AB</span>
+                </span>
+                <span class="cond-rel math-eq">&nbsp;=&nbsp;</span>
+                <span class="frac-block">
+                  <span class="cond-num-r num">CN</span>
+                  <span class="cond-den-r den">AC</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
 
-      <div class="canvas-wrap" id="wrapThales">
-        <svg id="svgThales" viewBox="0 0 460 340">
-          <defs>
-            <pattern id="gridT" width="20" height="20" patternUnits="userSpaceOnUse">
-              <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
-            </pattern>
-          </defs>
-          <rect width="460" height="340" fill="url(#gridT)"/>
-
-          <polygon id="polyABC" fill="rgba(37, 99, 235, 0.08)" stroke="#3b82f6" stroke-width="2.5"/>
-          <line id="basePulseThales" class="pulse-line pulse-thales" />
-          <line id="lineMN" stroke="#f59e0b" stroke-width="3" stroke-linecap="round"/>
-
-          <circle id="ptA" r="5" fill="#60a5fa"/>
-          <circle id="ptB" r="5" fill="#60a5fa"/>
-          <circle id="ptC" r="5" fill="#60a5fa"/>
-          <circle id="ptM" r="6" fill="#fbbf24" stroke="#ffffff" stroke-width="1.5"/>
-          <circle id="ptN" r="6" fill="#fbbf24" stroke="#ffffff" stroke-width="1.5"/>
-
-          <text id="lblA" class="v-label" fill="#93c5fd">A</text>
-          <text id="lblB" class="v-label" fill="#93c5fd">B</text>
-          <text id="lblC" class="v-label" fill="#93c5fd">C</text>
-          <text id="lblM" class="v-label" fill="#fcd34d">M</text>
-          <text id="lblN" class="v-label" fill="#fcd34d">N</text>
-
-          <g id="grpAM">
-            <rect id="bgAM" class="dim-bg" stroke="#60a5fa"/>
-            <text id="txtAM" class="dim-text" fill="#93c5fd"></text>
-          </g>
-          <g id="grpMB">
-            <rect id="bgMB" class="dim-bg" stroke="#60a5fa"/>
-            <text id="txtMB" class="dim-text" fill="#93c5fd"></text>
-          </g>
-          <g id="grpAN">
-            <rect id="bgAN" class="dim-bg" stroke="#60a5fa"/>
-            <text id="txtAN" class="dim-text" fill="#93c5fd"></text>
-          </g>
-          <g id="grpNC">
-            <rect id="bgNC" class="dim-bg" stroke="#60a5fa"/>
-            <text id="txtNC" class="dim-text" fill="#93c5fd"></text>
-          </g>
-        </svg>
-      </div>
-
-      <div class="controls">
+      <!-- Thanh kéo toàn chiều rộng bao trùm cả 2 tab + Nút chế độ nằm góc phải -->
+      <div class="controls-bar">
         <div class="slider-row">
           <input id="sliderMN" class="thales-slider" type="range" min="0" max="1" step="0.005" value="0.5">
         </div>
-      </div>
 
-      <div class="math-panel">
-        <div class="formula-col">
-          <div class="formula-row ratio-panel" id="rowThales1">
-            <div class="side-tag side-thales">
-              <span class="frac-block">
-                <span id="nameAM" class="num">AM</span>
-                <span id="nameAB" class="den">AB</span>
-              </span>
-              <span id="calcGroup1L">
-                &nbsp;=&nbsp;
-                <span class="frac-block">
-                  <span id="numAM" class="num">0.0</span>
-                  <span id="denAB" class="den">0.0</span>
-                </span>
-                <span id="eqRatio1L">&nbsp;=&nbsp;</span>
-                <span id="valRatioL" class="math-font">0.00</span>
-              </span>
-              <span id="undef1L" class="undef-label" style="display:none;">&nbsp;không xác định</span>
-            </div>
-
-            <div class="side-tag side-thales">
-              <span class="frac-block">
-                <span id="nameAN" class="num">AN</span>
-                <span id="nameAC" class="den">AC</span>
-              </span>
-              <span id="calcGroup1R">
-                &nbsp;=&nbsp;
-                <span class="frac-block">
-                  <span id="numAN" class="num">0.0</span>
-                  <span id="denAC" class="den">0.0</span>
-                </span>
-                <span id="eqRatio1R">&nbsp;=&nbsp;</span>
-                <span id="valRatioR" class="math-font">0.00</span>
-              </span>
-              <span id="undef1R" class="undef-label" style="display:none;">&nbsp;không xác định</span>
-            </div>
-
-            <div class="condensed-formula">
-              <span class="frac-block">
-                <span class="cond-num-l num">AM</span>
-                <span class="cond-den-l den">AB</span>
-              </span>
-              <span class="cond-rel math-eq">&nbsp;=&nbsp;</span>
-              <span class="frac-block">
-                <span class="cond-num-r num">AN</span>
-                <span class="cond-den-r den">AC</span>
-              </span>
-            </div>
-          </div>
-
-          <div class="formula-row ratio-panel" id="rowThales2">
-            <div class="side-tag side-thales">
-              <span class="frac-block">
-                <span id="nameAM2" class="num">AM</span>
-                <span id="nameBM2" class="den">BM</span>
-              </span>
-              <span id="calcGroup2L">
-                &nbsp;=&nbsp;
-                <span class="frac-block">
-                  <span id="numAM2" class="num">0.0</span>
-                  <span id="denBM2" class="den">0.0</span>
-                </span>
-                <span id="eqRatio2L">&nbsp;=&nbsp;</span>
-                <span id="valRatio2L" class="math-font">0.00</span>
-              </span>
-              <span id="undef2L" class="undef-label" style="display:none;">&nbsp;không xác định</span>
-            </div>
-
-            <div class="side-tag side-thales">
-              <span class="frac-block">
-                <span id="nameAN2" class="num">AN</span>
-                <span id="nameCN2" class="den">CN</span>
-              </span>
-              <span id="calcGroup2R">
-                &nbsp;=&nbsp;
-                <span class="frac-block">
-                  <span id="numAN2" class="num">0.0</span>
-                  <span id="denCN2" class="den">0.0</span>
-                </span>
-                <span id="eqRatio2R">&nbsp;=&nbsp;</span>
-                <span id="valRatio2R" class="math-font">0.00</span>
-              </span>
-              <span id="undef2R" class="undef-label" style="display:none;">&nbsp;không xác định</span>
-            </div>
-
-            <div class="condensed-formula">
-              <span class="frac-block">
-                <span class="cond-num-l num">AM</span>
-                <span class="cond-den-l den">BM</span>
-              </span>
-              <span class="cond-rel math-eq">&nbsp;=&nbsp;</span>
-              <span class="frac-block">
-                <span class="cond-num-r num">AN</span>
-                <span class="cond-den-r den">CN</span>
-              </span>
-            </div>
-          </div>
-
-          <div class="formula-row ratio-panel" id="rowThales3">
-            <div class="side-tag side-thales">
-              <span class="frac-block">
-                <span id="nameBM3" class="num">BM</span>
-                <span id="nameAB3" class="den">AB</span>
-              </span>
-              <span id="calcGroup3L">
-                &nbsp;=&nbsp;
-                <span class="frac-block">
-                  <span id="numBM3" class="num">0.0</span>
-                  <span id="denAB3" class="den">0.0</span>
-                </span>
-                <span id="eqRatio3L">&nbsp;=&nbsp;</span>
-                <span id="valRatio3L" class="math-font">0.00</span>
-              </span>
-              <span id="undef3L" class="undef-label" style="display:none;">&nbsp;không xác định</span>
-            </div>
-
-            <div class="side-tag side-thales">
-              <span class="frac-block">
-                <span id="nameCN3" class="num">CN</span>
-                <span id="nameAC3" class="den">AC</span>
-              </span>
-              <span id="calcGroup3R">
-                &nbsp;=&nbsp;
-                <span class="frac-block">
-                  <span id="numCN3" class="num">0.0</span>
-                  <span id="denAC3" class="den">0.0</span>
-                </span>
-                <span id="eqRatio3R">&nbsp;=&nbsp;</span>
-                <span id="valRatio3R" class="math-font">0.00</span>
-              </span>
-              <span id="undef3R" class="undef-label" style="display:none;">&nbsp;không xác định</span>
-            </div>
-
-            <div class="condensed-formula">
-              <span class="frac-block">
-                <span class="cond-num-l num">BM</span>
-                <span class="cond-den-l den">AB</span>
-              </span>
-              <span class="cond-rel math-eq">&nbsp;=&nbsp;</span>
-              <span class="frac-block">
-                <span class="cond-num-r num">CN</span>
-                <span class="cond-den-r den">AC</span>
-              </span>
-            </div>
-          </div>
+        <div class="mode-switch">
+          <button type="button" class="btn-mode active" id="btnModeMN">Kéo MN</button>
+          <button type="button" class="btn-mode" id="btnModeABC">Chỉnh ABC</button>
         </div>
       </div>
+
     </div>
-
-    <div class="card">
-      <div class="header-box">
-        <h2 class="title non-title">Không Song Song</h2>
-        <span class="badge non-badge" id="badgeNon">PQ ∦ EF</span>
-        <button class="btn-rotate" id="btnRotateNon" title="Xoay cạnh cắt" aria-label="Xoay cạnh cắt">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
-          </svg>
-        </button>
-      </div>
-
-      <div class="canvas-wrap" id="wrapNon">
-        <svg id="svgNon" viewBox="0 0 460 340">
-          <defs>
-            <pattern id="gridN" width="20" height="20" patternUnits="userSpaceOnUse">
-              <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
-            </pattern>
-          </defs>
-          <rect width="460" height="340" fill="url(#gridN)"/>
-
-          <polygon id="polyDEF" fill="rgba(225, 29, 72, 0.08)" stroke="#f43f5e" stroke-width="2.5"/>
-          <line id="basePulseNon" class="pulse-line pulse-non" />
-          <line id="linePQ" stroke="#fb7185" stroke-width="3" stroke-linecap="round"/>
-
-          <circle id="ptD" r="5" fill="#f43f5e"/>
-          <circle id="ptE" r="5" fill="#f43f5e"/>
-          <circle id="ptF" r="5" fill="#f43f5e"/>
-          <circle id="ptP" r="6" fill="#fb7185" stroke="#ffffff" stroke-width="1.5"/>
-          <circle id="ptQ" r="6" fill="#fb7185" stroke="#ffffff" stroke-width="1.5"/>
-
-          <text id="lblD" class="v-label" fill="#fda4af">D</text>
-          <text id="lblE" class="v-label" fill="#fda4af">E</text>
-          <text id="lblF" class="v-label" fill="#fda4af">F</text>
-          <text id="lblP" class="v-label" fill="#fecdd3">P</text>
-          <text id="lblQ" class="v-label" fill="#fecdd3">Q</text>
-
-          <g id="grpDP">
-            <rect id="bgDP" class="dim-bg" stroke="#f43f5e"/>
-            <text id="txtDP" class="dim-text" fill="#fda4af"></text>
-          </g>
-          <g id="grpPE">
-            <rect id="bgPE" class="dim-bg" stroke="#f43f5e"/>
-            <text id="txtPE" class="dim-text" fill="#fda4af"></text>
-          </g>
-          <g id="grpDQ">
-            <rect id="bgDQ" class="dim-bg" stroke="#f43f5e"/>
-            <text id="txtDQ" class="dim-text" fill="#fda4af"></text>
-          </g>
-          <g id="grpQF">
-            <rect id="bgQF" class="dim-bg" stroke="#f43f5e"/>
-            <text id="txtQF" class="dim-text" fill="#fda4af"></text>
-          </g>
-        </svg>
-      </div>
-
-      <div class="controls">
-        <div class="slider-row">
-          <input id="sliderPQ" class="non-slider" type="range" min="0.08" max="0.92" step="0.005" value="0.45">
-        </div>
-      </div>
-
-      <div class="math-panel">
-        <div class="formula-col">
-          <div class="formula-row ratio-panel" id="rowNon1">
-            <div class="side-tag side-non">
-              <span class="frac-block">
-                <span id="nameDP" class="num">DP</span>
-                <span id="nameDE" class="den">DE</span>
-              </span>
-              <span id="calcGroupNon1L">
-                &nbsp;=&nbsp;
-                <span class="frac-block">
-                  <span id="numDP" class="num">0.0</span>
-                  <span id="denDE" class="den">0.0</span>
-                </span>
-                <span id="eqRatioNon1L">&nbsp;=&nbsp;</span>
-                <span id="valRatioDP" class="math-font">0.00</span>
-              </span>
-              <span id="undefNon1L" class="undef-label" style="display:none;">&nbsp;không xác định</span>
-            </div>
-
-            <div class="side-tag side-non">
-              <span class="frac-block">
-                <span id="nameDQ" class="num">DQ</span>
-                <span id="nameDF" class="den">DF</span>
-              </span>
-              <span id="calcGroupNon1R">
-                &nbsp;=&nbsp;
-                <span class="frac-block">
-                  <span id="numDQ" class="num">0.0</span>
-                  <span id="denDF" class="den">0.0</span>
-                </span>
-                <span id="eqRatioNon1R">&nbsp;=&nbsp;</span>
-                <span id="valRatioDQ" class="math-font">0.00</span>
-              </span>
-              <span id="undefNon1R" class="undef-label" style="display:none;">&nbsp;không xác định</span>
-            </div>
-
-            <div class="condensed-formula">
-              <span class="frac-block">
-                <span class="cond-num-l num">DP</span>
-                <span class="cond-den-l den">DE</span>
-              </span>
-              <span class="cond-rel math-neq">&nbsp;≠&nbsp;</span>
-              <span class="frac-block">
-                <span class="cond-num-r num">DQ</span>
-                <span class="cond-den-r den">DF</span>
-              </span>
-            </div>
-          </div>
-
-          <div class="formula-row ratio-panel" id="rowNon2">
-            <div class="side-tag side-non">
-              <span class="frac-block">
-                <span id="nameDP2" class="num">DP</span>
-                <span id="namePE2" class="den">PE</span>
-              </span>
-              <span id="calcGroupNon2L">
-                &nbsp;=&nbsp;
-                <span class="frac-block">
-                  <span id="numDP2" class="num">0.0</span>
-                  <span id="denPE2" class="den">0.0</span>
-                </span>
-                <span id="eqRatioNon2L">&nbsp;=&nbsp;</span>
-                <span id="valRatioNon2L" class="math-font">0.00</span>
-              </span>
-              <span id="undefNon2L" class="undef-label" style="display:none;">&nbsp;không xác định</span>
-            </div>
-
-            <div class="side-tag side-non">
-              <span class="frac-block">
-                <span id="nameDQ2" class="num">DQ</span>
-                <span id="nameQF2" class="den">QF</span>
-              </span>
-              <span id="calcGroupNon2R">
-                &nbsp;=&nbsp;
-                <span class="frac-block">
-                  <span id="numDQ2" class="num">0.0</span>
-                  <span id="denQF2" class="den">0.0</span>
-                </span>
-                <span id="eqRatioNon2R">&nbsp;=&nbsp;</span>
-                <span id="valRatioNon2R" class="math-font">0.00</span>
-              </span>
-              <span id="undefNon2R" class="undef-label" style="display:none;">&nbsp;không xác định</span>
-            </div>
-
-            <div class="condensed-formula">
-              <span class="frac-block">
-                <span class="cond-num-l num">DP</span>
-                <span class="cond-den-l den">PE</span>
-              </span>
-              <span class="cond-rel math-neq">&nbsp;≠&nbsp;</span>
-              <span class="frac-block">
-                <span class="cond-num-r num">DQ</span>
-                <span class="cond-den-r den">QF</span>
-              </span>
-            </div>
-          </div>
-
-          <div class="formula-row ratio-panel" id="rowNon3">
-            <div class="side-tag side-non">
-              <span class="frac-block">
-                <span id="namePE3" class="num">PE</span>
-                <span id="nameDE3" class="den">DE</span>
-              </span>
-              <span id="calcGroupNon3L">
-                &nbsp;=&nbsp;
-                <span class="frac-block">
-                  <span id="numPE3" class="num">0.0</span>
-                  <span id="denDE3" class="den">0.0</span>
-                </span>
-                <span id="eqRatioNon3L">&nbsp;=&nbsp;</span>
-                <span id="valRatioNon3L" class="math-font">0.00</span>
-              </span>
-              <span id="undefNon3L" class="undef-label" style="display:none;">&nbsp;không xác định</span>
-            </div>
-
-            <div class="side-tag side-non">
-              <span class="frac-block">
-                <span id="nameQF3" class="num">QF</span>
-                <span id="nameDF3" class="den">DF</span>
-              </span>
-              <span id="calcGroupNon3R">
-                &nbsp;=&nbsp;
-                <span class="frac-block">
-                  <span id="numQF3" class="num">0.0</span>
-                  <span id="denDF3" class="den">0.0</span>
-                </span>
-                <span id="eqRatioNon3R">&nbsp;=&nbsp;</span>
-                <span id="valRatioNon3R" class="math-font">0.00</span>
-              </span>
-              <span id="undefNon3R" class="undef-label" style="display:none;">&nbsp;không xác định</span>
-            </div>
-
-            <div class="condensed-formula">
-              <span class="frac-block">
-                <span class="cond-num-l num">PE</span>
-                <span class="cond-den-l den">DE</span>
-              </span>
-              <span class="cond-rel math-neq">&nbsp;≠&nbsp;</span>
-              <span class="frac-block">
-                <span class="cond-num-r num">QF</span>
-                <span class="cond-den-r den">DF</span>
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
   </div>
 
-  <script>
-    const fixedPtsThales = [
-      { x: 190, y: 55 },
-      { x: 70, y: 300 },
-      { x: 395, y: 275 }
-    ];
-    const namesThales = ['A', 'B', 'C'];
-    let rotThales = 0;
-
-    const fixedPtsNon = [
-      { x: 175, y: 55 },
-      { x: 65, y: 305 },
-      { x: 405, y: 270 }
-    ];
-    const namesNon = ['D', 'E', 'F'];
-    let rotNon = 0;
-
-    let curThalesM = null, curThalesN = null;
-    let curNonP = null, curNonQ = null;
-    let animIdThales = null, animIdNon = null;
-
-    function dist(p1, p2) {
-      return Math.sqrt((p2.x - p1.x) ** 2 + (p2.y - p1.y) ** 2);
-    }
-
-    function lerp(p1, p2, t) {
-      return {
-        x: p1.x + (p2.x - p1.x) * t,
-        y: p1.y + (p2.y - p1.y) * t
-      };
-    }
-
-    function easeOutCubic(x) {
-      return 1 - Math.pow(1 - x, 3);
-    }
-
-    function intersectRaySegment(p, v, s1, s2) {
-      const dx = s2.x - s1.x;
-      const dy = s2.y - s1.y;
-      const denom = v.x * dy - v.y * dx;
-      if (Math.abs(denom) < 1e-9) return null;
-      const t = ((s1.x - p.x) * dy - (s1.y - p.y) * dx) / denom;
-      const u = ((s1.x - p.x) * v.y - (s1.y - p.y) * v.x) / denom;
-      return { t, u, pt: { x: p.x + t * v.x, y: p.y + t * v.y } };
-    }
-
-    function setTag(txtId, bgId, textVal, p1, p2, ox, oy) {
-      const txt = document.getElementById(txtId);
-      const bg = document.getElementById(bgId);
-      txt.textContent = textVal;
-      const mx = (p1.x + p2.x) / 2 + ox;
-      const my = (p1.y + p2.y) / 2 + oy;
-      txt.setAttribute('x', mx);
-      txt.setAttribute('y', my);
-      const b = txt.getBBox();
-      bg.setAttribute('x', b.x - 4);
-      bg.setAttribute('y', b.y - 2);
-      bg.setAttribute('width', b.width + 8);
-      bg.setAttribute('height', b.height + 4);
-    }
-
-    function triggerPulse(lineId, p1, p2, activeClass) {
-      const el = document.getElementById(lineId);
-      el.setAttribute('x1', p1.x);
-      el.setAttribute('y1', p1.y);
-      el.setAttribute('x2', p2.x);
-      el.setAttribute('y2', p2.y);
-      
-      el.classList.remove(activeClass);
-      
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          el.classList.add(activeClass);
-        });
-      });
-    }
-
-    function syncCondensedLabels() {
-      document.querySelectorAll('.ratio-panel').forEach(panel => {
-        const numL = panel.querySelector('.side-tag:first-child .num');
-        const denL = panel.querySelector('.side-tag:first-child .den');
-        const numR = panel.querySelector('.side-tag:nth-of-type(2) .num');
-        const denR = panel.querySelector('.side-tag:nth-of-type(2) .den');
-
-        const condNumL = panel.querySelector('.cond-num-l');
-        const condDenL = panel.querySelector('.cond-den-l');
-        const condNumR = panel.querySelector('.cond-num-r');
-        const condDenR = panel.querySelector('.cond-den-r');
-
-        if (condNumL && numL) condNumL.textContent = numL.textContent;
-        if (condDenL && denL) condDenL.textContent = denL.textContent;
-        if (condNumR && numR) condNumR.textContent = numR.textContent;
-        if (condDenR && denR) condDenR.textContent = denR.textContent;
-      });
-    }
-
-    function updateThalesLabels() {
-      const vTop = namesThales[rotThales];
-      const vL = namesThales[(rotThales + 1) % 3];
-      const vR = namesThales[(rotThales + 2) % 3];
-
-      document.getElementById('badgeThales').textContent = `MN // ${vL}${vR}`;
-
-      document.getElementById('nameAM').textContent = `${vTop}M`;
-      document.getElementById('nameAB').textContent = `${vTop}${vL}`;
-      document.getElementById('nameAN').textContent = `${vTop}N`;
-      document.getElementById('nameAC').textContent = `${vTop}${vR}`;
-
-      document.getElementById('nameAM2').textContent = `${vTop}M`;
-      document.getElementById('nameBM2').textContent = `M${vL}`;
-      document.getElementById('nameAN2').textContent = `${vTop}N`;
-      document.getElementById('nameCN2').textContent = `N${vR}`;
-
-      document.getElementById('nameBM3').textContent = `M${vL}`;
-      document.getElementById('nameAB3').textContent = `${vTop}${vL}`;
-      document.getElementById('nameCN3').textContent = `N${vR}`;
-      document.getElementById('nameAC3').textContent = `${vTop}${vR}`;
-
-      syncCondensedLabels();
-    }
-
-    function computeThalesTargets() {
-      const top = fixedPtsThales[rotThales];
-      const left = fixedPtsThales[(rotThales + 1) % 3];
-      const right = fixedPtsThales[(rotThales + 2) % 3];
-      const k = parseFloat(document.getElementById('sliderMN').value);
-      return {
-        top, left, right, k,
-        targetM: lerp(top, left, k),
-        targetN: lerp(top, right, k)
-      };
-    }
-
-    function applyRatioState(panelId, calcL, undefL, calcR, undefR, isUndefL, isUndefR, valL, valR, eqL, eqR, numL, denL, numR, denR, dNumL, dDenL, dNumR, dDenR) {
-      const panel = document.getElementById(panelId);
-      const isAnyUndef = isUndefL || isUndefR;
-
-      if (isAnyUndef) {
-        panel.classList.remove('is-condensed');
-        panel.classList.add('is-disabled-condense');
-      } else {
-        panel.classList.remove('is-disabled-condense');
-      }
-
-      if (isUndefL) {
-        calcL.style.display = 'none';
-        undefL.style.display = 'inline';
-      } else {
-        calcL.style.display = 'inline';
-        undefL.style.display = 'none';
-        numL.textContent = dNumL;
-        denL.textContent = dDenL;
-        valL.textContent = (parseFloat(dNumL) / parseFloat(dDenL)).toFixed(2);
-        eqL.style.display = '';
-      }
-
-      if (isUndefR) {
-        calcR.style.display = 'none';
-        undefR.style.display = 'inline';
-      } else {
-        calcR.style.display = 'inline';
-        undefR.style.display = 'none';
-        numR.textContent = dNumR;
-        denR.textContent = dDenR;
-        valR.textContent = (parseFloat(dNumR) / parseFloat(dDenR)).toFixed(2);
-        eqR.style.display = '';
-      }
-    }
-
-    function renderThalesGeometry(M, N, top, left, right, k) {
-      curThalesM = M;
-      curThalesN = N;
-
-      document.getElementById('polyABC').setAttribute(
-        'points', 
-        `${fixedPtsThales[0].x},${fixedPtsThales[0].y} ${fixedPtsThales[1].x},${fixedPtsThales[1].y} ${fixedPtsThales[2].x},${fixedPtsThales[2].y}`
-      );
-
-      const lineMN = document.getElementById('lineMN');
-      lineMN.setAttribute('x1', M.x);
-      lineMN.setAttribute('y1', M.y);
-      lineMN.setAttribute('x2', N.x);
-      lineMN.setAttribute('y2', N.y);
-
-      function setPt(id, p) {
-        const el = document.getElementById(id);
-        el.setAttribute('cx', p.x);
-        el.setAttribute('cy', p.y);
-      }
-      setPt('ptA', fixedPtsThales[0]);
-      setPt('ptB', fixedPtsThales[1]);
-      setPt('ptC', fixedPtsThales[2]);
-      setPt('ptM', M);
-      setPt('ptN', N);
-
-      function setPos(id, p, dx, dy, text) {
-        const el = document.getElementById(id);
-        el.setAttribute('x', p.x + dx);
-        el.setAttribute('y', p.y + dy);
-        if (text) el.textContent = text;
-      }
-      setPos('lblA', fixedPtsThales[0], -4, -14, 'A');
-      setPos('lblB', fixedPtsThales[1], -16, 14, 'B');
-      setPos('lblC', fixedPtsThales[2], 14, 12, 'C');
-      setPos('lblM', M, -18, -4);
-      setPos('lblN', N, 16, -4);
-
-      const dAB_raw = dist(top, left) / 25;
-      const dAC_raw = dist(top, right) / 25;
-
-      const dAM_raw = dAB_raw * k;
-      const dMB_raw = dAB_raw * (1 - k);
-      const dAN_raw = dAC_raw * k;
-      const dNC_raw = dAC_raw * (1 - k);
-
-      const dAM = dAM_raw.toFixed(1);
-      const dMB = dMB_raw.toFixed(1);
-      const dAN = dAN_raw.toFixed(1);
-      const dNC = dNC_raw.toFixed(1);
-      const dAB = dAB_raw.toFixed(1);
-      const dAC = dAC_raw.toFixed(1);
-
-      setTag('txtAM', 'bgAM', dAM, top, M, -18, 0);
-      setTag('txtMB', 'bgMB', dMB, M, left, -18, 0);
-      setTag('txtAN', 'bgAN', dAN, top, N, 18, 0);
-      setTag('txtNC', 'bgNC', dNC, N, right, 18, 0);
-
-      applyRatioState(
-        'rowThales1',
-        document.getElementById('calcGroup1L'),
-        document.getElementById('undef1L'),
-        document.getElementById('calcGroup1R'),
-        document.getElementById('undef1R'),
-        parseFloat(dAB) === 0,
-        parseFloat(dAC) === 0,
-        document.getElementById('valRatioL'),
-        document.getElementById('valRatioR'),
-        document.getElementById('eqRatio1L'),
-        document.getElementById('eqRatio1R'),
-        document.getElementById('numAM'),
-        document.getElementById('denAB'),
-        document.getElementById('numAN'),
-        document.getElementById('denAC'),
-        dAM, dAB, dAN, dAC
-      );
-
-      applyRatioState(
-        'rowThales2',
-        document.getElementById('calcGroup2L'),
-        document.getElementById('undef2L'),
-        document.getElementById('calcGroup2R'),
-        document.getElementById('undef2R'),
-        parseFloat(dMB) === 0,
-        parseFloat(dNC) === 0,
-        document.getElementById('valRatio2L'),
-        document.getElementById('valRatio2R'),
-        document.getElementById('eqRatio2L'),
-        document.getElementById('eqRatio2R'),
-        document.getElementById('numAM2'),
-        document.getElementById('denBM2'),
-        document.getElementById('numAN2'),
-        document.getElementById('denCN2'),
-        dAM, dMB, dAN, dNC
-      );
-
-      applyRatioState(
-        'rowThales3',
-        document.getElementById('calcGroup3L'),
-        document.getElementById('undef3L'),
-        document.getElementById('calcGroup3R'),
-        document.getElementById('undef3R'),
-        parseFloat(dAB) === 0,
-        parseFloat(dAC) === 0,
-        document.getElementById('valRatio3L'),
-        document.getElementById('valRatio3R'),
-        document.getElementById('eqRatio3L'),
-        document.getElementById('eqRatio3R'),
-        document.getElementById('numBM3'),
-        document.getElementById('denAB3'),
-        document.getElementById('numCN3'),
-        document.getElementById('denAC3'),
-        dMB, dAB, dNC, dAC
-      );
-    }
-
-    function updateThales() {
-      if (animIdThales) cancelAnimationFrame(animIdThales);
-      updateThalesLabels();
-      const { top, left, right, k, targetM, targetN } = computeThalesTargets();
-      renderThalesGeometry(targetM, targetN, top, left, right, k);
-    }
-
-    function animateThalesRotate() {
-      if (animIdThales) cancelAnimationFrame(animIdThales);
-      updateThalesLabels();
-      const { top, left, right, k, targetM, targetN } = computeThalesTargets();
-
-      triggerPulse('basePulseThales', left, right, 'pulse-active');
-
-      const startM = curThalesM ? { ...curThalesM } : targetM;
-      const startN = curThalesN ? { ...curThalesN } : targetN;
-      const startTime = performance.now();
-      const duration = 360;
-
-      function frame(now) {
-        const elapsed = now - startTime;
-        const progress = Math.min(1, elapsed / duration);
-        const ease = easeOutCubic(progress);
-
-        const currentM = lerp(startM, targetM, ease);
-        const currentN = lerp(startN, targetN, ease);
-        renderThalesGeometry(currentM, currentN, top, left, right, k);
-
-        if (progress < 1) {
-          animIdThales = requestAnimationFrame(frame);
-        } else {
-          animIdThales = null;
-        }
-      }
-      animIdThales = requestAnimationFrame(frame);
-    }
-
-    function updateNonLabels() {
-      const vTop = namesNon[rotNon];
-      const vL = namesNon[(rotNon + 1) % 3];
-      const vR = namesNon[(rotNon + 2) % 3];
-
-      document.getElementById('badgeNon').textContent = `PQ ∦ ${vL}${vR}`;
-
-      document.getElementById('nameDP').textContent = `${vTop}P`;
-      document.getElementById('nameDE').textContent = `${vTop}${vL}`;
-      document.getElementById('nameDQ').textContent = `${vTop}Q`;
-      document.getElementById('nameDF').textContent = `${vTop}${vR}`;
-
-      document.getElementById('nameDP2').textContent = `${vTop}P`;
-      document.getElementById('namePE2').textContent = `P${vL}`;
-      document.getElementById('nameDQ2').textContent = `${vTop}Q`;
-      document.getElementById('nameQF2').textContent = `Q${vR}`;
-
-      document.getElementById('namePE3').textContent = `P${vL}`;
-      document.getElementById('nameDE3').textContent = `${vTop}${vL}`;
-      document.getElementById('nameQF3').textContent = `Q${vR}`;
-      document.getElementById('nameDF3').textContent = `${vTop}${vR}`;
-
-      syncCondensedLabels();
-    }
-
-    function computeNonTargets() {
-      const top = fixedPtsNon[rotNon];
-      const left = fixedPtsNon[(rotNon + 1) % 3];
-      const right = fixedPtsNon[(rotNon + 2) % 3];
-
-      const efAngle = Math.atan2(right.y - left.y, right.x - left.x);
-      const fixedAnglePQ = efAngle - (18 * Math.PI / 180);
-      const dirPQ = { x: Math.cos(fixedAnglePQ), y: Math.sin(fixedAnglePQ) };
-
-      const kP = parseFloat(document.getElementById('sliderPQ').value);
-      const targetP = lerp(top, left, kP);
-      const res = intersectRaySegment(targetP, dirPQ, top, right);
-
-      let targetQ;
-      if (res && res.u >= 0 && res.u <= 1) {
-        targetQ = res.pt;
-      } else {
-        targetQ = lerp(top, right, Math.min(1, Math.max(0, kP * 0.75 + 0.1)));
-      }
-      return { top, left, right, kP, targetP, targetQ };
-    }
-
-    function renderNonGeometry(P, Q, top, left, right) {
-      curNonP = P;
-      curNonQ = Q;
-
-      document.getElementById('polyDEF').setAttribute(
-        'points', 
-        `${fixedPtsNon[0].x},${fixedPtsNon[0].y} ${fixedPtsNon[1].x},${fixedPtsNon[1].y} ${fixedPtsNon[2].x},${fixedPtsNon[2].y}`
-      );
-
-      const linePQ = document.getElementById('linePQ');
-      linePQ.setAttribute('x1', P.x);
-      linePQ.setAttribute('y1', P.y);
-      linePQ.setAttribute('x2', Q.x);
-      linePQ.setAttribute('y2', Q.y);
-
-      function setPt(id, p) {
-        const el = document.getElementById(id);
-        el.setAttribute('cx', p.x);
-        el.setAttribute('cy', p.y);
-      }
-      setPt('ptD', fixedPtsNon[0]);
-      setPt('ptE', fixedPtsNon[1]);
-      setPt('ptF', fixedPtsNon[2]);
-      setPt('ptP', P);
-      setPt('ptQ', Q);
-
-      function setPos(id, p, dx, dy, text) {
-        const el = document.getElementById(id);
-        el.setAttribute('x', p.x + dx);
-        el.setAttribute('y', p.y + dy);
-        if (text) el.textContent = text;
-      }
-      setPos('lblD', fixedPtsNon[0], -4, -14, 'D');
-      setPos('lblE', fixedPtsNon[1], -16, 14, 'E');
-      setPos('lblF', fixedPtsNon[2], 14, 12, 'F');
-      setPos('lblP', P, -18, -4);
-      setPos('lblQ', Q, 16, -4);
-
-      const dDP_raw = dist(top, P) / 25;
-      const dPE_raw = dist(P, left) / 25;
-      const dDQ_raw = dist(top, Q) / 25;
-      const dQF_raw = dist(Q, right) / 25;
-      const dDE_raw = dist(top, left) / 25;
-      const dDF_raw = dist(top, right) / 25;
-
-      const dDP = dDP_raw.toFixed(1);
-      const dPE = dPE_raw.toFixed(1);
-      const dDQ = dDQ_raw.toFixed(1);
-      const dQF = dQF_raw.toFixed(1);
-      const dDE = dDE_raw.toFixed(1);
-      const dDF = dDF_raw.toFixed(1);
-
-      setTag('txtDP', 'bgDP', dDP, top, P, -18, 0);
-      setTag('txtPE', 'bgPE', dPE, P, left, -18, 0);
-      setTag('txtDQ', 'bgDQ', dDQ, top, Q, 18, 0);
-      setTag('txtQF', 'bgQF', dQF, Q, right, 18, 0);
-
-      applyRatioState(
-        'rowNon1',
-        document.getElementById('calcGroupNon1L'),
-        document.getElementById('undefNon1L'),
-        document.getElementById('calcGroupNon1R'),
-        document.getElementById('undefNon1R'),
-        parseFloat(dDE) === 0,
-        parseFloat(dDF) === 0,
-        document.getElementById('valRatioDP'),
-        document.getElementById('valRatioDQ'),
-        document.getElementById('eqRatioNon1L'),
-        document.getElementById('eqRatioNon1R'),
-        document.getElementById('numDP'),
-        document.getElementById('denDE'),
-        document.getElementById('numDQ'),
-        document.getElementById('denDF'),
-        dDP, dDE, dDQ, dDF
-      );
-
-      applyRatioState(
-        'rowNon2',
-        document.getElementById('calcGroupNon2L'),
-        document.getElementById('undefNon2L'),
-        document.getElementById('calcGroupNon2R'),
-        document.getElementById('undefNon2R'),
-        parseFloat(dPE) === 0,
-        parseFloat(dQF) === 0,
-        document.getElementById('valRatioNon2L'),
-        document.getElementById('valRatioNon2R'),
-        document.getElementById('eqRatioNon2L'),
-        document.getElementById('eqRatioNon2R'),
-        document.getElementById('numDP2'),
-        document.getElementById('denPE2'),
-        document.getElementById('numDQ2'),
-        document.getElementById('denQF2'),
-        dDP, dPE, dDQ, dQF
-      );
-
-      applyRatioState(
-        'rowNon3',
-        document.getElementById('calcGroupNon3L'),
-        document.getElementById('undefNon3L'),
-        document.getElementById('calcGroupNon3R'),
-        document.getElementById('undefNon3R'),
-        parseFloat(dDE) === 0,
-        parseFloat(dDF) === 0,
-        document.getElementById('valRatioNon3L'),
-        document.getElementById('valRatioNon3R'),
-        document.getElementById('eqRatioNon3L'),
-        document.getElementById('eqRatioNon3R'),
-        document.getElementById('numPE3'),
-        document.getElementById('denDE3'),
-        document.getElementById('numQF3'),
-        document.getElementById('denDF3'),
-        dPE, dDE, dQF, dDF
-      );
-    }
-
-    function updateNon() {
-      if (animIdNon) cancelAnimationFrame(animIdNon);
-      updateNonLabels();
-      const { top, left, right, targetP, targetQ } = computeNonTargets();
-      renderNonGeometry(targetP, targetQ, top, left, right);
-    }
-
-    function animateNonRotate() {
-      if (animIdNon) cancelAnimationFrame(animIdNon);
-      updateNonLabels();
-      const { top, left, right, targetP, targetQ } = computeNonTargets();
-
-      triggerPulse('basePulseNon', left, right, 'pulse-active');
-
-      const startP = curNonP ? { ...curNonP } : targetP;
-      const startQ = curNonQ ? { ...curNonQ } : targetQ;
-      const startTime = performance.now();
-      const duration = 360;
-
-      function frame(now) {
-        const elapsed = now - startTime;
-        const progress = Math.min(1, elapsed / duration);
-        const ease = easeOutCubic(progress);
-
-        const currentP = lerp(startP, targetP, ease);
-        const currentQ = lerp(startQ, targetQ, ease);
-        renderNonGeometry(currentP, currentQ, top, left, right);
-
-        if (progress < 1) {
-          animIdNon = requestAnimationFrame(frame);
-        } else {
-          animIdNon = null;
-        }
-      }
-      animIdNon = requestAnimationFrame(frame);
-    }
-
-    function setupPanelDrag(wrapId, svgId, sliderId, getTopY, getBottomY, callback) {
-      const wrap = document.getElementById(wrapId);
-      const svg = document.getElementById(svgId);
-      const slider = document.getElementById(sliderId);
-      let isDragging = false;
-      let startRatio = 0;
-      let startMouseRatio = 0;
-
-      function getSvgY(e) {
-        const pt = svg.createSVGPoint();
-        const clientY = e.touches ? e.touches[0].clientY : e.clientX !== undefined ? e.clientY : 0;
-        pt.x = 0;
-        pt.y = clientY;
-        return pt.matrixTransform(svg.getScreenCTM().inverse()).y;
-      }
-
-      function handleStart(e) {
-        isDragging = true;
-        const curY = getSvgY(e);
-        const topY = getTopY();
-        const bottomY = getBottomY();
-        startMouseRatio = (curY - topY) / (bottomY - topY);
-        startRatio = parseFloat(slider.value);
-        if (e.cancelable) e.preventDefault();
-      }
-
-      function handleMove(e) {
-        if (!isDragging) return;
-        const curY = getSvgY(e);
-        const topY = getTopY();
-        const bottomY = getBottomY();
-        const currentMouseRatio = (curY - topY) / (bottomY - topY);
-        const delta = currentMouseRatio - startMouseRatio;
-        
-        let ratio = startRatio + delta;
-        const minVal = parseFloat(slider.min);
-        const maxVal = parseFloat(slider.max);
-        ratio = Math.max(minVal, Math.min(maxVal, ratio));
-        
-        slider.value = ratio;
-        callback();
-        if (e.cancelable) e.preventDefault();
-      }
-
-      function handleEnd() {
-        isDragging = false;
-      }
-
-      wrap.addEventListener('mousedown', handleStart);
-      wrap.addEventListener('touchstart', handleStart, { passive: false });
-
-      window.addEventListener('mousemove', handleMove);
-      window.addEventListener('touchmove', handleMove, { passive: false });
-
-      window.addEventListener('mouseup', handleEnd);
-      window.addEventListener('touchend', handleEnd);
-    }
-
-    function setupLongPressPanels() {
-      const HOLD_DURATION = 750;
-      const panels = document.querySelectorAll('.ratio-panel');
-
-      panels.forEach(panel => {
-        let pressTimer = null;
-        let rippleEl = null;
-
-        function startPress(e) {
-          if (panel.classList.contains('is-disabled-condense')) return;
-          if (e.target.closest('input') || e.target.closest('button')) return;
-
-          panel.classList.add('is-pressing');
-
-          const rect = panel.getBoundingClientRect();
-          const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-          const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-          const x = clientX - rect.left;
-          const y = clientY - rect.top;
-
-          const maxRadius = Math.hypot(
-            Math.max(x, rect.width - x),
-            Math.max(y, rect.height - y)
-          );
-
-          if (rippleEl) rippleEl.remove();
-
-          rippleEl = document.createElement('div');
-          rippleEl.className = 'ripple-glow';
-          rippleEl.style.left = `${x}px`;
-          rippleEl.style.top = `${y}px`;
-          rippleEl.style.width = `${maxRadius * 2.4}px`;
-          rippleEl.style.height = `${maxRadius * 2.4}px`;
-          panel.appendChild(rippleEl);
-
-          requestAnimationFrame(() => {
-            if (rippleEl) {
-              rippleEl.style.transform = 'translate(-50%, -50%) scale(1)';
-            }
-          });
-
-          pressTimer = setTimeout(() => {
-            panel.classList.remove('is-pressing');
-            if (!panel.classList.contains('is-disabled-condense')) {
-              panel.classList.toggle('is-condensed');
-
-              panel.classList.remove('flash-burst');
-              requestAnimationFrame(() => {
-                panel.classList.add('flash-burst');
-              });
-
-              if (navigator.vibrate) {
-                navigator.vibrate([40, 30, 60]);
-              }
-            }
-            cancelPress();
-          }, HOLD_DURATION);
-        }
-
-        function cancelPress() {
-          panel.classList.remove('is-pressing');
-          if (pressTimer) {
-            clearTimeout(pressTimer);
-            pressTimer = null;
-          }
-          if (rippleEl) {
-            const curRipple = rippleEl;
-            rippleEl = null;
-            curRipple.style.opacity = '0';
-            curRipple.style.transform = 'translate(-50%, -50%) scale(1.3)';
-            setTimeout(() => curRipple.remove(), 400);
-          }
-        }
-
-        panel.addEventListener('mousedown', startPress);
-        panel.addEventListener('touchstart', startPress, { passive: true });
-
-        window.addEventListener('mouseup', cancelPress);
-        window.addEventListener('touchend', cancelPress);
-        window.addEventListener('touchcancel', cancelPress);
-      });
-    }
-
-    document.getElementById('sliderMN').addEventListener('input', updateThales);
-    document.getElementById('sliderPQ').addEventListener('input', updateNon);
-
-    document.getElementById('btnRotateThales').addEventListener('click', () => {
-      rotThales = (rotThales + 1) % 3;
-      animateThalesRotate();
-    });
-
-    document.getElementById('btnRotateNon').addEventListener('click', () => {
-      rotNon = (rotNon + 1) % 3;
-      animateNonRotate();
-    });
-
-    setupPanelDrag(
-      'wrapThales', 
-      'svgThales', 
-      'sliderMN', 
-      () => fixedPtsThales[rotThales].y, 
-      () => (fixedPtsThales[(rotThales + 1) % 3].y + fixedPtsThales[(rotThales + 2) % 3].y) / 2, 
-      updateThales
-    );
-
-    setupPanelDrag(
-      'wrapNon', 
-      'svgNon', 
-      'sliderPQ', 
-      () => fixedPtsNon[rotNon].y, 
-      () => (fixedPtsNon[(rotNon + 1) % 3].y + fixedPtsNon[(rotNon + 2) % 3].y) / 2, 
-      updateNon
-    );
-
-    window.addEventListener('DOMContentLoaded', () => {
-      setupLongPressPanels();
-      updateThales();
-      updateNon();
-    });
-  </script>
 </body>
 </html>
