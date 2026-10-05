@@ -113,16 +113,6 @@ function computeThalesTargets() {
 }
 
 function applyRatioState(panelId, calcL, undefL, calcR, undefR, isUndefL, isUndefR, valL, valR, eqL, eqR, numL, denL, numR, denR, dNumL, dDenL, dNumR, dDenR, trueRatio) {
-  const panel = document.getElementById(panelId);
-  const isAnyUndef = isUndefL || isUndefR;
-
-  if (isAnyUndef) {
-    panel.classList.remove('is-condensed');
-    panel.classList.add('is-disabled-condense');
-  } else {
-    panel.classList.remove('is-disabled-condense');
-  }
-
   const formattedVal = (trueRatio !== null && !isNaN(trueRatio)) ? trueRatio.toFixed(2) : '0.00';
 
   if (isUndefL) {
@@ -174,7 +164,6 @@ function renderThalesGeometry(M, N, top, left, right, k) {
   setPt('ptB', fixedPtsThales[1]);
   setPt('ptC', fixedPtsThales[2]);
   
-  // Cập nhật vị trí của cả hitbox vô hình tương ứng cho A, B, C
   setPt('hitA', fixedPtsThales[0]);
   setPt('hitB', fixedPtsThales[1]);
   setPt('hitC', fixedPtsThales[2]);
@@ -341,7 +330,7 @@ function updateThemeColors() {
 
     ptsABC.forEach(pt => {
       pt.setAttribute('fill', '#ea580c');
-      pt.setAttribute('r', '8'); // Phóng to nhẹ đỉnh khi ở chế độ chỉnh ABC
+      pt.setAttribute('r', '8');
     });
     ptsMN.forEach(pt => pt.setAttribute('fill', '#3b82f6'));
 
@@ -448,7 +437,6 @@ function setupNormalVectorDrag(wrapId, svgId, sliderId, callback) {
   window.addEventListener('touchend', handleEnd);
 }
 
-// Bắt sự kiện kéo đỉnh thông qua các Hitbox vô hình rộng 44px
 function setupVertexDragging(svgId, callback) {
   const svg = document.getElementById(svgId);
   let draggingVertexIdx = -1;
@@ -503,40 +491,6 @@ function setupVertexDragging(svgId, callback) {
   window.addEventListener('touchend', onVertexEnd);
 }
 
-function setupLongPressPanels() {
-  const HOLD_DURATION = 750;
-  const panels = document.querySelectorAll('.ratio-panel');
-
-  panels.forEach(panel => {
-    let pressTimer = null;
-
-    function startPress(e) {
-      if (panel.classList.contains('is-disabled-condense')) return;
-      if (e.target.closest('input') || e.target.closest('button')) return;
-
-      pressTimer = setTimeout(() => {
-        panel.classList.toggle('is-condensed');
-        if (navigator.vibrate) {
-          navigator.vibrate([40, 30, 60]);
-        }
-      }, HOLD_DURATION);
-    }
-
-    function cancelPress() {
-      if (pressTimer) {
-        clearTimeout(pressTimer);
-        pressTimer = null;
-      }
-    }
-
-    panel.addEventListener('mousedown', startPress);
-    panel.addEventListener('touchstart', startPress, { passive: true });
-
-    window.addEventListener('mouseup', cancelPress);
-    window.addEventListener('touchend', cancelPress);
-  });
-}
-
 document.getElementById('sliderMN').addEventListener('input', updateThales);
 
 document.getElementById('btnRotateThales').addEventListener('click', () => {
@@ -549,7 +503,6 @@ setupNormalVectorDrag('wrapThales', 'svgThales', 'sliderMN', updateThales);
 setupVertexDragging('svgThales', updateThales);
 
 window.addEventListener('DOMContentLoaded', () => {
-  setupLongPressPanels();
   updateThemeColors();
   updateThales();
 });

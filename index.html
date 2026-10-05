@@ -72,7 +72,7 @@
           </div>
         </div>
 
-        <!-- Cột 2 (Phải): Tiêu đề + Bảng công thức -->
+        <!-- Cột 2 (Phải): Tiêu đề + Bảng tỉ số cố định công thức -->
         <div class="math-panel">
           <div class="header-box">
             <div class="header-titles">
@@ -89,48 +89,51 @@
           </div>
 
           <div class="formula-col">
-            <!-- Hàng 1 -->
+            <!-- Thẻ tỉ số 1 -->
             <div class="formula-row ratio-panel" id="rowThales1">
-              <div class="side-tag side-thales">
-                <span class="frac-block">
-                  <span id="nameAM" class="num">AM</span>
-                  <span id="nameAB" class="den">AB</span>
-                </span>
-                <span id="calcGroup1L">
-                  &nbsp;=&nbsp;
+              <div class="values-row">
+                <div class="side-tag side-thales">
                   <span class="frac-block">
-                    <span id="numAM" class="num">0.0</span>
-                    <span id="denAB" class="den">0.0</span>
+                    <span id="nameAM" class="num">AM</span>
+                    <span id="nameAB" class="den">AB</span>
                   </span>
-                  <span id="eqRatio1L">&nbsp;=&nbsp;</span>
-                  <span id="valRatioL" class="math-font">0.00</span>
-                </span>
-                <span id="undef1L" class="undef-label" style="display:none;">&nbsp;không xác định</span>
+                  <span id="calcGroup1L">
+                    &nbsp;=&nbsp;
+                    <span class="frac-block">
+                      <span id="numAM" class="num">0.0</span>
+                      <span id="denAB" class="den">0.0</span>
+                    </span>
+                    <span id="eqRatio1L">&nbsp;=&nbsp;</span>
+                    <span id="valRatioL" class="math-font">0.00</span>
+                  </span>
+                  <span id="undef1L" class="undef-label" style="display:none;">&nbsp;không xác định</span>
+                </div>
+
+                <div class="side-tag side-thales">
+                  <span class="frac-block">
+                    <span id="nameAN" class="num">AN</span>
+                    <span id="nameAC" class="den">AC</span>
+                  </span>
+                  <span id="calcGroup1R">
+                    &nbsp;=&nbsp;
+                    <span class="frac-block">
+                      <span id="numAN" class="num">0.0</span>
+                      <span id="denAC" class="den">0.0</span>
+                    </span>
+                    <span id="eqRatio1R">&nbsp;=&nbsp;</span>
+                    <span id="valRatioR" class="math-font">0.00</span>
+                  </span>
+                  <span id="undef1R" class="undef-label" style="display:none;">&nbsp;không xác định</span>
+                </div>
               </div>
 
-              <div class="side-tag side-thales">
-                <span class="frac-block">
-                  <span id="nameAN" class="num">AN</span>
-                  <span id="nameAC" class="den">AC</span>
-                </span>
-                <span id="calcGroup1R">
-                  &nbsp;=&nbsp;
-                  <span class="frac-block">
-                    <span id="numAN" class="num">0.0</span>
-                    <span id="denAC" class="den">0.0</span>
-                  </span>
-                  <span id="eqRatio1R">&nbsp;=&nbsp;</span>
-                  <span id="valRatioR" class="math-font">0.00</span>
-                </span>
-                <span id="undef1R" class="undef-label" style="display:none;">&nbsp;không xác định</span>
-              </div>
-
-              <div class="condensed-formula">
+              <!-- Công thức tỉ số bằng nhau cố định bên dưới -->
+              <div class="summary-formula">
                 <span class="frac-block">
                   <span class="cond-num-l num">AM</span>
                   <span class="cond-den-l den">AB</span>
                 </span>
-                <span class="cond-rel math-eq">&nbsp;=&nbsp;</span>
+                <span class="summary-eq">&nbsp;=&nbsp;</span>
                 <span class="frac-block">
                   <span class="cond-num-r num">AN</span>
                   <span class="cond-den-r den">AC</span>
@@ -138,48 +141,51 @@
               </div>
             </div>
 
-            <!-- Hàng 2 -->
+            <!-- Thẻ tỉ số 2 -->
             <div class="formula-row ratio-panel" id="rowThales2">
-              <div class="side-tag side-thales">
-                <span class="frac-block">
-                  <span id="nameAM2" class="num">AM</span>
-                  <span id="nameBM2" class="den">BM</span>
-                </span>
-                <span id="calcGroup2L">
-                  &nbsp;=&nbsp;
+              <div class="values-row">
+                <div class="side-tag side-thales">
                   <span class="frac-block">
-                    <span id="numAM2" class="num">0.0</span>
-                    <span id="denBM2" class="den">0.0</span>
+                    <span id="nameAM2" class="num">AM</span>
+                    <span id="nameBM2" class="den">BM</span>
                   </span>
-                  <span id="eqRatio2L">&nbsp;=&nbsp;</span>
-                  <span id="valRatio2L" class="math-font">0.00</span>
-                </span>
-                <span id="undef2L" class="undef-label" style="display:none;">&nbsp;không xác định</span>
+                  <span id="calcGroup2L">
+                    &nbsp;=&nbsp;
+                    <span class="frac-block">
+                      <span id="numAM2" class="num">0.0</span>
+                      <span id="denBM2" class="den">0.0</span>
+                    </span>
+                    <span id="eqRatio2L">&nbsp;=&nbsp;</span>
+                    <span id="valRatio2L" class="math-font">0.00</span>
+                  </span>
+                  <span id="undef2L" class="undef-label" style="display:none;">&nbsp;không xác định</span>
+                </div>
+
+                <div class="side-tag side-thales">
+                  <span class="frac-block">
+                    <span id="nameAN2" class="num">AN</span>
+                    <span id="nameCN2" class="den">CN</span>
+                  </span>
+                  <span id="calcGroup2R">
+                    &nbsp;=&nbsp;
+                    <span class="frac-block">
+                      <span id="numAN2" class="num">0.0</span>
+                      <span id="denCN2" class="den">0.0</span>
+                    </span>
+                    <span id="eqRatio2R">&nbsp;=&nbsp;</span>
+                    <span id="valRatio2R" class="math-font">0.00</span>
+                  </span>
+                  <span id="undef2R" class="undef-label" style="display:none;">&nbsp;không xác định</span>
+                </div>
               </div>
 
-              <div class="side-tag side-thales">
-                <span class="frac-block">
-                  <span id="nameAN2" class="num">AN</span>
-                  <span id="nameCN2" class="den">CN</span>
-                </span>
-                <span id="calcGroup2R">
-                  &nbsp;=&nbsp;
-                  <span class="frac-block">
-                    <span id="numAN2" class="num">0.0</span>
-                    <span id="denCN2" class="den">0.0</span>
-                  </span>
-                  <span id="eqRatio2R">&nbsp;=&nbsp;</span>
-                  <span id="valRatio2R" class="math-font">0.00</span>
-                </span>
-                <span id="undef2R" class="undef-label" style="display:none;">&nbsp;không xác định</span>
-              </div>
-
-              <div class="condensed-formula">
+              <!-- Công thức tỉ số bằng nhau cố định bên dưới -->
+              <div class="summary-formula">
                 <span class="frac-block">
                   <span class="cond-num-l num">AM</span>
                   <span class="cond-den-l den">BM</span>
                 </span>
-                <span class="cond-rel math-eq">&nbsp;=&nbsp;</span>
+                <span class="summary-eq">&nbsp;=&nbsp;</span>
                 <span class="frac-block">
                   <span class="cond-num-r num">AN</span>
                   <span class="cond-den-r den">CN</span>
@@ -187,48 +193,51 @@
               </div>
             </div>
 
-            <!-- Hàng 3 -->
+            <!-- Thẻ tỉ số 3 -->
             <div class="formula-row ratio-panel" id="rowThales3">
-              <div class="side-tag side-thales">
-                <span class="frac-block">
-                  <span id="nameBM3" class="num">BM</span>
-                  <span id="nameAB3" class="den">AB</span>
-                </span>
-                <span id="calcGroup3L">
-                  &nbsp;=&nbsp;
+              <div class="values-row">
+                <div class="side-tag side-thales">
                   <span class="frac-block">
-                    <span id="numBM3" class="num">0.0</span>
-                    <span id="denAB3" class="den">0.0</span>
+                    <span id="nameBM3" class="num">BM</span>
+                    <span id="nameAB3" class="den">AB</span>
                   </span>
-                  <span id="eqRatio3L">&nbsp;=&nbsp;</span>
-                  <span id="valRatio3L" class="math-font">0.00</span>
-                </span>
-                <span id="undef3L" class="undef-label" style="display:none;">&nbsp;không xác định</span>
+                  <span id="calcGroup3L">
+                    &nbsp;=&nbsp;
+                    <span class="frac-block">
+                      <span id="numBM3" class="num">0.0</span>
+                      <span id="denAB3" class="den">0.0</span>
+                    </span>
+                    <span id="eqRatio3L">&nbsp;=&nbsp;</span>
+                    <span id="valRatio3L" class="math-font">0.00</span>
+                  </span>
+                  <span id="undef3L" class="undef-label" style="display:none;">&nbsp;không xác định</span>
+                </div>
+
+                <div class="side-tag side-thales">
+                  <span class="frac-block">
+                    <span id="nameCN3" class="num">CN</span>
+                    <span id="nameAC3" class="den">AC</span>
+                  </span>
+                  <span id="calcGroup3R">
+                    &nbsp;=&nbsp;
+                    <span class="frac-block">
+                      <span id="numCN3" class="num">0.0</span>
+                      <span id="denAC3" class="den">0.0</span>
+                    </span>
+                    <span id="eqRatio3R">&nbsp;=&nbsp;</span>
+                    <span id="valRatio3R" class="math-font">0.00</span>
+                  </span>
+                  <span id="undef3R" class="undef-label" style="display:none;">&nbsp;không xác định</span>
+                </div>
               </div>
 
-              <div class="side-tag side-thales">
-                <span class="frac-block">
-                  <span id="nameCN3" class="num">CN</span>
-                  <span id="nameAC3" class="den">AC</span>
-                </span>
-                <span id="calcGroup3R">
-                  &nbsp;=&nbsp;
-                  <span class="frac-block">
-                    <span id="numCN3" class="num">0.0</span>
-                    <span id="denAC3" class="den">0.0</span>
-                  </span>
-                  <span id="eqRatio3R">&nbsp;=&nbsp;</span>
-                  <span id="valRatio3R" class="math-font">0.00</span>
-                </span>
-                <span id="undef3R" class="undef-label" style="display:none;">&nbsp;không xác định</span>
-              </div>
-
-              <div class="condensed-formula">
+              <!-- Công thức tỉ số bằng nhau cố định bên dưới -->
+              <div class="summary-formula">
                 <span class="frac-block">
                   <span class="cond-num-l num">BM</span>
                   <span class="cond-den-l den">AB</span>
                 </span>
-                <span class="cond-rel math-eq">&nbsp;=&nbsp;</span>
+                <span class="summary-eq">&nbsp;=&nbsp;</span>
                 <span class="frac-block">
                   <span class="cond-num-r num">CN</span>
                   <span class="cond-den-r den">AC</span>
@@ -240,7 +249,6 @@
 
       </div>
 
-      <!-- Thanh kéo toàn chiều rộng bao trùm cả 2 tab + Nút chế độ nằm góc phải -->
       <div class="controls-bar">
         <div class="slider-row">
           <input id="sliderMN" class="thales-slider" type="range" min="0" max="1" step="0.005" value="0.5">
