@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>Mô Phỏng Định Lý Thales</title>
+  <title>Mô Phỏng Thí Nghiệm</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -15,10 +15,9 @@
   <div class="container">
     <div class="card">
       
-      <!-- Cụm 2 cột chính -->
       <div class="card-body">
         
-        <!-- Cột 1 (Trái): Hình vẽ SVG -->
+        <!-- Cột 1: Hình vẽ SVG -->
         <div class="visual-col">
           <div class="canvas-wrap" id="wrapThales">
             <svg id="svgThales" viewBox="0 0 460 340">
@@ -29,28 +28,28 @@
               </defs>
               <rect width="460" height="340" fill="url(#gridT)"/>
 
-              <polygon id="polyABC" class="geom-poly" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/>
+              <polygon id="polyABC" class="geom-poly" fill="#dbeafe" stroke="#2563eb" stroke-width="3.5"/>
               <line id="basePulseThales" class="pulse-line pulse-thales" />
-              <line id="lineMN" class="geom-line-mn" stroke="#ea580c" stroke-width="3.5" stroke-linecap="round"/>
+              <line id="lineMN" class="geom-line-mn" stroke="#ea580c" stroke-width="4" stroke-linecap="round"/>
 
-              <!-- Các đỉnh A, B, C (hiển thị) -->
-              <circle id="ptA" class="pt-abc" r="6" fill="#2563eb"/>
-              <circle id="ptB" class="pt-abc" r="6" fill="#2563eb"/>
-              <circle id="ptC" class="pt-abc" r="6" fill="#2563eb"/>
+              <!-- Các đỉnh A, B, C -->
+              <circle id="ptA" class="pt-abc" r="8" fill="#2563eb"/>
+              <circle id="ptB" class="pt-abc" r="8" fill="#2563eb"/>
+              <circle id="ptC" class="pt-abc" r="8" fill="#2563eb"/>
               
-              <!-- Vùng đệm bắt sự kiện vô hình cực nhạy (hitbox) cho A, B, C -->
-              <circle id="hitA" class="vertex-hitbox" r="22" cx="0" cy="0" fill="transparent"/>
-              <circle id="hitB" class="vertex-hitbox" r="22" cx="0" cy="0" fill="transparent"/>
-              <circle id="hitC" class="vertex-hitbox" r="22" cx="0" cy="0" fill="transparent"/>
+              <!-- Vùng đệm cảm ứng / bắt chuột (hitbox) cho A, B, C -->
+              <circle id="hitA" class="vertex-hitbox" r="26" cx="0" cy="0" fill="transparent"/>
+              <circle id="hitB" class="vertex-hitbox" r="26" cx="0" cy="0" fill="transparent"/>
+              <circle id="hitC" class="vertex-hitbox" r="26" cx="0" cy="0" fill="transparent"/>
 
-              <circle id="ptM" class="pt-mn" r="6.5" fill="#f59e0b" stroke="#ffffff" stroke-width="1.5"/>
-              <circle id="ptN" class="pt-mn" r="6.5" fill="#f59e0b" stroke="#ffffff" stroke-width="1.5"/>
+              <circle id="ptM" class="pt-mn" r="8.5" fill="#f59e0b" stroke="#ffffff" stroke-width="2"/>
+              <circle id="ptN" class="pt-mn" r="8.5" fill="#f59e0b" stroke="#ffffff" stroke-width="2"/>
 
               <text id="lblA" class="v-label lbl-abc" fill="#1e40af">A</text>
               <text id="lblB" class="v-label lbl-abc" fill="#1e40af">B</text>
               <text id="lblC" class="v-label lbl-abc" fill="#1e40af">C</text>
-              <text id="lblM" class="v-label lbl-mn" fill="#b45309">M</text>
-              <text id="lblN" class="v-label lbl-mn" fill="#b45309">N</text>
+              <text id="lblM" class="v-label lbl-mn" fill="#b45309">B'</text>
+              <text id="lblN" class="v-label lbl-mn" fill="#b45309">C'</text>
 
               <g id="grpAM">
                 <rect id="bgAM" class="dim-bg" stroke="#93c5fd"/>
@@ -72,16 +71,16 @@
           </div>
         </div>
 
-        <!-- Cột 2 (Phải): Tiêu đề + Bảng tỉ số cố định công thức -->
+        <!-- Cột 2: Tiêu đề + Bảng tỉ số cố định công thức -->
         <div class="math-panel">
           <div class="header-box">
             <div class="header-titles">
               <h2 class="title thales-title">Định Lý Thales</h2>
-              <span class="badge thales-badge" id="badgeThales">MN // BC</span>
+              <span class="badge thales-badge" id="badgeThales">B'C' // BC</span>
             </div>
             
             <button class="btn-rotate" id="btnRotateThales" title="Xoay cạnh song song" aria-label="Xoay cạnh song song">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
               </svg>
               <span class="btn-rotate-text">Xoay</span>
@@ -94,7 +93,7 @@
               <div class="values-row">
                 <div class="side-tag side-thales">
                   <span class="frac-block">
-                    <span id="nameAM" class="num">AM</span>
+                    <span id="nameAM" class="num">AB'</span>
                     <span id="nameAB" class="den">AB</span>
                   </span>
                   <span id="calcGroup1L">
@@ -111,7 +110,7 @@
 
                 <div class="side-tag side-thales">
                   <span class="frac-block">
-                    <span id="nameAN" class="num">AN</span>
+                    <span id="nameAN" class="num">AC'</span>
                     <span id="nameAC" class="den">AC</span>
                   </span>
                   <span id="calcGroup1R">
@@ -127,15 +126,14 @@
                 </div>
               </div>
 
-              <!-- Công thức tỉ số bằng nhau cố định bên dưới -->
               <div class="summary-formula">
                 <span class="frac-block">
-                  <span class="cond-num-l num">AM</span>
+                  <span class="cond-num-l num">AB'</span>
                   <span class="cond-den-l den">AB</span>
                 </span>
                 <span class="summary-eq">&nbsp;=&nbsp;</span>
                 <span class="frac-block">
-                  <span class="cond-num-r num">AN</span>
+                  <span class="cond-num-r num">AC'</span>
                   <span class="cond-den-r den">AC</span>
                 </span>
               </div>
@@ -146,8 +144,8 @@
               <div class="values-row">
                 <div class="side-tag side-thales">
                   <span class="frac-block">
-                    <span id="nameAM2" class="num">AM</span>
-                    <span id="nameBM2" class="den">BM</span>
+                    <span id="nameAM2" class="num">AB'</span>
+                    <span id="nameBM2" class="den">B'B</span>
                   </span>
                   <span id="calcGroup2L">
                     &nbsp;=&nbsp;
@@ -163,8 +161,8 @@
 
                 <div class="side-tag side-thales">
                   <span class="frac-block">
-                    <span id="nameAN2" class="num">AN</span>
-                    <span id="nameCN2" class="den">CN</span>
+                    <span id="nameAN2" class="num">AC'</span>
+                    <span id="nameCN2" class="den">C'C</span>
                   </span>
                   <span id="calcGroup2R">
                     &nbsp;=&nbsp;
@@ -179,16 +177,15 @@
                 </div>
               </div>
 
-              <!-- Công thức tỉ số bằng nhau cố định bên dưới -->
               <div class="summary-formula">
                 <span class="frac-block">
-                  <span class="cond-num-l num">AM</span>
-                  <span class="cond-den-l den">BM</span>
+                  <span class="cond-num-l num">AB'</span>
+                  <span class="cond-den-l den">B'B</span>
                 </span>
                 <span class="summary-eq">&nbsp;=&nbsp;</span>
                 <span class="frac-block">
-                  <span class="cond-num-r num">AN</span>
-                  <span class="cond-den-r den">CN</span>
+                  <span class="cond-num-r num">AC'</span>
+                  <span class="cond-den-r den">C'C</span>
                 </span>
               </div>
             </div>
@@ -198,7 +195,7 @@
               <div class="values-row">
                 <div class="side-tag side-thales">
                   <span class="frac-block">
-                    <span id="nameBM3" class="num">BM</span>
+                    <span id="nameBM3" class="num">B'B</span>
                     <span id="nameAB3" class="den">AB</span>
                   </span>
                   <span id="calcGroup3L">
@@ -215,7 +212,7 @@
 
                 <div class="side-tag side-thales">
                   <span class="frac-block">
-                    <span id="nameCN3" class="num">CN</span>
+                    <span id="nameCN3" class="num">C'C</span>
                     <span id="nameAC3" class="den">AC</span>
                   </span>
                   <span id="calcGroup3R">
@@ -231,15 +228,14 @@
                 </div>
               </div>
 
-              <!-- Công thức tỉ số bằng nhau cố định bên dưới -->
               <div class="summary-formula">
                 <span class="frac-block">
-                  <span class="cond-num-l num">BM</span>
+                  <span class="cond-num-l num">B'B</span>
                   <span class="cond-den-l den">AB</span>
                 </span>
                 <span class="summary-eq">&nbsp;=&nbsp;</span>
                 <span class="frac-block">
-                  <span class="cond-num-r num">CN</span>
+                  <span class="cond-num-r num">C'C</span>
                   <span class="cond-den-r den">AC</span>
                 </span>
               </div>
@@ -251,11 +247,11 @@
 
       <div class="controls-bar">
         <div class="slider-row">
-          <input id="sliderMN" class="thales-slider" type="range" min="0" max="1" step="0.005" value="0.5">
+          <input id="sliderMN" class="thales-slider" type="range" min="0" max="1" step="any">
         </div>
 
         <div class="mode-switch">
-          <button type="button" class="btn-mode active" id="btnModeMN">Kéo MN</button>
+          <button type="button" class="btn-mode active" id="btnModeMN">Kéo B'C'</button>
           <button type="button" class="btn-mode" id="btnModeABC">Chỉnh ABC</button>
         </div>
       </div>

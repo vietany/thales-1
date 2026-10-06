@@ -1,7 +1,7 @@
 let fixedPtsThales = [
-  { x: 190, y: 55 },
-  { x: 70, y: 300 },
-  { x: 395, y: 275 }
+  { x: 123, y: 58 },   // A: AB = 6.0, AC = 9.0 chuẩn xác
+  { x: 78, y: 282 },   // B: BC = 8.0
+  { x: 382, y: 282 }   // C
 ];
 const namesThales = ['A', 'B', 'C'];
 let rotThales = 0;
@@ -35,10 +35,10 @@ function setTag(txtId, bgId, textVal, p1, p2, ox, oy) {
   txt.setAttribute('x', mx);
   txt.setAttribute('y', my);
   const b = txt.getBBox();
-  bg.setAttribute('x', b.x - 5);
-  bg.setAttribute('y', b.y - 3);
-  bg.setAttribute('width', b.width + 10);
-  bg.setAttribute('height', b.height + 6);
+  bg.setAttribute('x', b.x - 10);
+  bg.setAttribute('y', b.y - 6);
+  bg.setAttribute('width', b.width + 20);
+  bg.setAttribute('height', b.height + 12);
 }
 
 function triggerPulse(lineId, p1, p2, activeClass) {
@@ -80,22 +80,28 @@ function updateThalesLabels() {
   const vL = namesThales[(rotThales + 1) % 3];
   const vR = namesThales[(rotThales + 2) % 3];
 
-  document.getElementById('badgeThales').textContent = `MN // ${vL}${vR}`;
+  const pL = `${vL}'`;
+  const pR = `${vR}'`;
 
-  document.getElementById('nameAM').textContent = `${vTop}M`;
+  document.getElementById('badgeThales').textContent = `${pL}${pR} // ${vL}${vR}`;
+
+  document.getElementById('nameAM').textContent = `${vTop}${pL}`;
   document.getElementById('nameAB').textContent = `${vTop}${vL}`;
-  document.getElementById('nameAN').textContent = `${vTop}N`;
+  document.getElementById('nameAN').textContent = `${vTop}${pR}`;
   document.getElementById('nameAC').textContent = `${vTop}${vR}`;
 
-  document.getElementById('nameAM2').textContent = `${vTop}M`;
-  document.getElementById('nameBM2').textContent = `M${vL}`;
-  document.getElementById('nameAN2').textContent = `${vTop}N`;
-  document.getElementById('nameCN2').textContent = `N${vR}`;
+  document.getElementById('nameAM2').textContent = `${vTop}${pL}`;
+  document.getElementById('nameBM2').textContent = `${pL}${vL}`;
+  document.getElementById('nameAN2').textContent = `${vTop}${pR}`;
+  document.getElementById('nameCN2').textContent = `${pR}${vR}`;
 
-  document.getElementById('nameBM3').textContent = `M${vL}`;
+  document.getElementById('nameBM3').textContent = `${pL}${vL}`;
   document.getElementById('nameAB3').textContent = `${vTop}${vL}`;
-  document.getElementById('nameCN3').textContent = `N${vR}`;
+  document.getElementById('nameCN3').textContent = `${pR}${vR}`;
   document.getElementById('nameAC3').textContent = `${vTop}${vR}`;
+
+  document.getElementById('lblM').textContent = pL;
+  document.getElementById('lblN').textContent = pR;
 
   syncCondensedLabels();
 }
@@ -112,30 +118,37 @@ function computeThalesTargets() {
   };
 }
 
-function applyRatioState(panelId, calcL, undefL, calcR, undefR, isUndefL, isUndefR, valL, valR, eqL, eqR, numL, denL, numR, denR, dNumL, dDenL, dNumR, dDenR, trueRatio) {
-  const formattedVal = (trueRatio !== null && !isNaN(trueRatio)) ? trueRatio.toFixed(2) : '0.00';
+function applyRatioState(
+  calcL, undefL, calcR, undefR, 
+  numL, denL, numR, denR, 
+  valL, valR, eqL, eqR, 
+  strNumL, strDenL, strNumR, strDenR, 
+  canonicalRatio
+) {
+  const vDenL = parseFloat(strDenL);
+  const vDenR = parseFloat(strDenR);
 
-  if (isUndefL) {
+  if (vDenL === 0 || isNaN(vDenL) || canonicalRatio === null) {
     calcL.style.display = 'none';
     undefL.style.display = 'inline';
   } else {
     calcL.style.display = 'inline';
     undefL.style.display = 'none';
-    numL.textContent = dNumL;
-    denL.textContent = dDenL;
-    valL.textContent = formattedVal;
+    numL.textContent = strNumL;
+    denL.textContent = strDenL;
+    valL.textContent = canonicalRatio.toFixed(2);
     eqL.style.display = '';
   }
 
-  if (isUndefR) {
+  if (vDenR === 0 || isNaN(vDenR) || canonicalRatio === null) {
     calcR.style.display = 'none';
     undefR.style.display = 'inline';
   } else {
     calcR.style.display = 'inline';
     undefR.style.display = 'none';
-    numR.textContent = dNumR;
-    denR.textContent = dDenR;
-    valR.textContent = formattedVal;
+    numR.textContent = strNumR;
+    denR.textContent = strDenR;
+    valR.textContent = canonicalRatio.toFixed(2);
     eqR.style.display = '';
   }
 }
@@ -177,91 +190,86 @@ function renderThalesGeometry(M, N, top, left, right, k) {
     el.setAttribute('y', p.y + dy);
     if (text) el.textContent = text;
   }
-  setPos('lblA', fixedPtsThales[0], -4, -14, 'A');
-  setPos('lblB', fixedPtsThales[1], -16, 14, 'B');
-  setPos('lblC', fixedPtsThales[2], 14, 12, 'C');
-  setPos('lblM', M, -18, -4);
-  setPos('lblN', N, 18, -4);
+  setPos('lblA', fixedPtsThales[0], -4, -20, 'A');
+  setPos('lblB', fixedPtsThales[1], -24, 20, 'B');
+  setPos('lblC', fixedPtsThales[2], 24, 20, 'C');
+  setPos('lblM', M, -28, -4);
+  setPos('lblN', N, 28, -4);
 
-  const dAB_raw = dist(top, left) / 25;
-  const dAC_raw = dist(top, right) / 25;
+  const dAB_val = Math.round(dist(top, left) / 38 * 10) / 10;
+  const dAC_val = Math.round(dist(top, right) / 38 * 10) / 10;
 
-  const dAM_raw = dAB_raw * k;
-  const dMB_raw = dAB_raw * (1 - k);
-  const dAN_raw = dAC_raw * k;
-  const dNC_raw = dAC_raw * (1 - k);
+  const dAM_val = Math.round(dAB_val * k * 10) / 10;
+  const dMB_val = Math.round((dAB_val - dAM_val) * 10) / 10;
 
-  const dAM = dAM_raw.toFixed(1);
-  const dMB = dMB_raw.toFixed(1);
-  const dAN = dAN_raw.toFixed(1);
-  const dNC = dNC_raw.toFixed(1);
-  const dAB = dAB_raw.toFixed(1);
-  const dAC = dAC_raw.toFixed(1);
+  const dAN_val = Math.round(dAC_val * k * 10) / 10;
+  const dNC_val = Math.round((dAC_val - dAN_val) * 10) / 10;
 
-  setTag('txtAM', 'bgAM', dAM, top, M, -20, 0);
-  setTag('txtMB', 'bgMB', dMB, M, left, -20, 0);
-  setTag('txtAN', 'bgAN', dAN, top, N, 20, 0);
-  setTag('txtNC', 'bgNC', dNC, N, right, 20, 0);
+  const dAM = dAM_val.toFixed(1);
+  const dMB = dMB_val.toFixed(1);
+  const dAN = dAN_val.toFixed(1);
+  const dNC = dNC_val.toFixed(1);
+  const dAB = dAB_val.toFixed(1);
+  const dAC = dAC_val.toFixed(1);
+
+  setTag('txtAM', 'bgAM', dAM, top, M, -26, 0);
+  setTag('txtMB', 'bgMB', dMB, M, left, -26, 0);
+  setTag('txtAN', 'bgAN', dAN, top, N, 26, 0);
+  setTag('txtNC', 'bgNC', dNC, N, right, 26, 0);
+
+  const ratio1 = k;
+  const ratio2 = (1 - k) > 0.0001 ? (k / (1 - k)) : null;
+  const ratio3 = 1 - k;
 
   applyRatioState(
-    'rowThales1',
     document.getElementById('calcGroup1L'),
     document.getElementById('undef1L'),
     document.getElementById('calcGroup1R'),
     document.getElementById('undef1R'),
-    parseFloat(dAB) === 0,
-    parseFloat(dAC) === 0,
-    document.getElementById('valRatioL'),
-    document.getElementById('valRatioR'),
-    document.getElementById('eqRatio1L'),
-    document.getElementById('eqRatio1R'),
     document.getElementById('numAM'),
     document.getElementById('denAB'),
     document.getElementById('numAN'),
     document.getElementById('denAC'),
+    document.getElementById('valRatioL'),
+    document.getElementById('valRatioR'),
+    document.getElementById('eqRatio1L'),
+    document.getElementById('eqRatio1R'),
     dAM, dAB, dAN, dAC,
-    k
+    ratio1
   );
 
-  const ratio2 = (1 - k) > 0.0001 ? (k / (1 - k)) : null;
   applyRatioState(
-    'rowThales2',
     document.getElementById('calcGroup2L'),
     document.getElementById('undef2L'),
     document.getElementById('calcGroup2R'),
     document.getElementById('undef2R'),
-    parseFloat(dMB) === 0 || ratio2 === null,
-    parseFloat(dNC) === 0 || ratio2 === null,
-    document.getElementById('valRatio2L'),
-    document.getElementById('valRatio2R'),
-    document.getElementById('eqRatio2L'),
-    document.getElementById('eqRatio2R'),
     document.getElementById('numAM2'),
     document.getElementById('denBM2'),
     document.getElementById('numAN2'),
     document.getElementById('denCN2'),
+    document.getElementById('valRatio2L'),
+    document.getElementById('valRatio2R'),
+    document.getElementById('eqRatio2L'),
+    document.getElementById('eqRatio2R'),
     dAM, dMB, dAN, dNC,
     ratio2
   );
 
   applyRatioState(
-    'rowThales3',
     document.getElementById('calcGroup3L'),
     document.getElementById('undef3L'),
     document.getElementById('calcGroup3R'),
     document.getElementById('undef3R'),
-    parseFloat(dAB) === 0,
-    parseFloat(dAC) === 0,
-    document.getElementById('valRatio3L'),
-    document.getElementById('valRatio3R'),
-    document.getElementById('eqRatio3L'),
-    document.getElementById('eqRatio3R'),
     document.getElementById('numBM3'),
     document.getElementById('denAB3'),
     document.getElementById('numCN3'),
     document.getElementById('denAC3'),
+    document.getElementById('valRatio3L'),
+    document.getElementById('valRatio3R'),
+    document.getElementById('eqRatio3L'),
+    document.getElementById('eqRatio3R'),
     dMB, dAB, dNC, dAC,
-    1 - k
+    ratio3
   );
 }
 
@@ -317,9 +325,12 @@ function updateThemeColors() {
 
     ptsABC.forEach(pt => {
       pt.setAttribute('fill', '#2563eb');
-      pt.setAttribute('r', '6');
+      pt.setAttribute('r', '8');
     });
-    ptsMN.forEach(pt => pt.setAttribute('fill', '#f59e0b'));
+    ptsMN.forEach(pt => {
+      pt.setAttribute('fill', '#f59e0b');
+      pt.setAttribute('r', '8.5');
+    });
 
     lblsABC.forEach(lbl => lbl.setAttribute('fill', '#1e40af'));
     lblsMN.forEach(lbl => lbl.setAttribute('fill', '#b45309'));
@@ -330,9 +341,12 @@ function updateThemeColors() {
 
     ptsABC.forEach(pt => {
       pt.setAttribute('fill', '#ea580c');
-      pt.setAttribute('r', '8');
+      pt.setAttribute('r', '10');
     });
-    ptsMN.forEach(pt => pt.setAttribute('fill', '#3b82f6'));
+    ptsMN.forEach(pt => {
+      pt.setAttribute('fill', '#3b82f6');
+      pt.setAttribute('r', '8.5');
+    });
 
     lblsABC.forEach(lbl => lbl.setAttribute('fill', '#c2410c'));
     lblsMN.forEach(lbl => lbl.setAttribute('fill', '#1d4ed8'));
@@ -414,8 +428,8 @@ function setupNormalVectorDrag(wrapId, svgId, sliderId, callback) {
     const deltaK = dotProduct / normalLengthSq;
 
     let ratio = startRatio + deltaK;
-    const minVal = parseFloat(slider.min);
-    const maxVal = parseFloat(slider.max);
+    const minVal = 0;
+    const maxVal = 1;
     ratio = Math.max(minVal, Math.min(maxVal, ratio));
 
     slider.value = ratio;
@@ -503,6 +517,7 @@ setupNormalVectorDrag('wrapThales', 'svgThales', 'sliderMN', updateThales);
 setupVertexDragging('svgThales', updateThales);
 
 window.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('sliderMN').value = 2 / 3;
   updateThemeColors();
   updateThales();
 });
