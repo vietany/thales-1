@@ -9,19 +9,19 @@
 body {
   background-color: #f1f5f9;
   color: #0f172a;
-  padding: 16px;
+  padding: 12px;
   width: 100vw;
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow: hidden; /* Cấm cuộn toàn trang */
 }
 
 .container {
   width: 100%;
-  max-width: 1480px;
+  max-width: 1560px;
+  height: 100%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -29,23 +29,35 @@ body {
 
 .card {
   background: #ffffff;
-  border-radius: 28px;
-  padding: 24px;
-  box-shadow: 0 10px 35px rgba(15, 23, 42, 0.1);
-  border: 2.5px solid #cbd5e1;
+  border-radius: 24px;
+  padding: 16px 20px 14px 20px;
+  box-shadow: 0 10px 35px rgba(15, 23, 42, 0.08);
+  border: 2px solid #cbd5e1;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 12px;
   width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
 }
 
 .header-box {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 2.5px solid #e2e8f0;
-  padding-bottom: 14px;
-  gap: 16px;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 8px;
+  gap: 12px;
   flex-shrink: 0;
   width: 100%;
 }
@@ -53,12 +65,12 @@ body {
 .header-titles {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 14px;
   flex-wrap: wrap;
 }
 
 .title {
-  font-size: 34px;
+  font-size: 30px;
   font-weight: 800;
   letter-spacing: -0.01em;
 }
@@ -68,9 +80,9 @@ body {
 }
 
 .badge {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 800;
-  padding: 6px 20px;
+  padding: 4px 16px;
   border-radius: 9999px;
   transition: all 0.25s ease;
 }
@@ -85,19 +97,19 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  height: 52px;
-  min-width: 52px;
-  padding: 0 22px;
-  border-radius: 12px;
+  gap: 8px;
+  height: 44px;
+  min-width: 44px;
+  padding: 0 18px;
+  border-radius: 10px;
   background: #f8fafc;
-  border: 2.5px solid #cbd5e1;
+  border: 2px solid #cbd5e1;
   color: #0f172a;
   cursor: pointer;
   transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
   outline: none;
   font-weight: 800;
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .btn-rotate-text {
@@ -118,53 +130,49 @@ body {
 }
 
 .btn-rotate svg {
-  width: 26px;
-  height: 26px;
+  width: 22px;
+  height: 22px;
   stroke: currentColor;
   transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
   pointer-events: none;
-}
-
-.card-body {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  width: 100%;
 }
 
 .visual-col {
   display: flex;
   flex-direction: column;
   width: 100%;
+  height: 100%;
+  min-height: 0;
   order: 2;
 }
 
 .math-panel {
   background: #f8fafc;
-  border-radius: 20px;
-  border: 2.5px solid #e2e8f0;
-  padding: 20px;
+  border-radius: 18px;
+  border: 2px solid #e2e8f0;
+  padding: 12px 16px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 10px;
   width: 100%;
+  height: 100%;
+  min-height: 0;
   order: 1;
+  overflow: hidden; /* Cấm cuộn panel toán */
 }
 
 .canvas-wrap {
   width: 100%;
-  aspect-ratio: 4 / 3;
-  max-height: 540px;
+  height: 100%;
   background: #ffffff;
-  border: 2.5px solid #cbd5e1;
-  border-radius: 20px;
+  border: 2px solid #cbd5e1;
+  border-radius: 18px;
   position: relative;
   overflow: hidden;
   box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.04);
   touch-action: none;
   user-select: none;
   cursor: ns-resize;
-  margin: 0 auto;
 }
 
 .canvas-wrap.mode-abc {
@@ -201,7 +209,6 @@ svg {
   transition: fill 0.3s ease, stroke 0.3s ease, color 0.3s ease;
 }
 
-/* Thẻ số đo trên hình SVG */
 .dim-bg {
   fill: #ffffff;
   stroke-width: 2.5;
@@ -218,7 +225,6 @@ svg {
   pointer-events: none;
 }
 
-/* Tên đỉnh A, B, C, B', C' */
 .v-label {
   font-size: 34px;
   font-weight: 900;
@@ -256,10 +262,11 @@ svg {
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 24px;
-  padding: 10px 0 4px 0;
+  gap: 20px;
+  padding-top: 6px;
   width: 100%;
-  border-top: 2.5px solid #e2e8f0;
+  border-top: 2px solid #e2e8f0;
+  flex-shrink: 0;
 }
 
 .slider-row {
@@ -272,30 +279,30 @@ svg {
 input[type=range] {
   -webkit-appearance: none;
   width: 100%;
-  height: 20px;
-  border-radius: 10px;
+  height: 16px;
+  border-radius: 8px;
   background: #cbd5e1;
   outline: none;
 }
 
 .thales-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 46px;
-  height: 46px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   background: #2563eb;
   cursor: pointer;
-  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.5);
-  border: 5px solid #ffffff;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.45);
+  border: 4px solid #ffffff;
 }
 
 .mode-switch {
   display: inline-flex;
   background: #e2e8f0;
   border: 2px solid #cbd5e1;
-  border-radius: 14px;
-  padding: 5px;
-  gap: 8px;
+  border-radius: 12px;
+  padding: 4px;
+  gap: 6px;
   margin-left: auto;
   flex-shrink: 0;
 }
@@ -305,10 +312,10 @@ input[type=range] {
   outline: none;
   background: transparent;
   color: #334155;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 800;
-  padding: 10px 22px;
-  border-radius: 10px;
+  padding: 8px 18px;
+  border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s ease;
   white-space: nowrap;
@@ -317,14 +324,18 @@ input[type=range] {
 .btn-mode.active {
   background: #ffffff;
   color: #1d4ed8;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
 }
 
+/* Khu vực 3 thẻ tỉ số: tự chia đều và ép vừa khít */
 .formula-col {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 8px;
   width: 100%;
+  flex: 1;
+  min-height: 0;
+  justify-content: space-between;
 }
 
 .formula-row {
@@ -333,23 +344,25 @@ input[type=range] {
   align-items: stretch;
   justify-content: center;
   width: 100%;
+  flex: 1 1 0; /* Tự co giãn đều 3 khối */
+  min-height: 0;
 }
 
-/* Card tỉ số */
 .ratio-panel {
   position: relative;
   background: #ffffff;
-  border: 2.5px solid #bfdbfe;
-  border-radius: 18px;
-  padding: 14px 16px 12px 16px;
-  gap: 12px;
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08);
+  border: 2px solid #bfdbfe;
+  border-radius: 14px;
+  padding: 6px 12px;
+  gap: 4px;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.06);
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  overflow: hidden;
 }
 
 .ratio-panel:hover {
   border-color: #60a5fa;
-  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.15);
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.12);
 }
 
 .values-row {
@@ -357,8 +370,10 @@ input[type=range] {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  gap: 14px;
+  gap: 8px;
   width: 100%;
+  flex: 1;
+  min-height: 0;
 }
 
 .side-tag {
@@ -367,17 +382,18 @@ input[type=range] {
   justify-content: center;
   white-space: nowrap;
   flex: 1 1 0;
-  min-height: 64px;
-  font-size: 23px;
+  height: 100%;
+  min-height: 0;
+  font-size: 24px;
   font-weight: 800;
-  padding: 8px 12px;
-  border-radius: 14px;
+  padding: 2px 8px;
+  border-radius: 10px;
 }
 
 .side-thales {
   background: #f8fafc;
   color: #1e3a8a;
-  border: 2px solid #cbd5e1;
+  border: 1.5px solid #cbd5e1;
 }
 
 .frac-block {
@@ -391,22 +407,22 @@ input[type=range] {
 .den {
   font-variant-numeric: tabular-nums;
   display: inline-block;
-  min-width: 38px;
+  min-width: 36px;
   text-align: center;
-  padding: 2px 4px;
+  padding: 0 2px;
   font-size: 24px;
   font-weight: 800;
-  line-height: 1.12;
+  line-height: 1.05;
 }
 
 .num {
-  border-bottom: 3px solid currentColor;
+  border-bottom: 2.5px solid currentColor;
 }
 
 .math-font {
   font-variant-numeric: tabular-nums;
   display: inline-block;
-  min-width: 50px;
+  min-width: 44px;
   text-align: left;
   font-size: 27px;
   font-weight: 900;
@@ -414,101 +430,58 @@ input[type=range] {
 }
 
 .undef-label {
-  font-size: 19px;
+  font-size: 18px;
   font-weight: 800;
   color: #dc2626;
 }
 
-/* Hàng kết luận tỉ số cố định dưới mỗi card */
 .summary-formula {
   display: flex;
   align-items: center;
   justify-content: center;
   white-space: nowrap;
-  gap: 16px;
+  gap: 12px;
   font-weight: 800;
   font-size: 25px;
-  padding: 10px 18px;
-  border-radius: 12px;
+  padding: 2px 10px;
+  border-radius: 8px;
   color: #1e40af;
   background: #eff6ff;
-  border: 2px dashed #60a5fa;
-  margin-top: 2px;
+  border: 1.5px dashed #60a5fa;
+  flex-shrink: 0;
 }
 
 .summary-formula .num,
 .summary-formula .den {
-  font-size: 24px;
+  font-size: 23px;
   font-weight: 800;
 }
 
 .summary-eq {
-  font-size: 28px;
+  font-size: 26px;
   font-weight: 900;
   color: #2563eb;
 }
 
-/* Bố cục màn hình ngang / Máy chiếu */
+/* Bố cục ngang (Landscape / Desktop) */
 @media (min-width: 1024px), ((min-width: 768px) and (orientation: landscape)) {
   body {
-    height: 100vh;
-    overflow: hidden;
-    padding: 18px;
-  }
-
-  .container {
-    height: 100%;
-    max-height: 96vh;
-  }
-
-  .card {
-    height: 100%;
-    padding: 22px 26px 18px 26px;
-    justify-content: space-between;
+    padding: 10px 14px;
   }
 
   .card-body {
     flex-direction: row;
     align-items: stretch;
-    gap: 28px;
-    height: calc(100% - 70px);
-    flex: 1;
-    min-height: 0;
+    gap: 16px;
   }
 
   .visual-col {
     flex: 1.05;
-    height: 100%;
     order: 1;
-  }
-
-  .canvas-wrap {
-    height: 100%;
-    aspect-ratio: auto;
-    max-height: none;
   }
 
   .math-panel {
     flex: 1.25;
-    height: 100%;
     order: 2;
-    padding: 18px 22px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-
-  .formula-col {
-    height: 100%;
-    justify-content: space-between;
-  }
-
-  .ratio-panel {
-    padding: 10px 14px;
-    gap: 8px;
-  }
-
-  .summary-formula {
-    padding: 8px 16px;
   }
 }
