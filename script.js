@@ -80,8 +80,8 @@ function updateThalesLabels() {
   const vL = namesThales[(rotThales + 1) % 3];
   const vR = namesThales[(rotThales + 2) % 3];
 
-  const pL = 'M';
-  const pR = 'N';
+  const pL = `${vL}'`;
+  const pR = `${vR}'`;
 
   document.getElementById('badgeThales').textContent = `${pL}${pR} // ${vL}${vR}`;
 
@@ -102,6 +102,11 @@ function updateThalesLabels() {
 
   document.getElementById('lblM').textContent = pL;
   document.getElementById('lblN').textContent = pR;
+
+  const btnMode = document.getElementById('btnModeMN');
+  if (btnMode) {
+    btnMode.textContent = `Kéo ${pL}${pR}`;
+  }
 
   syncCondensedLabels();
 }
@@ -157,6 +162,11 @@ function renderThalesGeometry(M, N, top, left, right, k) {
   curThalesM = M;
   curThalesN = N;
 
+  const vL = namesThales[(rotThales + 1) % 3];
+  const vR = namesThales[(rotThales + 2) % 3];
+  const pL = `${vL}'`;
+  const pR = `${vR}'`;
+
   document.getElementById('polyABC').setAttribute(
     'points', 
     `${fixedPtsThales[0].x},${fixedPtsThales[0].y} ${fixedPtsThales[1].x},${fixedPtsThales[1].y} ${fixedPtsThales[2].x},${fixedPtsThales[2].y}`
@@ -193,8 +203,8 @@ function renderThalesGeometry(M, N, top, left, right, k) {
   setPos('lblA', fixedPtsThales[0], -4, -20, 'A');
   setPos('lblB', fixedPtsThales[1], -24, 20, 'B');
   setPos('lblC', fixedPtsThales[2], 24, 20, 'C');
-  setPos('lblM', M, -28, -4, 'M');
-  setPos('lblN', N, 28, -4, 'N');
+  setPos('lblM', M, -28, -4, pL);
+  setPos('lblN', N, 28, -4, pR);
 
   const dAB_val = Math.round(dist(top, left) / 38 * 10) / 10;
   const dAC_val = Math.round(dist(top, right) / 38 * 10) / 10;
