@@ -444,9 +444,10 @@ input[type=range] {
   font-size: 24px;
   padding: 2px 10px;
   border-radius: 8px;
-  color: #1e40af;
-  background: #eff6ff;
-  border: 1.5px dashed #60a5fa;
+  color: #c2410c;
+  background: #fff7ed;
+  border: 1.5px dashed #fb923c;
+  box-shadow: 0 2px 8px rgba(234, 88, 12, 0.08);
   flex-shrink: 0;
 }
 
@@ -459,7 +460,7 @@ input[type=range] {
 .summary-eq {
   font-size: 25px;
   font-weight: 900;
-  color: #2563eb;
+  color: #ea580c;
 }
 
 .app-footer {
