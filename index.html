@@ -17,7 +17,6 @@
       
       <div class="card-body">
         
-        <!-- Cột 1: Hình vẽ SVG -->
         <div class="visual-col">
           <div class="canvas-wrap" id="wrapThales">
             <svg id="svgThales" viewBox="0 0 460 340">
@@ -32,12 +31,10 @@
               <line id="basePulseThales" class="pulse-line pulse-thales" />
               <line id="lineMN" class="geom-line-mn" stroke="#ea580c" stroke-width="4" stroke-linecap="round"/>
 
-              <!-- Các đỉnh A, B, C -->
               <circle id="ptA" class="pt-abc" r="8" fill="#2563eb"/>
               <circle id="ptB" class="pt-abc" r="8" fill="#2563eb"/>
               <circle id="ptC" class="pt-abc" r="8" fill="#2563eb"/>
               
-              <!-- Vùng đệm cảm ứng / bắt chuột (hitbox) cho A, B, C -->
               <circle id="hitA" class="vertex-hitbox" r="26" cx="0" cy="0" fill="transparent"/>
               <circle id="hitB" class="vertex-hitbox" r="26" cx="0" cy="0" fill="transparent"/>
               <circle id="hitC" class="vertex-hitbox" r="26" cx="0" cy="0" fill="transparent"/>
@@ -48,8 +45,8 @@
               <text id="lblA" class="v-label lbl-abc" fill="#1e40af">A</text>
               <text id="lblB" class="v-label lbl-abc" fill="#1e40af">B</text>
               <text id="lblC" class="v-label lbl-abc" fill="#1e40af">C</text>
-              <text id="lblM" class="v-label lbl-mn" fill="#b45309">B'</text>
-              <text id="lblN" class="v-label lbl-mn" fill="#b45309">C'</text>
+              <text id="lblM" class="v-label lbl-mn" fill="#b45309">M</text>
+              <text id="lblN" class="v-label lbl-mn" fill="#b45309">N</text>
 
               <g id="grpAM">
                 <rect id="bgAM" class="dim-bg" stroke="#93c5fd"/>
@@ -71,12 +68,11 @@
           </div>
         </div>
 
-        <!-- Cột 2: Tiêu đề + Bảng tỉ số cố định công thức -->
         <div class="math-panel">
           <div class="header-box">
             <div class="header-titles">
               <h2 class="title thales-title">Mô phỏng thí nghiệm</h2>
-              <span class="badge thales-badge" id="badgeThales">B'C' // BC</span>
+              <span class="badge thales-badge" id="badgeThales">MN // BC</span>
             </div>
             
             <button class="btn-rotate" id="btnRotateThales" title="Xoay cạnh song song" aria-label="Xoay cạnh song song">
@@ -88,12 +84,11 @@
           </div>
 
           <div class="formula-col">
-            <!-- Thẻ tỉ số 1 -->
             <div class="formula-row ratio-panel" id="rowThales1">
               <div class="values-row">
                 <div class="side-tag side-thales">
                   <span class="frac-block">
-                    <span id="nameAM" class="num">AB'</span>
+                    <span id="nameAM" class="num">AM</span>
                     <span id="nameAB" class="den">AB</span>
                   </span>
                   <span id="calcGroup1L">
@@ -110,7 +105,7 @@
 
                 <div class="side-tag side-thales">
                   <span class="frac-block">
-                    <span id="nameAN" class="num">AC'</span>
+                    <span id="nameAN" class="num">AN</span>
                     <span id="nameAC" class="den">AC</span>
                   </span>
                   <span id="calcGroup1R">
@@ -128,24 +123,23 @@
 
               <div class="summary-formula">
                 <span class="frac-block">
-                  <span class="cond-num-l num">AB'</span>
+                  <span class="cond-num-l num">AM</span>
                   <span class="cond-den-l den">AB</span>
                 </span>
                 <span class="summary-eq">&nbsp;=&nbsp;</span>
                 <span class="frac-block">
-                  <span class="cond-num-r num">AC'</span>
+                  <span class="cond-num-r num">AN</span>
                   <span class="cond-den-r den">AC</span>
                 </span>
               </div>
             </div>
 
-            <!-- Thẻ tỉ số 2 -->
             <div class="formula-row ratio-panel" id="rowThales2">
               <div class="values-row">
                 <div class="side-tag side-thales">
                   <span class="frac-block">
-                    <span id="nameAM2" class="num">AB'</span>
-                    <span id="nameBM2" class="den">B'B</span>
+                    <span id="nameAM2" class="num">AM</span>
+                    <span id="nameBM2" class="den">MB</span>
                   </span>
                   <span id="calcGroup2L">
                     &nbsp;=&nbsp;
@@ -161,8 +155,8 @@
 
                 <div class="side-tag side-thales">
                   <span class="frac-block">
-                    <span id="nameAN2" class="num">AC'</span>
-                    <span id="nameCN2" class="den">C'C</span>
+                    <span id="nameAN2" class="num">AN</span>
+                    <span id="nameCN2" class="den">NC</span>
                   </span>
                   <span id="calcGroup2R">
                     &nbsp;=&nbsp;
@@ -179,23 +173,22 @@
 
               <div class="summary-formula">
                 <span class="frac-block">
-                  <span class="cond-num-l num">AB'</span>
-                  <span class="cond-den-l den">B'B</span>
+                  <span class="cond-num-l num">AM</span>
+                  <span class="cond-den-l den">MB</span>
                 </span>
                 <span class="summary-eq">&nbsp;=&nbsp;</span>
                 <span class="frac-block">
-                  <span class="cond-num-r num">AC'</span>
-                  <span class="cond-den-r den">C'C</span>
+                  <span class="cond-num-r num">AN</span>
+                  <span class="cond-den-r den">NC</span>
                 </span>
               </div>
             </div>
 
-            <!-- Thẻ tỉ số 3 -->
             <div class="formula-row ratio-panel" id="rowThales3">
               <div class="values-row">
                 <div class="side-tag side-thales">
                   <span class="frac-block">
-                    <span id="nameBM3" class="num">B'B</span>
+                    <span id="nameBM3" class="num">MB</span>
                     <span id="nameAB3" class="den">AB</span>
                   </span>
                   <span id="calcGroup3L">
@@ -212,7 +205,7 @@
 
                 <div class="side-tag side-thales">
                   <span class="frac-block">
-                    <span id="nameCN3" class="num">C'C</span>
+                    <span id="nameCN3" class="num">NC</span>
                     <span id="nameAC3" class="den">AC</span>
                   </span>
                   <span id="calcGroup3R">
@@ -230,12 +223,12 @@
 
               <div class="summary-formula">
                 <span class="frac-block">
-                  <span class="cond-num-l num">B'B</span>
+                  <span class="cond-num-l num">MB</span>
                   <span class="cond-den-l den">AB</span>
                 </span>
                 <span class="summary-eq">&nbsp;=&nbsp;</span>
                 <span class="frac-block">
-                  <span class="cond-num-r num">C'C</span>
+                  <span class="cond-num-r num">NC</span>
                   <span class="cond-den-r den">AC</span>
                 </span>
               </div>
@@ -251,10 +244,14 @@
         </div>
 
         <div class="mode-switch">
-          <button type="button" class="btn-mode active" id="btnModeMN">Kéo B'C'</button>
+          <button type="button" class="btn-mode active" id="btnModeMN">Kéo MN</button>
           <button type="button" class="btn-mode" id="btnModeABC">Chỉnh ABC</button>
         </div>
       </div>
+
+      <footer class="app-footer">
+        Mô phỏng thí nghiệm - Tổ Toán Phenikaa School @2026
+      </footer>
 
     </div>
   </div>

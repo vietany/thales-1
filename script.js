@@ -1,7 +1,7 @@
 let fixedPtsThales = [
-  { x: 123, y: 58 },   // A: AB = 6.0, AC = 9.0 chuẩn xác
-  { x: 78, y: 282 },   // B: BC = 8.0
-  { x: 382, y: 282 }   // C
+  { x: 123, y: 58 },
+  { x: 78, y: 282 },
+  { x: 382, y: 282 }
 ];
 const namesThales = ['A', 'B', 'C'];
 let rotThales = 0;
@@ -80,8 +80,8 @@ function updateThalesLabels() {
   const vL = namesThales[(rotThales + 1) % 3];
   const vR = namesThales[(rotThales + 2) % 3];
 
-  const pL = `${vL}'`;
-  const pR = `${vR}'`;
+  const pL = 'M';
+  const pR = 'N';
 
   document.getElementById('badgeThales').textContent = `${pL}${pR} // ${vL}${vR}`;
 
@@ -193,8 +193,8 @@ function renderThalesGeometry(M, N, top, left, right, k) {
   setPos('lblA', fixedPtsThales[0], -4, -20, 'A');
   setPos('lblB', fixedPtsThales[1], -24, 20, 'B');
   setPos('lblC', fixedPtsThales[2], 24, 20, 'C');
-  setPos('lblM', M, -28, -4);
-  setPos('lblN', N, 28, -4);
+  setPos('lblM', M, -28, -4, 'M');
+  setPos('lblN', N, 28, -4, 'N');
 
   const dAB_val = Math.round(dist(top, left) / 38 * 10) / 10;
   const dAC_val = Math.round(dist(top, right) / 38 * 10) / 10;
