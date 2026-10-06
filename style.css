@@ -15,12 +15,12 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden; /* Cấm cuộn toàn trang */
+  overflow: hidden;
 }
 
 .container {
   width: 100%;
-  max-width: 1560px;
+  max-width: 1920px;
   height: 100%;
   margin: 0 auto;
   display: flex;
@@ -158,7 +158,7 @@ body {
   height: 100%;
   min-height: 0;
   order: 1;
-  overflow: hidden; /* Cấm cuộn panel toán */
+  overflow: hidden;
 }
 
 .canvas-wrap {
@@ -327,7 +327,6 @@ input[type=range] {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
 }
 
-/* Khu vực 3 thẻ tỉ số: tự chia đều và ép vừa khít */
 .formula-col {
   display: flex;
   flex-direction: column;
@@ -344,7 +343,7 @@ input[type=range] {
   align-items: stretch;
   justify-content: center;
   width: 100%;
-  flex: 1 1 0; /* Tự co giãn đều 3 khối */
+  flex: 1 1 0;
   min-height: 0;
 }
 
@@ -463,7 +462,6 @@ input[type=range] {
   color: #2563eb;
 }
 
-/* Bố cục ngang (Landscape / Desktop) */
 @media (min-width: 1024px), ((min-width: 768px) and (orientation: landscape)) {
   body {
     padding: 10px 14px;
@@ -483,5 +481,155 @@ input[type=range] {
   .math-panel {
     flex: 1.25;
     order: 2;
+  }
+}
+
+@media (min-width: 1280px) and (min-height: 700px) {
+  .title {
+    font-size: 34px;
+  }
+
+  .badge {
+    font-size: 24px;
+    padding: 5px 20px;
+  }
+
+  .btn-rotate {
+    height: 48px;
+    font-size: 20px;
+    padding: 0 20px;
+  }
+
+  .btn-rotate svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .btn-mode {
+    font-size: 20px;
+    padding: 10px 22px;
+  }
+
+  .side-tag {
+    font-size: 28px;
+  }
+
+  .num,
+  .den {
+    font-size: 28px;
+    min-width: 44px;
+    border-bottom-width: 3px;
+  }
+
+  .math-font {
+    font-size: 32px;
+    min-width: 52px;
+  }
+
+  .undef-label {
+    font-size: 22px;
+  }
+
+  .summary-formula {
+    font-size: 29px;
+    padding: 4px 14px;
+  }
+
+  .summary-formula .num,
+  .summary-formula .den {
+    font-size: 27px;
+  }
+
+  .summary-eq {
+    font-size: 30px;
+  }
+}
+
+@media (min-width: 1600px) and (min-height: 850px) {
+  body {
+    padding: 16px 24px;
+  }
+
+  .card {
+    padding: 20px 26px 18px 26px;
+    gap: 14px;
+  }
+
+  .title {
+    font-size: 40px;
+  }
+
+  .badge {
+    font-size: 28px;
+    padding: 6px 24px;
+    border-width: 2.5px;
+  }
+
+  .btn-rotate {
+    height: 54px;
+    font-size: 22px;
+    padding: 0 24px;
+    border-radius: 12px;
+  }
+
+  .btn-rotate svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .btn-mode {
+    font-size: 22px;
+    padding: 12px 26px;
+  }
+
+  input[type=range] {
+    height: 20px;
+  }
+
+  .thales-slider::-webkit-slider-thumb {
+    width: 48px;
+    height: 48px;
+  }
+
+  .ratio-panel {
+    padding: 8px 16px;
+    border-width: 2.5px;
+  }
+
+  .side-tag {
+    font-size: 33px;
+    border-radius: 12px;
+    border-width: 2px;
+  }
+
+  .num,
+  .den {
+    font-size: 33px;
+    min-width: 52px;
+    border-bottom-width: 3.5px;
+  }
+
+  .math-font {
+    font-size: 38px;
+    min-width: 62px;
+  }
+
+  .undef-label {
+    font-size: 25px;
+  }
+
+  .summary-formula {
+    font-size: 34px;
+    padding: 6px 18px;
+    border-width: 2px;
+  }
+
+  .summary-formula .num,
+  .summary-formula .den {
+    font-size: 32px;
+  }
+
+  .summary-eq {
+    font-size: 36px;
   }
 }
